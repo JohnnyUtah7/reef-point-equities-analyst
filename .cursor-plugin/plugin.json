@@ -1,0 +1,18 @@
+{
+  "name": "reef-point-equity-research",
+  "version": "2.0.0",
+  "description": "Reef Point Capital equity research. One ticker in, official memo, football field, Sheets, and deck out. IREN was the test run.",
+  "author": {
+    "name": "Reef Point Capital",
+    "email": "realchrismiller@gmail.com"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "equity-research",
+    "edgar",
+    "dcf",
+    "football-field",
+    "valuation"
+  ],
+  "logo": "assets/logo.png"
+}
