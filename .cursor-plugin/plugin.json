@@ -1,0 +1,36 @@
+{
+  "name": "reef-point-equities-analyst",
+  "version": "1.2.0",
+  "description": "Reef Point Equities analyst plugin. SEC → models → football field → Buy/Hold/Sell memo → Sheets → white RPC cover deck. Orchestrator: portfolio-research. Trigger: analyze TICKER.",
+  "author": {
+    "name": "Chris Miller",
+    "email": "realchrismiller@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "equity-research",
+    "sec",
+    "edgar",
+    "dcf",
+    "valuation",
+    "lbo",
+    "sotp",
+    "comps",
+    "football-field",
+    "slides",
+    "reef-point"
+  ],
+  "variables": {
+    "type": "object",
+    "properties": {
+      "EDGAR_IDENTITY": {
+        "type": "string",
+        "title": "SEC EDGAR identity",
+        "description": "Required by SEC fair-access policy. Format: Full Name email@domain.com"
+      }
+    },
+    "required": [
+      "EDGAR_IDENTITY"
+    ]
+  }
+}

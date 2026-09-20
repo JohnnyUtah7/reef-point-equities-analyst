@@ -1,0 +1,23 @@
+---
+description: Non-negotiable hard rules for Reef Point Equities research — never invent SEC numbers; rate from the field; no Zapier
+alwaysApply: true
+---
+
+# Reef Point Equities — Hard Rules
+
+1. **Never invent SEC numbers.** Every revenue, EPS, FCF, share count, debt, or cash figure must come from a filing, XBRL extract, or a clearly labeled user-provided input. If you cannot source it, write `DATA_GAP` and stop that branch.
+2. **Cite form + date.** Example: `Revenue $383.3B — AAPL 10-K filed 2024-11-01, FY2024`. Include accession or URL when available.
+3. **Show assumptions.** Growth rates, WACC inputs, margins, exit multiples, and terminal g must be listed in an Assumptions block before any valuation output.
+4. **Blue inputs / black formulas.** In Excel/models: hardcoded inputs only for raw history + drivers; derived cells are formulas.
+5. **No hallucinated peers or catalysts.** Peer sets and event dates must be sourced or flagged as analyst judgment with rationale.
+6. **Artifacts live under `artifacts/{TICKER}/`.** Official studio memo = `04-research/memo.md` (full body). Official published note (when the workspace has `docs/`) = `docs/{ticker-lower}-equity-research.md` with the studio file pointing at it or holding the same full body. Official deck source notes = `05-deck/slide.md`. Official deck binary = PPTX from `assets/house-template.pptx`.
+7. **Not investment advice.** Include a one-line disclaimer on memo cover and deck title slide. Label `Draft view — not investment advice.`
+8. **EDGAR identity required.** Before any SEC request, ensure `EDGAR_IDENTITY` or `edgar.set_identity(...)` is set. Never bare-fetch sec.gov.
+9. **Basic vs fully diluted (hard).** When convertibles, ATM programs, options, RSUs, or warrants exist (or may exist), always compute and show **basic and fully diluted** share counts. Per-share values must state which share count. If if-converted / diluted shares are unavailable → `DATA_GAP`; do **not** present undiluted $/sh as “the” value.
+10. **ARR / non-GAAP (hard).** ARR, contracted ARR, operating ARR, and similar run-rate metrics are **non-GAAP operating metrics**. Always label them as such. Never juxtapose with GAAP revenue without the non-GAAP label. SOTP/comps using ARR multiples must disclose if the multiple is **tape-implied / circular**.
+11. **Mix transition (hard).** If LTM revenue mix differs materially from the forward thesis, require an explicit **mix transition** callout. Do not apply pure forward-segment multiples to LTM that is still dominated by the old mix without labeling.
+12. **Terminal value visibility.** DCF outputs and the DCF slide must show **TV as % of EV**.
+13. **Football field + rating.** Official Buy / Hold / Sell comes **from the field** after dilution. Circular (tape-echo) bars may draw; **weight = 0**. Do not Hold as courtesy when last print sits above every non-circular high and a kill is live.
+14. **RUNLOG gates.** Do not mark the memo complete if `04-research/memo.md` is missing, pointer-only, or under ~30 lines of body. Do not mark the deck complete with an empty `05-deck/` and no PPTX path.
+15. **No Zapier.** No Make, n8n, or email-to-Drive as a publish path. Official Sheets/Slides = Drive conversion-on-upload. If Drive is 401, authenticate and stop.
+16. **Do not rewrite a locked official note.** If the user (or workspace) already published a rating for a name, do not change it unless a new CRITICAL audit finding says so.

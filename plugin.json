@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "reef-point-equities-analyst",
+  "displayName": "Reef Point Equities Analyst",
+  "version": "1.2.0",
+  "description": "Reef Point Equities analyst plugin: SEC EDGAR → statements → DCF/comps/LBO/SOTP → football field → official memo → Google Sheets → PPTX/Slides. Trigger: analyze TICKER.",
+  "author": {
+    "name": "Chris Miller",
+    "email": "realchrismiller@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "equity-research",
+    "sec",
+    "edgar",
+    "dcf",
+    "lbo",
+    "sotp",
+    "comps",
+    "football-field",
+    "slides",
+    "reef-point"
+  ]
+}
