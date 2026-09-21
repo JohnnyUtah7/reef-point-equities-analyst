@@ -49,7 +49,7 @@ Eq   = EV − net_debt − NCI + associates
 - Target capital structure if current is distorted; say so.
 - Mid-year convention optional; if used, periods 0.5, 1.5, … and say so.
 - Projection 5–10 years (longer runway → longer explicit).
-- **TV sanity:** typically 50–70% of EV; **flag >75%** (Anthropic) / discuss >80% (studio). IREN 73% is the worked discuss.
+- **TV sanity:** typically 50–70% of EV; **flag >75%** (Anthropic) / discuss >80% (studio).
 - SBC: house treats as **real cost** (do not add back unless you disclose a second case).
 - Diluted / if-converted shares — [dilution-if-converted](../dilution-if-converted/SKILL.md), not cover-only.
 

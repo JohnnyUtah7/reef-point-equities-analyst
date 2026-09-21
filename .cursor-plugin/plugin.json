@@ -1,12 +1,12 @@
 {
-  "name": "reef-point-equity-research",
-  "version": "2.0.0",
-  "description": "Reef Point Capital equity research. One ticker in, official memo, football field, Sheets, and deck out. IREN was the test run.",
+  "name": "reef-point-equities-analyst",
+  "version": "1.2.0",
+  "description": "Reef Point Equities analyst plugin. One SEC-listed ticker in; official memo, football field, Sheets, and white-cover deck out.",
   "author": {
-    "name": "Reef Point Capital",
+    "name": "Chris Miller",
     "email": "realchrismiller@gmail.com"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "keywords": [
     "equity-research",
     "edgar",
@@ -14,5 +14,5 @@
     "football-field",
     "valuation"
   ],
-  "logo": "assets/logo.png"
+  "logo": "assets/rpc-logo.png"
 }

@@ -1,13 +1,19 @@
 # Changelog
 
+## 1.2.0 — 2026-09-21
+
+Approved pack updates from the Reef Point Equities analyst audit.
+
+- Plugin id **`reef-point-equities-analyst`** (was `reef-point-equity-research` 2.0.0)
+- MIT license, Copyright 2026 Chris Miller
+- `assets/rpc-logo.png` + generated `assets/house-template.pptx`
+- `references/` — EDGAR identity, artifact layout, house style, deck spec, sources
+- Official deck is `pptx-to-google-slides`; `slides-deck` / `gws` are notes only
+- Stripped locked-name ratings, share-count examples, CosmosGolf, Agent Store paths, and “this Mac” install law
+- Generic `EDGAR_IDENTITY="Your Name you@email.com"`
+- Trigger: `analyze TICKER` → `portfolio-research`
+- No company proof note in the pack
+
 ## 2.0.0 — 2026-09-20
 
-Team product. IREN was the test run.
-
-- One Cursor plugin: `reef-point-equity-research`
-- Orchestrator `full-company-analysis` is ticker-generic (`{TICKER}` paths)
-- House overlays shipped **inside** the plugin (dilution, field, txns, replacement, yield, auditor, Sheets, PPTX→Slides, earnings calls)
-- `scripts/edgar_pull.py` + `hishel==0.1.3` pin
-- Commands: `/analyze-company`, `/analyze-lite`, `/sec-pull`, `/dcf`, `/slides`
-- Memo ships before Drive/canvas; those may be `PENDING`
-- Not a byte-copy of Mac-local Equity Research Studio 1.0.1 (that pack is not in this repo)
+First combined engine + house overlays in this repo (superseded by 1.2.0 numbering to match the pack plan).

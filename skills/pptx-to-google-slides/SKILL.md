@@ -22,12 +22,12 @@ Documented by Google (“Import to Google Docs types”) and by [google_workspac
 
 - Deck step of `portfolio-research` / `analyze TICKER end-to-end`.
 - Any “make a Google Slides deck” request in this project.
-- Rebuild if the official memo rating or PT changed (IREN PPTX may predate Sell $28 — rebuild from the memo).
+- Rebuild if the official memo rating or PT changed. Do not patch a stale deck.
 
 ## House contract
 
 - Master: `assets/house-template.pptx`.
-- Logo: `assets/logo.png` (plugin) or the Project store logo.
+- Logo: `assets/rpc-logo.png`.
 - Cover: white, logo centered, optional small-caps ticker + date. No header, no confidential strip, no slide number.
 - Interior: takeaway line, slide numbers, proprietary footer, small RPC logo top-right.
 - Numbers **only** from `docs/{ticker}-equity-research.md` + `artifacts/{TICKER}/` + the Sheets named ranges. No new unsourced figures.
@@ -68,7 +68,7 @@ pip install python-pptx   # or: pip3 install -r scripts/requirements.txt
 
 ### 2. Name the Drive file
 
-Title **without** `.pptx` (becomes the Slides name). Example: `IREN Valuation — Equity Research`. `parentId` = Investment Research or ticker folder; create if needed.
+Title **without** `.pptx` (becomes the Slides name). Example: `{TICKER} Valuation — Equity Research`. `parentId` = research or ticker folder; create if needed.
 
 ### 3. Upload + convert
 

@@ -64,7 +64,7 @@ $/sh = if_converted_equity / value_shares
 
 If **cash settle**: no share add; subtract cash from equity. Label which you used. Default = share settle (conservative).
 
-Carrying debt vs principal: keep studio net-debt on **carrying + unrestricted cash** unless the note says otherwise; document the principal gap as a sensitivity (IREN: ~$0.3/sh).
+Carrying debt vs principal: keep studio net-debt on **carrying + unrestricted cash** unless the note says otherwise; document the principal gap as a sensitivity.
 
 ## ATM / shelf
 
@@ -78,9 +78,9 @@ Carrying debt vs principal: keep studio net-debt on **carrying + unrestricted ca
 - [ ] Prepaid forwards / capped calls: sourced or `DATA_GAP`
 - [ ] Studio `dcf.md` cover-share `$/sh` is **not** the published mid
 
-## IREN pattern (do not copy the rating)
+## Worked pattern (do not copy figures)
 
-Cover 394.06m + ITM converts 29.74m = **423.80m**. Add $445.7m ITM principal back. OTM 2031–33 stay out at $46.68; at bull $81 they come in.
+Cover ordinary + ITM convert shares = `value_shares`. Add ITM principal back on share-settle. OTM paper stays in the table, out of the count, until the bull price puts it in.
 
 ## Do not
 

@@ -44,5 +44,5 @@ If the user gave a name not a ticker, try `Company("Name")` via the same script 
 ## Do not
 
 - Invent a ticker for a private company.
-- Copy IREN peers, FYE, or share count.
+- Copy another name’s peers, FYE, or share count.
 - Continue the pipeline on `UNRESOLVED`.

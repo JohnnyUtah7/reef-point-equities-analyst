@@ -29,4 +29,4 @@ Revenue path is **judgment** with a mechanism. Do not set year-1 revenue = contr
 
 - Invent base-year revenue.
 - Add back SBC by default.
-- Copy IREN WACC 11.7%, β 1.80, or the FY27–33 path.
+- Copy another name’s WACC, beta, or revenue path.

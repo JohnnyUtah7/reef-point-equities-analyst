@@ -46,6 +46,6 @@ If live: low / mid / high on the field. If skip: one line, e.g. “No dividend (
 
 Write `artifacts/{TICKER}/03-models/yield.md` even on skip.
 
-## IREN pattern
+## Skip pattern
 
-**Skip.** No dividend. FY26 EBIT −$1,047m. Residual reprints book.
+**Skip** when there is no dividend and residual income reprints book. Write `yield.md` anyway.

@@ -22,7 +22,7 @@ If `docs/{ticker-lower}-equity-research.md` is missing or unlocked (no Buy/Hold/
 | **B. Next.js web fallback** | User wants a shareable browser URL |
 | **C. Sheets working canvas** | User wants Drive tabs without a web app |
 
-A+B is the documented IREN pattern. C is the Drive-only working surface. Do not invent a fourth.
+A+B is the usual pair when they want Cursor plus a browser URL. C is the Drive-only working surface. Do not invent a fourth.
 
 Every surface: **Not investment advice.** Rating / PT / share count **match the official memo**.
 
@@ -44,10 +44,10 @@ Circular field bars: **dashed**, excluded from the blend. Axis unit `$/ordinary 
 
 Follow `~/.cursor/skills-cursor/canvas/SKILL.md`:
 
-1. Write **with the Write tool** to  
-   `/Users/<user>/.cursor/projects/<workspace-key>/canvases/<ticker>-reef-point-research.canvas.tsx`  
-   IREN workspace key: `Users-chrismiller-Investment-Research`.
-2. Optional archive: `/cursor/stores/user/canvases/<uuid>/source.canvas.tsx`. Hardlink it to the managed file so store clicks and Open Canvas stay one inode. The store path alone does **not** compile.
+1. Write **with the Write tool** to the workspace managed canvas path:  
+   `~/.cursor/projects/<workspace-key>/canvases/<ticker>-reef-point-research.canvas.tsx`  
+   Resolve `<workspace-key>` from the open project. Do not hardcode a machine path.
+2. A store UUID `source.canvas.tsx` is an archive only. It does **not** compile. Put a file (or hardlink) in the managed `canvases/` folder.
 3. First line: `// cursor-canvas-title: {TICKER} — Reef Point Research`.
 4. Import only from `cursor/canvas`. Embed numbers. No `fetch`.
 5. `Pill` + `useCanvasState<TabId>("tab", "exec")`.
@@ -61,12 +61,12 @@ Save-tool compile = no TS errors. Return a markdown link to the **managed** `.ca
 
 - Scaffold into a **subdirectory**, then move to repo root (`create-next-app` must not target `/workspace`).
 - TypeScript + Tailwind. shadcn Tabs. Hairline, radius 0.
-- Copy `assets/logo.png` → `public/rpc-logo.png`.
-- Uncommon port (not 3000 / 5173 / 8080). IREN used **44731**.
+- Copy `assets/rpc-logo.png` → `public/rpc-logo.png`.
+- Uncommon port (not 3000 / 5173 / 8080).
 - Tab routes are server HTML: `/?tab=exec` `/?tab=business` `/?tab=thesis` `/?tab=financials` `/?tab=valuation` `/?tab=risks` `/?tab=sources`. Hash aliases (`#valuation`) redirect to the query form so a blocked client bundle still swaps panels.
 - Copy matches the official note. Leave the dev server running and emit a preview tag.
 
-Do not dirty CosmosGolf. Use the current workspace only if the user already has a canvas app there.
+Do not dirty an unrelated git checkout. Use the current workspace only if the user already has a canvas app there.
 
 ## C. Sheets working canvas
 
@@ -86,7 +86,7 @@ Write or update `docs/{ticker-lower}-research-canvas.md` with native path, web b
 ## Failure modes
 
 - Second model / leftover stale rating — stop, re-read the official note.
-- Native canvas only under `/cursor/stores/user/canvases/<uuid>/source.canvas.tsx` — opens as source, will not preview or Publish. Put a file (or hardlink) in the workspace managed `canvases/` folder.
+- Native canvas written only to a store archive path — opens as source, will not preview or Publish. Put a file in the workspace managed `canvases/` folder.
 - Hardcoded house hex on the native canvas — SDK rejects; put white-cover fidelity on path B.
 - Zapier — do not.
 - Expanding Valuation into one tab per method — do not.

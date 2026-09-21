@@ -65,7 +65,7 @@ CHECKED: … · SAMPLED: … · NOT CHECKED: …
 
 ## Output
 
-Append or write `artifacts/{TICKER}/04-research/hub_audit.md`. If you change the official memo, add an **audit-pass** block at the bottom (what changed and why). Do **not** change the IREN rating unless this audit finds a new CRITICAL in that file.
+Append or write `artifacts/{TICKER}/04-research/hub_audit.md`. If you change the official memo, add an **audit-pass** block at the bottom (what changed and why). Do **not** rewrite a locked official note unless this audit finds a new CRITICAL.
 
 ## Rejected from analyst-kit
 

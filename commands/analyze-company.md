@@ -11,4 +11,4 @@ Read and execute `skills/full-company-analysis/SKILL.md`.
 
 Mode = **full** unless they said `lite` / `quick look`.
 
-Do not wait on X. Do not use Zapier. Do not copy IREN numbers.
+Do not wait on X. Do not use Zapier. Do not copy another name’s figures. Do not rewrite a locked official note.

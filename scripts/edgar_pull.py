@@ -5,8 +5,8 @@ Requires EDGAR_IDENTITY="Name email@domain.com" and edgartools.
 Pin hishel==0.1.3 if FileStorage breaks.
 
 Usage:
-  python3 scripts/edgar_pull.py IREN
-  python3 scripts/edgar_pull.py IREN --out artifacts/IREN/01-sec
+  python3 scripts/edgar_pull.py AAPL
+  python3 scripts/edgar_pull.py AAPL --out artifacts/AAPL/01-sec
 """
 
 from __future__ import annotations
@@ -149,7 +149,7 @@ def _financials_dump(company) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="EDGAR pull for Reef Point equity research")
-    parser.add_argument("ticker", help="Listed ticker, e.g. IREN or NVDA")
+    parser.add_argument("ticker", help="Listed ticker, e.g. AAPL or NVDA")
     parser.add_argument("--out", default=None, help="Output directory (default artifacts/TICKER/01-sec)")
     parser.add_argument("--limit", type=int, default=80, help="Max filings in the index")
     args = parser.parse_args()

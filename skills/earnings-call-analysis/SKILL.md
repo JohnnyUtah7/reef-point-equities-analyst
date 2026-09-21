@@ -6,16 +6,16 @@ description: >
   map management vernacular, score credibility tells with confidence
   labels, and write a companion memo section plus canvas-tab / one-slide
   copy. Triggers: earnings calls, transcripts, management credibility,
-  "how they talk", IREN calls. Does not change the official rating.
+  "how they talk". Does not change the official rating.
 ---
 
 # Earnings-call analysis (hub overlay)
 
 Companion to the official note. **Not** a second SEC/DCF stack. Call studio `sec-filings` for 8-K / 6-K exhibits. **Do not** rewrite `docs/{ticker}-equity-research.md` rating or the football field.
 
-IREN is the worked example only. Do not copy its rating.
+Do not copy another name’s rating. Do not rewrite a locked official note.
 
-Hard constraints: **no Zapier**. **no waiting on X**. **do not dirty CosmosGolf or any git checkout**. **never invent quotes**.
+Hard constraints: **no Zapier**. **no waiting on X**. **do not dirty any other git checkout**. **never invent quotes**.
 
 ## Hard rules
 
@@ -46,7 +46,7 @@ Need `EDGAR_IDENTITY="Name email@domain.com"` and `import edgar`. Else stop. Pin
 | 3 | Third-party transcript (Quartr / StockAnalysis / SA) | Prepared + Q&A when EDGAR has no EX-99 transcript. **Name the vendor.** |
 | 4 | Official note + `artifacts/{TICKER}/01-sec/` | Cross-check figures. Do not re-pull a DCF. |
 
-**FPI check (coverage audit):** If the issuer was a foreign private issuer for part of the window, earnings live on **6-K**, not 8-K. IREN: 6-K through May 2025; 8-K Item 2.02 from FY25 year-end.
+**FPI check (coverage audit):** If the issuer was a foreign private issuer for part of the window, earnings live on **6-K**, not 8-K. After they become a domestic filer, Item 2.02 8-Ks take over — label the switch.
 
 Index every call before writing:
 
@@ -58,9 +58,9 @@ If Q&A is missing → `DATA_GAP` on Q&A, still run prepared remarks.
 
 ## 2. Window
 
-Default: last **eight** quarterly results calls (~2 fiscal years). Label **FY vs calendar** on every date (IREN FYE 30 Jun). Do not mix “Q2” without saying whose Q2.
+Default: last **eight** quarterly results calls (~2 fiscal years). Label **FY vs calendar** on every date (use the 10-K / 20-F FYE). Do not mix “Q2” without saying whose Q2.
 
-Roster the desk each call: CEO / CFO / CCO / IR. Note replacements (IREN: Lincoln Tan → Mike Power; Belinda Nucifora → Anthony Lewis).
+Roster the desk each call: CEO / CFO / CCO / IR. Note replacements.
 
 ## 3. Promise ledger
 
@@ -80,7 +80,7 @@ Outcomes: `HIT` · `MISS` · `PARTIAL` · `OPEN` (not yet due) · `ABANDONED` ·
 - Construction complete vs customer **acceptance** / handoff
 - “On schedule for this year” vs a named quarter
 
-A 480 MW “AI Cloud” target and a 300 MW “IT load” target may be the same stack or not. If you cannot prove the identity, `DATA_GAP` — do not write “they cut guidance.”
+Two capacity numbers with different units (IT vs gross, contracted vs operating) may be the same stack or not. If you cannot prove the identity, `DATA_GAP` — do not write “they cut guidance.”
 
 ## 4. Delivery vs prior promises
 
@@ -92,7 +92,7 @@ For each live ID: what they said they would grow, what grew.
 
 ## 5. Vernacular
 
-10–20 house phrases. Quote once, cite, then say what the phrase is **for** (moat story, scarcity, capital flywheel, optionality). Track which phrases survive a strategy change (IREN: “ones and zeros,” “time-to-compute,” founding digital/physical gap).
+10–20 house phrases. Quote once, cite, then say what the phrase is **for** (moat story, scarcity, capital flywheel, optionality). Track which phrases survive a strategy change.
 
 ## 6. Credibility tells
 
@@ -102,8 +102,8 @@ Hunt list (do not need all):
 |---|---|
 | Hedge | “may,” “potentially,” “we reserve the right,” then a hard number in the same breath |
 | Recast | Same object, new date / new unit / new inclusion rule |
-| Metric shopping | Scoreboard moves from hash-rate → ARR → $/MW → “funding flywheel” when the old metric stalls |
-| Walk | A named program (distributions, 50 EH, colo-first Childress) quietly dropped |
+| Metric shopping | Scoreboard moves to a new KPI when the old metric stalls |
+| Walk | A named program quietly dropped |
 | Track-record claim | “We have never missed a date” vs a later slip — quote both |
 | Vendor error | Transcript number that the 8-K contradicts |
 
@@ -169,7 +169,7 @@ Do **not** edit the official note unless the user says to paste the memo section
 - Call a definition change a lie.
 - Change the official rating or field.
 - Stand up a parallel EDGAR/DCF pipeline.
-- Wait on X. Use Zapier. Touch CosmosGolf.
+- Wait on X. Use Zapier. Dirty another git checkout.
 
 ## Return
 

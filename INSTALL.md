@@ -1,88 +1,58 @@
-# Install — Reef Point Equity Research
+# Install — Reef Point Equities analyst
 
-Share **this repo**. Teammates do not need the old Mac-local `equity-research-studio` 1.0.1 folder. That pack was the engine we tested on IREN; **this plugin is the product**.
+Packaged plugin: **`reef-point-equities-analyst` 1.2.0**. Share **this repo**. Do not install from CosmosGolf or any other checkout. Do not copy a locked official note into the plugin.
 
-## 1. Clone
+Each analyst uses **their own** `EDGAR_IDENTITY`. See [references/edgar-identity.md](./references/edgar-identity.md).
 
-```bash
-git clone <repo-url> reef-point-equity-research
-cd reef-point-equity-research
-```
-
-## 2. Register as a local Cursor plugin
+## Cursor (local plugin)
 
 ```bash
+git clone <this-repo-url> reef-point-equities-analyst
+cd reef-point-equities-analyst
 mkdir -p ~/.cursor/plugins/local
-ln -sfn "$(pwd)" ~/.cursor/plugins/local/reef-point-equity-research
+ln -sfn "$(pwd)" ~/.cursor/plugins/local/reef-point-equities-analyst
 ```
 
-The folder must contain `.cursor-plugin/plugin.json` at the **plugin root** (this repo root).
+Equivalent: `rsync -a ./ ~/.cursor/plugins/local/reef-point-equities-analyst/`
 
-Quit Cursor fully (`Cmd+Q`) and reopen, or **Developer: Reload Window**.
-
-Settings → Cursor Settings → **Include third-party Plugins, Skills, and other configs** → on.
-
-Confirm the plugin name `reef-point-equity-research` and that skills / commands / agents loaded.
-
-If you still have `~/.cursor/plugins/local/equity-research-studio`, leave it or remove it — do **not** run both orchestrators on the same name. This repo wins.
-
-## 3. Python
+The folder must contain `.cursor-plugin/plugin.json` at the plugin root.
 
 ```bash
 pip3 install -r scripts/requirements.txt
+export EDGAR_IDENTITY="Your Name you@email.com"   # ~/.zshrc
 ```
 
-If an EDGAR pull raises `FileStorage` / hishel errors:
+If FileStorage / hishel breaks: `pip3 install 'hishel==0.1.3'`.
 
-```bash
-pip3 install 'hishel==0.1.3'
+Quit Cursor (`Cmd+Q`) and reopen, or **Developer: Reload Window**.
+
+Settings → Cursor Settings → **Include third-party Plugins, Skills, and other configs** → on.
+
+Confirm plugin name `reef-point-equities-analyst`.
+
+If `~/.cursor/plugins/local/equity-research-studio` still exists, do **not** run both orchestrators on the same name. This pack wins.
+
+## Claude (marketplace / skill copy)
+
+Copy `skills/` into `~/.claude/skills/` (or add this repo as a Claude marketplace plugin). Commands live in `commands/`. Same `EDGAR_IDENTITY`. Same `analyze TICKER` trigger.
+
+## First run
+
+```
+analyze MSFT
 ```
 
-## 4. SEC identity (required)
+or `/analyze-lite MSFT`.
 
-SEC wants a real name + email on every request.
+Expect `artifacts/MSFT/` and `docs/msft-equity-research.md` in the **open workspace**, not inside the plugin directory.
 
-```bash
-# ~/.zshrc or ~/.bashrc
-export EDGAR_IDENTITY="Your Name you@company.com"
-```
-
-Open a new terminal. Check:
-
-```bash
-echo "$EDGAR_IDENTITY"
-python3 scripts/edgar_pull.py AAPL --out /tmp/aapl-sec
-```
-
-Stop if identity is missing. Never WebFetch `sec.gov`.
-
-## 5. Optional publish surfaces
+## Optional surfaces
 
 | Surface | Need |
 |---|---|
 | Official memo + artifacts | Plugin + EDGAR only |
-| Native Google Sheets / Slides | Google Drive MCP connected in Cursor |
-| X tape | X plugin **enrolled** (optional; never block) |
-| Native Cursor canvas | Only if someone asks; not required |
+| Native Google Sheets / Slides | Google Drive MCP. Local xlsx/pptx still written if Drive 401 |
+| X tape | Enrolled X plugin — never block |
+| Native Cursor canvas | Only if asked |
 
 No Zapier. No `gws auth login`.
-
-## 6. First run (not IREN)
-
-```
-/analyze-lite MSFT
-```
-
-or
-
-```
-analyze MSFT end-to-end
-```
-
-Expect `artifacts/MSFT/` and `docs/msft-equity-research.md` in **the workspace you have open**, not inside the plugin directory.
-
-## Team share
-
-1. Push this repo to the firm Git host.
-2. Send INSTALL.md. Each analyst uses **their own** `EDGAR_IDENTITY`.
-3. Do not email a zip of IREN artifacts as “the model.” The plugin is the model kit; each name gets a new `artifacts/{TICKER}/`.

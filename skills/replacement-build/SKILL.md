@@ -40,6 +40,6 @@ Low = min(book, PPE-ND). Mid = PPE-ND plus haircut pipeline land / option value.
 
 Write `artifacts/{TICKER}/03-models/replacement.md` and the `Replacement` Sheets tab.
 
-## IREN pattern
+## Worked pattern
 
-PPE-ND ~$11/sh; book ~$10; 300MW IT stack at $10m DC + $29m GPU with 90% kit financed. Field used **$11–$23**. Do not copy the rating.
+Low = PPE − net debt (or book if tighter). Mid adds haircut pipeline. High = in-build + near-term committed capacity at the **equity-funded** stack. Do not copy another name’s $/unit.

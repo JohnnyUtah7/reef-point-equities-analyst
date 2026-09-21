@@ -11,9 +11,9 @@ description: >
 
 This is the **team product**. One ticker in. Official note, field, workbook, deck out.
 
-IREN was the **test run**, not a template. Do not copy IREN shares, ARR, WACC, or Sell $28 onto another name.
+Do not copy another name’s shares, ARR, WACC, or rating. Do not rewrite a locked official note.
 
-Hard constraints: **no Zapier**. **no parallel SEC/DCF stack**. **no waiting on X**. **no invented filing numbers**.
+Hard constraints: **no Zapier**. **no parallel SEC/DCF stack**. **no waiting on X**. **no invented filing numbers**. **no CosmosGolf / foreign checkout dirt**.
 
 ## Who this works for
 
@@ -93,11 +93,11 @@ Update `RUNLOG.md` after **each** phase. Reuse `01-sec/` if the latest 10-K/10-Q
 11 X                                     only if enrolled — never block
 ```
 
-Phases 8–11 **must not** block the official memo. The IREN test died on Drive payloads and canvas publish — the note is the product; Sheets/deck/canvas are publish surfaces.
+Phases 8–11 **must not** block the official memo. Drive payloads and canvas publish can fail; the note is the product. Sheets/deck/canvas are publish surfaces (`PENDING` is allowed).
 
 Calls (phase 7) may run in parallel with phase 4 once `01-sec/` exists.
 
-## Parallel vs serial (why IREN felt endless)
+## Parallel vs serial
 
 | Must be serial | Can overlap |
 |---|---|
@@ -139,4 +139,4 @@ Official memo path · earnings-call companion · Sheets URL or PENDING · Slides
 
 ## Proof (do not copy)
 
-IREN test: `examples/IREN/README.md`. Official call stays in the Project note. Do not rewrite it from this skill.
+Do not vendor a company note in this plugin. Official call stays in the workspace `docs/` file. Do not rewrite a locked note from this skill.

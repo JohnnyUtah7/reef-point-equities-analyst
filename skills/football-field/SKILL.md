@@ -34,7 +34,7 @@ Tape-echo tests (any one fails → circular):
 - Implied $/sh sits on last print by construction.
 - Peer set is empty and you used the target’s own multiple.
 
-Dashed on the canvas; footnote on the memo table. IREN fwd ARR 4–6× $4bn is the worked reject.
+Dashed on the canvas; footnote on the memo table. Own EV ÷ own ARR (or empty peer set using the target multiple) is the worked reject.
 
 ## Blend
 
@@ -45,7 +45,7 @@ Starting recipe (Anthropic initiating-coverage), then override with confidence:
 | Method | Typical weight | Raise when | Cut when |
 |---|---|---|---|
 | DCF | 40–60% | forecasts defensible; TV % of EV discussed | TV > ~75% of EV with no discussion |
-| Trading comps | 15–40% | clean peer set, NTM metric | NM multiples, wrong mix (IREN LTM 82% BTC) |
+| Trading comps | 15–40% | clean peer set, NTM metric | NM multiples, wrong mix (LTM still the old segment) |
 | Transaction comps | 10–25% | real closed comps, name in-play | failed/withdrawn only; stale >5y |
 | SOTP | 15–30% if live | multi-segment or mix shift | single-segment; circular ARR sleeve |
 | Replacement | 0–15% | asset-heavy floor useful | already = book residual |

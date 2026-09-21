@@ -35,6 +35,6 @@ Flag, do not silently “adjust”: impairments, SBC, unrealized gains, debt ind
 
 ## Do not
 
-- Use IREN’s 10-K scale or mix as a default.
+- Use another name’s 10-K scale or mix as a default.
 - Treat ARR / bookings as GAAP revenue.
 - Add back SBC as if it were free cash (house: SBC is a real cost).
