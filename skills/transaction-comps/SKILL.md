@@ -67,6 +67,14 @@ $/sh           = implied_equity / value_shares    # same count as the field
 
 `artifacts/{TICKER}/03-models/txns.md` (and the `Txns` tab in the Sheets workbook). Field row: low / mid / high / skip-reason.
 
+The same rows are a **required** canvas sub-view and a deck appendix slide. Valuation stays one tab; Precedents is a sub-view under it, not a new top-level tab.
+
+```
+Deal | Announce | Close or terminate | Acquirer / target | Equity | EV | Structure | EV/Rev | EV/EBITDA | Premium | Status | In the median?
+```
+
+Terminated deals stay on the page with the haircut visible. If the physical metric on the target cannot be applied because the subject’s units are a `DATA_GAP`, skip the apply and say why. Do not borrow another name’s $/unit.
+
 ## Do not
 
 - Do not vendor a deal database.

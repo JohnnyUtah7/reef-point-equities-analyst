@@ -32,7 +32,7 @@ Every surface: **Not investment advice.** Rating / PT / share count **match the 
 2. Business
 3. Thesis
 4. Financials
-5. Valuation — field + method range on **one** surface
+5. Valuation — field + method range on **one** surface. Inside it, sub-views: **Field · Comps · Precedents · Assets**. Comps defaults to the researched peer set; the user can toggle names. The toggle prints a draft implied $/sh and does **not** move the official call unless they lock the set into the memo.
 6. Risks & catalysts
 7. Sources / audits
 
@@ -89,4 +89,4 @@ Write or update `docs/{ticker-lower}-research-canvas.md` with native path, web b
 - Native canvas written only to a store archive path — opens as source, will not preview or Publish. Put a file in the workspace managed `canvases/` folder.
 - Hardcoded house hex on the native canvas — SDK rejects; put white-cover fidelity on path B.
 - Zapier — do not.
-- Expanding Valuation into one tab per method — do not.
+- Expanding Valuation into one tab per method — do not. Sub-views under Valuation and under Research are the drill-down. Research sub-views: ledger, slip clock, language drift. Sentiment still does not rate the name.

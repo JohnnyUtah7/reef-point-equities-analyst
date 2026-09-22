@@ -17,10 +17,10 @@ Pitch Agent (`anthropics/financial-services` pitch-agent): min / median / max pe
 | Method | Owner | Low / mid / high |
 |---|---|---|
 | DCF (FCFF) | studio `dcf-model` + [dilution](../dilution-if-converted/SKILL.md) | WACC×g bear / base / bull on **if-converted** $/sh |
-| Trading comps | studio `comps-valuation` | 25th / median / 75th applied to target metric ÷ same shares |
-| Transaction comps | [transaction-comps](../transaction-comps/SKILL.md) | haircut failed closes; no paper pipeline |
+| Trading comps (CCA) | studio `comps-valuation` | 25th / median / 75th on the **researched** set, or the user’s locked set. Show P/E, EV/EBITDA, EV/Sales; `NM` if the denominator is missing. A canvas toggle is a draft until the memo is updated |
+| Transaction comps | [transaction-comps](../transaction-comps/SKILL.md) | haircut failed closes; no paper pipeline. Deal table is a Valuation sub-view |
 | SOTP / NAV | studio `sotp-valuation` | segment lows / mids / highs; net debt once |
-| Replacement / build | [replacement-build](../replacement-build/SKILL.md) | floor, not a CF value |
+| Asset-based / replacement | [replacement-build](../replacement-build/SKILL.md) | book, PPE − net debt, equity-funded stack. Floor, not a CF value. Liquidation only if sourced |
 | Yield / residual | [yield-residual](../yield-residual/SKILL.md) | skip with why if N/A |
 | LBO | studio `lbo-model` | **off the field** unless a real sponsor bid is the question |
 
@@ -75,6 +75,10 @@ Method | Low | Mid | High | Weight | In blend? | What moves it
 ```
 
 Same `value_shares`, same net-debt identity, as-of price labeled. Skip a bar only with a one-line why.
+
+## Drill-downs (not new bars)
+
+The field stays one picture. Under it, three sub-views and three deck appendix slides: **Comps** (peer rows and the three ratios), **Precedents** (deal rows), **Assets** (book / PPE − ND / replacement). They explain the bars. They do not add a fourth blend.
 
 ## Do not
 

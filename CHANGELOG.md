@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.0 — 2026-09-22
+
+Valuation drill-downs and the management slip clock.
+
+- CCA: user-picked peer set, or a researched set from the 10-K plus adjacent names. Always print P/E, EV/EBITDA, and EV/Sales; `NM` when the denominator is missing. A canvas toggle is a draft until the memo locks the set.
+- Precedent deals and asset-based layers (book, PPE − net debt, equity-funded replacement) are required sub-views under Valuation and appendix slides after the 10-slide spine. Not new top-level tabs. Liquidation only if sourced.
+- Earnings companion adds a slip clock (quarters dragged, walks) and a language-drift table. Tension is shown with HIGH / MED / LOW. “Lying” is not a fact. Sentiment still does not rate the name.
+
 ## 1.2.0 — 2026-09-21
 
 Approved pack updates from the Reef Point Equities analyst audit.

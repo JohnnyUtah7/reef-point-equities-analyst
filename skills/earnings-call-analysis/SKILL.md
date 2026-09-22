@@ -82,6 +82,18 @@ Outcomes: `HIT` · `MISS` · `PARTIAL` · `OPEN` (not yet due) · `ABANDONED` ·
 
 Two capacity numbers with different units (IT vs gross, contracted vs operating) may be the same stack or not. If you cannot prove the identity, `DATA_GAP` — do not write “they cut guidance.”
 
+## 3b. Slip clock
+
+One row per promise, after the ledger. This is how you see a date get dragged without calling it a lie.
+
+```
+ID | First date said | Each recast (date + new words) | Quarters dragged | Outcome | Confidence
+```
+
+Quarters dragged = calendar quarters from the first named date to the later date they actually used, or to today if still OPEN and the first date has passed. `0` if they hit the first date. `n/a` if no date was named.
+
+A walk (the promise disappears) is a slip even when the quarter count is short. Say **walk**, not lie.
+
 ## 4. Delivery vs prior promises
 
 For each live ID: what they said they would grow, what grew.
@@ -93,6 +105,16 @@ For each live ID: what they said they would grow, what grew.
 ## 5. Vernacular
 
 10–20 house phrases. Quote once, cite, then say what the phrase is **for** (moat story, scarcity, capital flywheel, optionality). Track which phrases survive a strategy change.
+
+## 5b. Language drift
+
+Same object, call over call. Required table:
+
+```
+Object | Call A words (date, speaker) | Call B words | What moved | Confidence
+```
+
+What moved is one of: unit change, hedge added, metric shift (scoreboard swapped), phrase that survived a strategy change, date pushed. Two cites. `HIGH` only when the object and the unit are the same. This is the page that shows the tension. It does not print “lying.”
 
 ## 6. Credibility tells
 
@@ -148,16 +170,18 @@ Required sections, in order:
 1. Banner: official rating **unchanged**; link the note.
 2. Call index (table in §1).
 3. Promise ledger.
-4. Delivery vs promises.
-5. Vernacular.
-6. Credibility tells (confidence).
-7. Sentiment + talk-read.
-8. Said vs delivered.
-9. **Memo section** — paste-ready for the official note. Does **not** change Buy/Hold/Sell, PT, or pillars. Max ~1 page.
-10. **Canvas tab copy** — one tab, tables, takeaway line, `Not investment advice.`
-11. **Deck slide stub** — takeaway + 4–6 rows. Deck worker builds the slide later.
-12. `DATA_GAP` list.
-13. Sources (form / date / accession / vendor).
+4. **Slip clock** (§3b).
+5. Delivery vs promises.
+6. Vernacular.
+7. **Language drift** (§5b).
+8. Credibility tells (confidence).
+9. Sentiment + talk-read.
+10. Said vs delivered.
+11. **Memo section** — paste-ready for the official note. Does **not** change Buy/Hold/Sell, PT, or pillars. Max ~1 page.
+12. **Canvas copy** — Research tab, three sub-views (ledger, slip clock, language drift). Takeaway line. `Not investment advice.` Sentiment does not move the rating.
+13. **Deck appendix** — slip clock, 4–6 rows, two tells with confidence. Not a replacement for the recommendation slide.
+14. `DATA_GAP` list.
+15. Sources (form / date / accession / vendor).
 
 Do **not** edit the official note unless the user says to paste the memo section in.
 

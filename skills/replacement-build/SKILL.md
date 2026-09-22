@@ -1,13 +1,24 @@
 ---
 name: replacement-build
 description: >
-  Replacement / build-cost floor for the football field. Not a cash-flow
-  value. Triggers: replacement cost, build cost, PPE floor, reproduction cost.
+  Asset-based valuation for the football field: book equity, PPE minus net
+  debt, and the equity-funded replacement stack. A floor, not a cash-flow
+  value. Triggers: asset-based, NAV, book value, replacement cost, PPE floor.
 ---
 
-# Replacement / build cost
+# Asset-based valuation (replacement / build floor)
 
-Studio has no skill for this. It is a **floor**, weight 0–15% in the blend. Never treat it as intrinsic value.
+Studio has no separate skill for this. On the field the bar is still the **replacement / build floor**, weight 0–15%. Never treat it as intrinsic value. The canvas sub-view and the deck appendix call it **Assets** so the three layers are visible.
+
+## Three layers (same `value_shares`)
+
+| Layer | What it is |
+|---|---|
+| Book | Reported book equity / `value_shares` |
+| Tangible / PPE − net debt | `(PPE_net − net_debt) / value_shares` |
+| Replacement stack | Equity-funded cost to reproduce **live or in-build** units, after the double-count subtraction |
+
+Liquidation (orderly or forced) only if a filing, appraisal, or disclosed reserve exists. Otherwise `DATA_GAP`. Do not invent a haircut percent.
 
 ## Three stacked floors (same `value_shares`)
 
@@ -38,7 +49,7 @@ Skip only if the business is not asset-reproducible (pure software with no meani
 
 Low = min(book, PPE-ND). Mid = PPE-ND plus haircut pipeline land / option value. High = in-build + near-term committed capacity at the equity-funded stack.
 
-Write `artifacts/{TICKER}/03-models/replacement.md` and the `Replacement` Sheets tab.
+Write `artifacts/{TICKER}/03-models/replacement.md` and the `Replacement` Sheets tab. The same three layers are the **Assets** sub-view under the Valuation tab and one deck appendix slide. Do not add a top-level canvas tab for this method.
 
 ## Worked pattern
 

@@ -67,11 +67,12 @@ Confirm with the user (or RUNLOG) after: raw inputs → revenue path → FCF →
 
 Source hierarchy: configured MCP institutional feed → SEC fundamentals → dated market quotes → web last, flagged.
 
-- 6–12 peers (Anthropic 5–10 final). Inclusion / exclusion rationale.
+- Peer set: **user-named tickers win**. If none are named, research the 10-K competitor list plus adjacent names, and write who was excluded. See [comps-valuation](../comps-valuation/SKILL.md).
+- Always show **P/E, EV/EBITDA, and EV/Sales**. `NM` if the denominator is a loss, transition year, or unsourced EV. P/S is the proxy only when EV is a `DATA_GAP`.
 - Blank or `NM` — never invent a multiple.
-- Stats: min / 25th / **median** / 75th / max. Prefer median to mean.
+- Stats: min / 25th / **median** / 75th / max on the in-set peers. Prefer median to mean.
 - Label LTM vs NTM. Prefer NTM when estimates exist.
-- Metric choice: EV/Rev (high growth / loss), EV/EBITDA (default), P/E (stable profitable), P/B (financials).
+- Metric used in the blend is one line. The other ratios still print.
 - Outliers: drop or footnote (>~2σ). Implied value = chosen multiple × target metric → equity bridge → `/ value_shares`.
 
 ## SOTP (studio still builds it; himself65 overlay)
