@@ -62,6 +62,22 @@ Default: last **eight** quarterly results calls (~2 fiscal years). Label **FY vs
 
 Roster the desk each call: CEO / CFO / CCO / IR. Note replacements.
 
+## 2b. Quarter scoreboard
+
+One row per quarterly call. This is the default Research / Calls view. The promise ledger is the long list. This table is the call.
+
+```
+Call | Date | They said they would | Next print showed | Kept?
+```
+
+Kept is `HIT` · `MISS` · `PARTIAL` · `OPEN` · `ABANDONED` · `DATA_GAP`.
+
+- Guidance in the 8-K / 6-K press release counts, even when no transcript exists.
+- A transcript quote is optional: short, dated, vendor-named. Filings win if the numbers disagree.
+- If the companion has no sourced promise for that call, the row still exists and the Kept cell is `DATA_GAP`. Do not invent a guide.
+- A window shorter than eight quarters leaves the missing rows blank. Do not pad them.
+- This table does not move Buy / Hold / Sell. Do not print “lying.”
+
 ## 3. Promise ledger
 
 Build a table **before** the narrative. One row per load-bearing promise.
@@ -169,19 +185,20 @@ Required sections, in order:
 
 1. Banner: official rating **unchanged**; link the note.
 2. Call index (table in §1).
-3. Promise ledger.
-4. **Slip clock** (§3b).
-5. Delivery vs promises.
-6. Vernacular.
-7. **Language drift** (§5b).
-8. Credibility tells (confidence).
-9. Sentiment + talk-read.
-10. Said vs delivered.
-11. **Memo section** — paste-ready for the official note. Does **not** change Buy/Hold/Sell, PT, or pillars. Max ~1 page.
-12. **Canvas copy** — Research tab, three sub-views (ledger, slip clock, language drift). Takeaway line. `Not investment advice.` Sentiment does not move the rating.
-13. **Deck appendix** — slip clock, 4–6 rows, two tells with confidence. Not a replacement for the recommendation slide.
-14. `DATA_GAP` list.
-15. Sources (form / date / accession / vendor).
+3. **Quarter scoreboard** (§2b). One row per call.
+4. Promise ledger.
+5. **Slip clock** (§3b).
+6. Delivery vs promises.
+7. Vernacular.
+8. **Language drift** (§5b).
+9. Credibility tells (confidence).
+10. Sentiment + talk-read.
+11. Said vs delivered.
+12. **Memo section** — paste-ready for the official note. Does **not** change Buy/Hold/Sell, PT, or pillars. Max ~1 page.
+13. **Surface copy** — Research / Calls sub-views. Default is **By quarter**. Ledger, slip clock, and language drift stay behind it. Takeaway line. `Not investment advice.` Sentiment does not move the rating.
+14. **Deck appendix** — slip clock, 4–6 rows, two tells with confidence. Not a replacement for the recommendation slide.
+15. `DATA_GAP` list.
+16. Sources (form / date / accession / vendor).
 
 Do **not** edit the official note unless the user says to paste the memo section in.
 

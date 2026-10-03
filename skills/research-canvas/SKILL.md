@@ -2,8 +2,9 @@
 name: research-canvas
 description: >
   Optional shareable research surface after the official memo is locked.
-  Three paths: native Cursor canvas, Next.js web fallback, or a Drive Sheets
-  working book. Never Zapier. Not a substitute for the memo, model, or deck.
+  One HTML file is the Claude artifact, the GPT site, and the Grok bot handoff.
+  Cursor canvas is a second render of the same numbers. Sheets is the Drive
+  book. Never Zapier. Not a substitute for the memo, model, or deck.
 ---
 
 # Research canvas
@@ -14,15 +15,15 @@ Optional. Default `analyze TICKER` does **not** require this.
 
 If `docs/{ticker-lower}-equity-research.md` is missing or unlocked (no Buy/Hold/Sell + field), run `portfolio-research` first. Copy rating, PT, `value_shares`, and field inputs from that note. **No second model.**
 
-## Pick one publish path (or A+B together)
+## Publish paths (same numbers)
 
 | Path | When |
 |---|---|
+| **HTML (default share)** | Claude artifact, GPT site, and the Grok bot’s handoff. One file: `docs/{ticker-lower}-reef-point-live.html`. No build step |
 | **A. Native Cursor canvas** | User is in Cursor and wants a `.canvas.tsx` |
-| **B. Next.js web fallback** | User wants a shareable browser URL |
 | **C. Sheets working canvas** | User wants Drive tabs without a web app |
 
-A+B is the usual pair when they want Cursor plus a browser URL. C is the Drive-only working surface. Do not invent a fourth.
+Do not scaffold a second site for GPT or Grok. The bot and the Custom GPT hand over the HTML file. A Next.js app is optional and only if the user already asked for a self-hosted URL.
 
 Every surface: **Not investment advice.** Rating / PT / share count **match the official memo**.
 
@@ -33,8 +34,9 @@ Every surface: **Not investment advice.** Rating / PT / share count **match the 
 3. Thesis
 4. Financials
 5. Valuation — field + method range on **one** surface. Inside it, sub-views: **Field · Comps · Precedents · Assets**. Comps defaults to the researched peer set; the user can toggle names. The toggle prints a draft implied $/sh and does **not** move the official call unless they lock the set into the memo.
-6. Risks & catalysts
-7. Sources / audits
+6. Research / Calls — default sub-view **By quarter** (one row per call: they said / next print showed / kept). Ledger, slip clock, and language drift stay as the other sub-views. Sentiment does not rate the name.
+7. Risks & catalysts
+8. Sources / audits
 
 White cover: full white, RPC logo centered, ticker + date small-caps under the mark. Interior: black / white / hairline. SpaceX / Anduril.
 

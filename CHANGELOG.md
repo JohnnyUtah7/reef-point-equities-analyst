@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.3.1 — 2026-10-03
+
+One pack, four deployments, one calls tab.
+
+- Manifests: `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, `.grok-plugin/plugin.json` match the Cursor manifest. Skills stay in `skills/`.
+- Grok deployment is a bot: [adapters/grok-bot.md](./adapters/grok-bot.md). Custom GPT instructions: [adapters/gpt-instructions.md](./adapters/gpt-instructions.md).
+- The shareable page is one HTML file (Claude artifact, GPT site, Grok handoff). The Cursor canvas is a second render of the same numbers.
+- Earnings companion adds a quarter scoreboard: one row per call, what they said, what the next print showed, kept or not. It does not rate the name.
+
 ## 1.3.0 — 2026-09-22
 
 Valuation drill-downs and the management slip clock.

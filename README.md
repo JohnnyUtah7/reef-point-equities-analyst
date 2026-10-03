@@ -1,6 +1,6 @@
 # Reef Point Equities analyst
 
-Cursor (and Claude) plugin. **One SEC-listed ticker in. Official memo, football field, Sheets, and white-cover deck out.**
+One pack for Cursor, Claude, Codex, and Grok. **One SEC-listed ticker in. Official memo, football field, Sheets, and white-cover deck out.**
 
 This repo is the product you install and share. It does **not** ship a rating or a worked company note.
 
@@ -17,9 +17,10 @@ Install: [INSTALL.md](./INSTALL.md). Identity: [references/edgar-identity.md](./
 | Layer | What it does |
 |---|---|
 | EDGAR | `scripts/edgar_pull.py` → `artifacts/{TICKER}/01-sec/` |
-| Models | Statements, DCF, trading comps, LBO (lite), SOTP |
-| House overlay | Dilution, transaction comps, replacement, yield, football field |
-| Publish | Official note, auditor, earnings-call companion, Sheets, PPTX → Google Slides |
+| Models | Statements, DCF, comps (user-picked or researched; P/E, EV/EBITDA, EV/Sales), LBO (lite), SOTP |
+| House overlay | Dilution, precedent deals, asset-based floor (book / PPE − net debt / replacement), yield, football field |
+| Calls | One row per quarter: what they said, what the next print showed, kept or not. Does not rate the name |
+| Publish | Official note, auditor, Sheets, PPTX → Google Slides, one HTML page |
 
 Trigger `analyze TICKER` → `portfolio-research` → studio steps 1–13, then field, official memo, Sheets, white-cover PPTX.
 
@@ -42,6 +43,17 @@ Do not copy another name’s share count, WACC, or rating.
 ## Hard no
 
 Zapier. Bare `sec.gov` fetch. Invented multiples. Courtesy Hold when the field is Sell. `gws` as the official deck. Waiting on X.
+
+## Where it runs
+
+Same `skills/` tree. Manifests only point at it.
+
+| Deployment | How |
+|---|---|
+| Cursor | `.cursor-plugin/plugin.json`. Canvas is `.canvas.tsx` |
+| Claude | `.claude-plugin/plugin.json`. Shareable page is the HTML file (artifact) |
+| Codex / Custom GPT | `.codex-plugin/plugin.json`. Instructions: [adapters/gpt-instructions.md](./adapters/gpt-instructions.md). The site is that same HTML file |
+| Grok bot | `.grok-plugin/plugin.json` plus [adapters/grok-bot.md](./adapters/grok-bot.md). The bot has no canvas. It hands back the HTML file |
 
 **Draft view — not investment advice.**
 
