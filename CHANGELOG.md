@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.5 — 2026-10-03
+
+Codex listing copy says what it does: value one public company and get Buy, Hold, or Sell. Category stays Finance. Website points at the GitHub repo.
+
 ## 1.3.4 — 2026-10-03
 
 Codex listing title is Equities Valuation. Category is Finance. The subtitle says a full valuation and a Buy, Hold, or Sell on one public company.

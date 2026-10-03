@@ -1,7 +1,7 @@
 {
   "name": "reef-point-equities-analyst",
-  "version": "1.3.4",
-  "description": "Full valuation on one public company: filings, comps, precedents, asset value, and a DCF, then a football field and a Buy, Hold, or Sell. Draft research, not investment advice.",
+  "version": "1.3.5",
+  "description": "Value one public company. Filings, comps, past deals, asset value, and a DCF, then a price range and a Buy, Hold, or Sell. Draft research, not investment advice.",
   "author": {
     "name": "Chris Miller",
     "email": "realchrismiller@gmail.com"
@@ -19,13 +19,14 @@
   "logo": "assets/codex-icon.png",
   "interface": {
     "displayName": "Equities Valuation",
-    "shortDescription": "Full valuation and a Buy, Hold, or Sell on one public company.",
-    "longDescription": "For SEC-listed companies. Pull the filings, run comps, precedent deals, asset value, and a DCF, then publish a football field and a Buy, Hold, or Sell. Draft research, not investment advice.",
+    "shortDescription": "Value a public stock and get Buy, Hold, or Sell.",
+    "longDescription": "One SEC-listed ticker. You get the filings, comparable companies, past deals, what the assets are worth, and a DCF, then a price range and a Buy, Hold, or Sell. Draft research, not investment advice.",
     "developerName": "Reef Point Capital",
     "category": "Finance",
+    "websiteURL": "https://github.com/JohnnyUtah7/reef-point-equities-analyst",
     "defaultPrompt": [
-      "Run a full valuation on AAPL and give me Buy, Hold, or Sell.",
-      "Value CRWV: comps, DCF, and a price target."
+      "Value AAPL and tell me Buy, Hold, or Sell.",
+      "Full valuation on CRWV: comps, DCF, and a price."
     ],
     "brandColor": "#1B2A4A",
     "composerIcon": "./assets/codex-icon.png",
