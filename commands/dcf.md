@@ -1,11 +1,8 @@
 ---
 name: dcf
-description: Build a DCF for the given ticker using SEC-backed statements
+description: Build or refresh the FCFF DCF for a ticker from existing SEC artifacts.
 ---
 
 # DCF
 
-1. If `02-statements` missing, run `sec-filings` then `financial-statements`
-2. Run `dilution-if-converted` when converts/ATM/options exist or may exist
-3. Run `dcf-model` with `valuation-conventions` (odd 5×5, center = base, TV % of EV)
-4. Open `artifacts/{TICKER}/03-models/dcf.md` — `$/sh` on if-converted count
+Require `artifacts/{TICKER}/02-statements/` (run statements first if missing). Then `skills/valuation-conventions/SKILL.md` + `skills/dcf-model/SKILL.md`. Re-divide `$/sh` with `skills/dilution-if-converted/SKILL.md` before publishing.

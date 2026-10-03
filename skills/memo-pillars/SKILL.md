@@ -1,20 +1,23 @@
 ---
 name: memo-pillars
 description: >
-  Pillar / kill memo shape for the official Reef Point note. Overlays studio
-  equity-research-memo. Rate after the football field, not before the model.
-  Triggers: thesis pillars, kill criteria, what would change my mind, steel-man.
+  GeniusTrader pillar / kill memo shape for the official Reef Point note.
+  Overlays studio equity-research-memo. Rate after the football field, not
+  before the model. Triggers: thesis pillars, kill criteria, what would
+  change my mind, steel-man.
 ---
 
-# Memo pillars
+# Memo pillars (GeniusTrader overlay)
 
-Studio memo is thesis-first but thin. Official note follows this shape. **Do not commit direction before the model.** Rate **after** the football field.
+Studio memo is thesis-first but thin. Official note follows this shape. **Hub does not adopt “commit direction before the model.”** Rate **after** the football field.
+
+Opened: `GeniusTrader-Harry/equity-research-skill` (`SKILL.md`, phase7–10, phase13).
 
 ## Vocabulary
 
 | Word | Meaning |
 |---|---|
-| Direction | Buy / Hold / Sell |
+| Direction | Buy / Hold / Sell (their long / short / pass) |
 | Thesis | Direction **plus** the pillars |
 | Pillar | One testable argument — all five elements required |
 | Killing condition | Pre-specified observable that falsifies a pillar |
@@ -35,7 +38,9 @@ Template: *“[Driver] will [direction] [magnitude] by [date] because [mechanism
 
 Bad: “Strong brand / AI tailwind.” No driver, no magnitude, no kill.
 
-**2–4 pillars.** Distinct drivers. Flag if the edge vs Street **or** vs bear is < ~10% of spot. Magnitudes in the memo are structuring tools. Studio / Sheets **re-derive** the model inputs. If they disagree, that is an audit surprise — do not silently align.
+**2–4 pillars.** Distinct drivers — four flavors of the same claim is one pillar. Materiality: flag if edge vs Street **or** vs bear is < ~10% of spot (their Gates 2A/2B). User can keep a defensive load-bearing pillar (2B only).
+
+Magnitudes in the memo are structuring tools. Studio / Sheets **re-derive** the model inputs. If they disagree, that is an audit surprise — do not silently align.
 
 ## Killing conditions (sacred)
 
@@ -52,7 +57,7 @@ KC{n} — short label (Pillar P{n})
 
 IDs never renumber. Dropped IDs retire. **Verbatim** into “What would change my mind” — do not paraphrase.
 
-Calibrate so the **base case does not trip** the KC. If base already crosses the threshold, the KC is mis-set.
+Calibrate so the **base case does not trip** the KC (their Gate D). If base already crosses the threshold, the KC is mis-set.
 
 A pillar with no accepted kill is dropped.
 
@@ -73,9 +78,9 @@ Unacceptable rejections: “management says no,” “hasn’t happened yet,” 
 
 No orphan numbers. Modeling vs sourced must be visually distinct (“my modeling: …”).
 
-## Official memo map
+## Official memo map (hub)
 
-`docs/{ticker-lower}-equity-research.md` when `docs/` exists; else `artifacts/{TICKER}/04-research/memo.md`.
+`docs/{ticker-lower}-equity-research.md` — not only `artifacts/.../memo.md`.
 
 1. Exec table: **Buy / Hold / Sell**, range, central, last, dilution, EV bridge, three bullets, key risk. `Draft view — not investment advice.`
 2. Business (cited)
@@ -88,11 +93,14 @@ No orphan numbers. Modeling vs sourced must be visually distinct (“my modeling
 9. Sources index (form / date / accession)
 10. Audit-pass log
 
-User-stated direction wins. If they do not state one, the field sets it (`football-field`).
+User-stated direction wins. If they do not state one, the field sets it ([football-field](../football-field/SKILL.md)).
 
-## Rejected
+## Rejected from GeniusTrader
 
-- Commit long/short **before** the model
-- Mandatory Q&A pause between phases
-- Wait-forever CapIQ
+- Commit long/short **before** the model (phase 7)
+- Mandatory Q&A pause between 13 phases
+- Wait-forever CapIQ drop
+- `validate_citations.py` as a required binary
+- Forward-multiple as the **default** over DCF (studio still runs DCF; field blends)
+- Publish to their GitHub Pages archive
 - Cover “conviction” line

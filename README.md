@@ -1,160 +1,60 @@
-# Reef Point Equities Analyst
+# Reef Point Equities analyst
 
-Cursor / Claude plugin for one-name equity research:
+One pack for Cursor, Claude, Codex, and Grok. **One SEC-listed ticker in. Official memo, football field, Sheets, and white-cover deck out.**
 
-**SEC filings → statements → DCF / comps / LBO / SOTP → dilution & football field → official memo → Google Sheets → PPTX → native Google Slides**
+This repo is the product you install and share. It does **not** ship a rating or a worked company note.
 
-One prompt:
-
-```text
+```
 analyze TICKER
 ```
 
-Also accepted: `analyze TICKER end-to-end`, `check out NVDA`, `full analysis of MSFT`.
+or `/analyze-company TICKER`. Fast path: `/analyze-lite TICKER`.
 
-This is a **workflow aid**. Every published note is labeled **not investment advice**.
+Install: [INSTALL.md](./INSTALL.md). Identity: [references/edgar-identity.md](./references/edgar-identity.md). Layout: [references/artifact-layout.md](./references/artifact-layout.md). Runbook: [docs/ticker-runbook.md](./docs/ticker-runbook.md).
 
-## What’s inside
+## What you get
 
 | Layer | What it does |
 |---|---|
-| Studio engine | 16 skills: intake, EDGAR, statements, DCF, trading comps, LBO, SOTP, competitive, unit econ, scenarios, catalysts, risk-audit, draft memo, slide notes |
-| Reef Point overlays | Dilution / if-converted, transaction comps, replacement floor, yield/residual, football field + blend, memo pillars, research auditor, Sheets workbook, PPTX→Slides |
-| Agents | 8 role cards (Research Lead → Deck Producer) |
-| Commands | `/analyze-company`, `/dcf`, `/sec-pull`, `/slides` |
-| Rule | Never invent SEC numbers; Buy/Hold/Sell from the field; no Zapier |
-| Assets | `assets/rpc-logo.png`, `assets/house-template.pptx` |
+| EDGAR | `scripts/edgar_pull.py` → `artifacts/{TICKER}/01-sec/` |
+| Models | Statements, DCF, comps (user-picked or researched; P/E, EV/EBITDA, EV/Sales), LBO (lite), SOTP |
+| House overlay | Dilution, precedent deals, asset-based floor (book / PPE − net debt / replacement), yield, football field |
+| Calls | One row per quarter: what they said, what the next print showed, kept or not. Does not rate the name |
+| Publish | Official note, auditor, Sheets, PPTX → Google Slides, one HTML page |
 
-**Not included:** IREN (or any name) as a packaged proof note. Run a ticker; do not treat example patterns as a rating. **Not included:** Zapier, vendored EDGAR clones, OAuth tokens.
+Trigger `analyze TICKER` → `portfolio-research` → studio steps 1–13, then field, official memo, Sheets, white-cover PPTX.
 
-## Install — Cursor
+Rating is **Buy / Hold / Sell after the field**. Cover-share `$/sh` is not official. Circular own-ARR bars draw and get **weight 0**.
 
-```bash
-mkdir -p ~/.cursor/plugins/local
-rsync -a --delete ./ ~/.cursor/plugins/local/reef-point-equities-analyst/
-```
+Official deck is `pptx-to-google-slides`. `slides-deck` / `gws` are speaker notes only.
 
-Restart Cursor or run **Developer: Reload Window**. Confirm skills under Customize / Plugins: `portfolio-research`, `full-company-analysis`, `sec-filings`.
+## Any ticker?
 
-**Project-local (no plugin UI):**
+**Yes, if they file with the SEC** (10-K/10-Q or 20-F/6-K). Same skills, ticker in the path.
 
-```bash
-mkdir -p .cursor/skills .cursor/agents .cursor/rules
-cp -R skills/* .cursor/skills/
-cp -R agents/* .cursor/agents/
-cp rules/*.mdc .cursor/rules/
-```
+| Works | Does not |
+|---|---|
+| US listed, FPI, multi-segment | Private companies, no CIK |
+| Asset-heavy or asset-light (skip rules) | Non-US only with no SEC file |
+| Lite mode for a same-day look | Banks/insurers as a full bank model (flagged, not faked) |
 
-## Install — Claude Code
+Do not copy another name’s share count, WACC, or rating.
 
-```bash
-# Local marketplace from this folder
-claude plugin marketplace add "$(pwd)"
-claude plugin install reef-point-equities-analyst
-```
+## Hard no
 
-Or copy skills:
+Zapier. Bare `sec.gov` fetch. Invented multiples. Courtesy Hold when the field is Sell. `gws` as the official deck. Waiting on X.
 
-```bash
-mkdir -p ~/.claude/skills ~/.claude/plugins/reef-point-equities-analyst
-cp -R skills/* ~/.claude/skills/
-rsync -a ./ ~/.claude/plugins/reef-point-equities-analyst/
-```
+## Where it runs
 
-Exact `claude plugin` flags depend on your Claude Code version. Copying `skills/` always works.
+Same `skills/` tree. Manifests only point at it.
 
-## EDGAR_IDENTITY (required)
+| Deployment | How |
+|---|---|
+| Cursor | `.cursor-plugin/plugin.json`. Canvas is `.canvas.tsx` |
+| Claude | `.claude-plugin/plugin.json`. Shareable page is the HTML file (artifact) |
+| Codex / Custom GPT | `.codex-plugin/plugin.json`. Instructions: [adapters/gpt-instructions.md](./adapters/gpt-instructions.md). The site is that same HTML file |
+| Grok bot | `.grok-plugin/plugin.json` plus [adapters/grok-bot.md](./adapters/grok-bot.md). The bot has no canvas. It hands back the HTML file |
 
-SEC fair-access requires a real contact User-Agent on every request. Without it, EDGAR returns **403**.
+**Draft view — not investment advice.**
 
-```bash
-export EDGAR_IDENTITY="Your Name you@email.com"
-# persist in the shell you use for Agent terminals:
-echo 'export EDGAR_IDENTITY="Your Name you@email.com"' >> ~/.zshrc
-```
-
-Optional Python stack:
-
-```bash
-pip install edgartools python-pptx openpyxl
-# If EDGAR pulls fail with FileStorage / hishel errors:
-pip install 'hishel==0.1.3'
-```
-
-Check:
-
-```bash
-echo "$EDGAR_IDENTITY"
-python3 -c "import edgar; import importlib.metadata as m; print(m.version('edgartools'))"
-```
-
-Then pull:
-
-```bash
-python scripts/edgar_pull.py AAPL
-```
-
-Never bare-fetch `sec.gov`. Never commit OAuth tokens.
-
-## Analyze a ticker
-
-In Cursor Agent or Claude Code:
-
-```text
-analyze AAPL
-```
-
-The agent should load `portfolio-research`:
-
-1. Confirm `EDGAR_IDENTITY` and `import edgar`
-2. Studio steps 1–13 (intake → SEC → statements → models → draft memo). Skip studio `slides-deck` as the official deck.
-3. House overlays: dilution → transaction comps → replacement → yield → football field
-4. Official note: Buy / Hold / Sell from the field (`docs/{ticker}-equity-research.md` if the workspace has `docs/`, else `artifacts/{TICKER}/04-research/memo.md`)
-5. Research auditor (halt on `FAIL` unless you override)
-6. Optional earnings-call companion
-7. Sheets workbook → Drive convert (if Google Drive is connected)
-8. PPTX from `assets/house-template.pptx` + white RPC cover → Drive convert
-
-Artifacts land under `artifacts/{TICKER}/`. See `references/artifact-layout.md`.
-
-Lite: `quick look at TICKER` skips LBO + SOTP unless the name is multi-segment.
-
-## Deck path
-
-Official deck is **PPTX → Google Drive conversion-on-upload**, not `gws` and not markdown-first Slides API. Studio `slides-deck` may still write `05-deck/slide.md` as speaker notes.
-
-Cover: full white, Reef Point Capital logo centered (`assets/rpc-logo.png`). Interior: takeaway line, hairlines, proprietary footer.
-
-If Drive is missing or 401, authenticate Drive and stop. There is no Zapier fallback.
-
-## Layout
-
-```text
-reef-point-equities-analyst/
-├── .cursor-plugin/plugin.json
-├── .claude-plugin/plugin.json
-├── plugin.json
-├── skills/                 # studio engine + Reef Point overlays
-├── agents/
-├── commands/
-├── rules/
-├── references/             # EDGAR identity, house style, deck spec
-├── assets/rpc-logo.png
-├── assets/house-template.pptx
-├── scripts/edgar_pull.py
-├── examples/prompts.md
-├── INSTALL.md
-└── README.md
-```
-
-## Provenance
-
-Skill text is curated from public technique sources listed in `references/sources.md` (edgartools, analyst-kit, Anthropic financial-services, GeniusTrader memo shape). This repo ships **instructions + a thin EDGAR wrapper**, not those repos.
-
-## License
-
-MIT. Copyright (c) 2026 Chris Miller.
-
-## Disclaimer
-
-Educational / professional workflow aid. **Not investment advice.**
+MIT — Copyright 2026 Chris Miller.

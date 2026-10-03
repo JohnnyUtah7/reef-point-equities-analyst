@@ -8,11 +8,11 @@ description: >
 
 # Sheets workbook
 
-Required on `analyze TICKER`. Not a second DCF engine — it **hosts** studio numbers as live formulas.
+Required on `analyze TICKER end-to-end`. Not a second DCF engine — it **hosts** studio numbers as live formulas. Distilled from Anthropic `xlsx-author` / `audit-xls` / DCF sensitivity + GeniusTrader phase11 tab shape.
 
 ## File
 
-`docs/{ticker-lower}-model.xlsx` when `docs/` exists; else `artifacts/{TICKER}/03-models/{ticker}-model.xlsx`. Author with **openpyxl**. Then Drive conversion-on-upload (same trick as PPTX).
+`docs/{ticker-lower}-model.xlsx` via **openpyxl**. Then Drive conversion-on-upload (same trick as PPTX).
 
 ```
 title:                 {TICKER} Model — Reef Point
@@ -21,8 +21,6 @@ disableConversionToGoogleType: false
 ```
 
 Confirm MIME `application/vnd.google-apps.spreadsheet`. Return `https://docs.google.com/spreadsheets/d/{id}/edit`. No Zapier. No Sheets API authoring from scratch.
-
-If Drive is missing / 401: write the local xlsx, say Drive is required for native Sheets, and stop. Do not invent a URL.
 
 ## Tabs (this order)
 
@@ -37,7 +35,7 @@ If Drive is missing / 401: write the local xlsx, say Drive is required for nativ
 | Football field | Low / mid / high / weight / in-blend flag; blend formula |
 | DCF | WACC build, PV, TV, equity bridge, if-converted `$/sh` |
 | Comps | Peer inputs + formula multiples + quartile stats |
-| Txns | Precedent table + applied `$/sh` |
+| Txns | Precedent table + applied $/sh |
 | SOTP | Segment EVs + holdco + ND once |
 | Replacement | Book / PPE / build stack |
 | Sensitivity | Odd 5×5; **center = base** |
@@ -46,7 +44,7 @@ If Drive is missing / 401: write the local xlsx, say Drive is required for nativ
 
 Skip Yield tab if the method was skipped; note it on Cover.
 
-## Conventions (`valuation-conventions`)
+## Conventions ([valuation-conventions](../valuation-conventions/SKILL.md))
 
 - Blue `#0000FF` inputs, black formulas, purple same-tab, green cross-sheet.
 - Comment on every blue cell when written.
@@ -66,11 +64,20 @@ DCF `$/sh` on Cover **links** to the if-converted cell, not a paste of studio ma
 
 ## Recalc / audit
 
-If you have a recalc helper, run it. Else openpyxl-write formulas and document that Sheets will calculate on open. Then run `research-auditor` hunt item 4 on the blend and EV bridge.
+If you have a recalc helper, run it. Else openpyxl-write formulas and document that Sheets will calculate on open. Then run [research-auditor](../research-auditor/SKILL.md) hunt item 4 on the blend and EV bridge.
 
 Checks tab failures block publish.
+
+## GeniusTrader phase11 we keep
+
+Assumptions Notes column; history and forecast on one IS; structural vs realised margin bridge when take-rate / gross-to-net matters; reporting currency in the model, listing currency on Cover; FX tornado only if real revenue/cost mix.
+
+## GeniusTrader phase11 we drop
+
+Forward-multiple as the only valuation tab. Cover “conviction.” Waiting for CapIQ xlsx.
 
 ## Do not
 
 - Hardcode the blend or `$/sh` in Python and paste values.
+- Dump into My Drive without an `Investment Research` or ticker folder if one exists.
 - Call this the research canvas (that is a different skill).

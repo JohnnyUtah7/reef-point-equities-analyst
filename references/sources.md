@@ -1,28 +1,17 @@
-# Technique provenance (distilled, not copied)
+# Provenance
 
-This plugin ships curated skill text only — not the source repositories.
+Reef Point Equities analyst **1.3.1**. Filings engine + house publish overlays. No company note is vendored.
 
-| Technique | Public source |
+Techniques distilled from public packs (not cloned into this repo):
+
+| Source | What we kept |
 |---|---|
-| EDGAR identity + `Company().get_financials()` | [dgunning/edgartools](https://github.com/dgunning/edgartools) |
-| SEC filings User-Agent / 8-K exhibits | [mohitjandwani/analyst-kit](https://github.com/mohitjandwani/analyst-kit) |
-| DCF formulas-over-hardcodes, odd sensitivity, center = base | [anthropics/financial-services](https://github.com/anthropics/financial-services) `dcf-model` |
-| LBO sources & uses / returns | Anthropic `lbo-model` |
-| Trading comps hierarchy | Anthropic `comps-analysis` |
-| Competitive landscape outline-first | Anthropic `competitive-analysis` |
-| Catalyst calendar structure | Anthropic `catalyst-calendar` |
-| Unit economics (SaaS/ARR) | Anthropic PE unit-economics |
-| Thesis pillars + kill criteria | [GeniusTrader-Harry/equity-research-skill](https://github.com/GeniusTrader-Harry/equity-research-skill) — **not** “commit direction before the model” |
-| SOTP segment EV + holdco | [himself65/finance-skills](https://github.com/himself65/finance-skills) SOTP — not yfinance-first |
-| Research auditor hunt + UNVERIFIED | analyst-kit `research-auditor` |
-| Football field min/median/max + last-print | Anthropic Pitch Agent (idea only; branding rejected) |
-| PPTX → native Slides | Drive conversion-on-upload ([google_workspace_mcp#822](https://github.com/taylorwilsdon/google_workspace_mcp/pull/822) pattern) |
+| [dgunning/edgartools](https://github.com/dgunning/edgartools) | `EDGAR_IDENTITY`, `Company()`, `get_financials()`, 20-F/40-F/6-K fallback, no bare sec.gov fetch |
+| [mohitjandwani/analyst-kit](https://github.com/mohitjandwani/analyst-kit) | 8-K EX-99.1/99.2 for non-GAAP KPIs, auditor hunt + UNVERIFIED, never publish on FAIL |
+| [anthropics/financial-services](https://github.com/anthropics/financial-services) | Formulas over hardcodes, odd 5×5 center=base, comps hierarchy, LBO S=U, field = min/median/max + last-print |
+| [GeniusTrader-Harry/equity-research-skill](https://github.com/GeniusTrader-Harry/equity-research-skill) | Pillars (claim / driver / mechanism / magnitude / timeframe / kill). **Rejected:** commit direction before the model |
+| [himself65/finance-skills](https://github.com/himself65/finance-skills) | SOTP HQ line, net debt once. **Rejected:** yfinance-first |
 
-## Rejected (do not re-introduce)
+House-only: if-converted table, circularity veto, replacement floor, yield skip, PPTX→Drive convert, Sheets workbook.
 
-- Zapier / Make / n8n
-- `gws` / jackchuka markdown-first as the official deck
-- IB navy `#1F4E79` Pitch Agent chrome
-- FMP / FinMind keys, analyst-kit telemetry
-- Vendoring the source repos
-- Hardcoded risk-free rate defaults (e.g. 4.5%) as if they were current
+**Rejected as official:** Zapier, `gws`, jackchuka markdown-first slides, IB navy `#1F4E79`, CapIQ wait-forever.

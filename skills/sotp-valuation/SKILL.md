@@ -1,39 +1,24 @@
 ---
 name: sotp-valuation
 description: >
-  Sum-of-the-parts valuation for multi-segment companies: segment financials,
-  segment-appropriate multiples or mini-DCFs, corporate net debt/cash, ARR
-  multiple disclosure, and conglomerate discount discussion. Use for diversified
-  issuers or when user asks for SOTP / sum of the parts.
-version: "1.1.0"
+  Segment map, per-segment multiple or mini-DCF, holdco, conglomerate
+  discount. Skip single-segment with why. Circular own-ARR sleeves weight 0.
 ---
 
-# Sum-of-the-Parts (SOTP)
+# SOTP / NAV
 
-<!-- Provenance: claude-finance-skills sum-of-the-parts-valuation; equity-research
-     segment thinking -->
+Write `artifacts/{TICKER}/03-models/sotp.md`.
 
-## Hard rules
-- Segment revenue/operating income must cite 10-K Note / Item 1 segment disclosure.
-- Do not double-count shared corporate costs — show allocation or holdco cost line.
-- Net debt applied **once** at the equity bridge.
-- **Dilution (hard):** Equity bridge → $/sh must show **basic vs fully diluted** when converts/ATM/options exist; label share count; if-converted DATA_GAP → do not present undiluted as “the” value.
-- **ARR / non-GAAP (hard):** If any segment uses ARR / contracted ARR / operating ARR, label it a **non-GAAP operating metric**. SOTP using ARR multiples must disclose if the multiple is **tape-implied / circular** (e.g. mix-shift names: tape EV ÷ own ARR). Prefer independent peer ARR multiples when available; if using tape-implied, say so explicitly and do not treat it as independent corroboration.
+Use when **2+ reportable segments in different industries**. Else skip.
 
-## Steps
-1. **Segment map** — List reportable segments + geographic if useful; % of sales / op income; note LTM vs forward mix if transitioning.
-2. **Method per segment** — Trading multiple vs peers **or** abbreviated DCF; state why. For ARR-based segments: disclose multiple source (peer vs tape-implied).
-3. **Corporate / unallocated** — HQ costs, excess cash, investments, pensions, NCI.
-4. **Gross SOTP EV** — Sum segment EVs.
-5. **Equity bridge** — − net debt − NCI + associates/non-core − other claims (incl. convert treatment if if-converted).
-6. **Per-share** — Basic and fully diluted.
-7. **Conglomerate discount** — Optional scenario (0–20%) with rationale; show with/without.
-8. **Cross-check** — vs single-firm DCF and comps; explain gaps; call out circular ARR multiples.
-
-## Outputs
 ```
-artifacts/{TICKER}/03-models/sotp.md
+segment_EV_i = segment_metric_i × peer_median_i
+Gross EV     = Σ segment_EV − unallocated HQ (or 8× ongoing HQ cost)
+Equity       = Gross EV − ND − NCI − prefs − pension + cash + non-core
+             − coupling haircut 5–15% if vertically tied
+             − tax leakage 10–20% if a spin is the thesis
 ```
 
-## When to skip
-- Single-segment pure-play → note N/A and point to DCF/comps.
+Net debt **once**. A sleeve that is market EV / the company’s **own** ARR is circular — draw it, weight 0 on the field.
+
+Conglomerate discount without a catalyst (13D, strategic review, announced spin) is dead money — show it, do not sell it.

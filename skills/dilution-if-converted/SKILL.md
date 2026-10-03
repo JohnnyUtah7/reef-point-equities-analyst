@@ -4,12 +4,11 @@ description: >
   Build the mandatory share-count / if-converted table before any $/share
   output. Use after studio statements exist, before the football field.
   Triggers: dilution, convertibles, if-converted, diluted shares, ATM, warrants.
-version: "1.2.0"
 ---
 
 # Dilution / if-converted
 
-Studio DCF often prices on **cover shares**. Official `$/sh` uses the **value-relevant** count. Do not invent a second DCF — take studio equity value and re-divide.
+Studio DCF often prices on **10-K cover shares**. Official `$/sh` uses the **value-relevant** count. Do not invent a second DCF — take studio equity value and re-divide.
 
 ## Sources (cite form / date / accession)
 
@@ -17,7 +16,7 @@ Studio DCF often prices on **cover shares**. Official `$/sh` uses the **value-re
 |---|---|
 | Cover ordinary (+ class shares) | 10-K / 10-Q cover |
 | Diluted WAS | Income statement (period average — not a spot count) |
-| Converts, warrants, prepaid forwards | Debt / equity notes |
+| Converts, warrants, prepaid forwards | Debt / equity notes (often Note 23-class) |
 | Options / RSUs | Share-based payment note + diluted-EPS footnote |
 | ATM / shelf remaining | Prospectus + subsequent 8-K / cover update |
 | Conversion conditions met? | Convertible note (price tests, trading-price condition) |
@@ -79,17 +78,12 @@ Carrying debt vs principal: keep studio net-debt on **carrying + unrestricted ca
 - [ ] Prepaid forwards / capped calls: sourced or `DATA_GAP`
 - [ ] Studio `dcf.md` cover-share `$/sh` is **not** the published mid
 
-## Outputs
+## Worked pattern (do not copy figures)
 
-```
-artifacts/{TICKER}/01-sec/dilution_if_converted.md
-```
-
-DCF, comps, SOTP, memo, slides, and risk-audit **must** consume this artifact when present and label `$/sh` as basic vs FD.
+Cover ordinary + ITM convert shares = `value_shares`. Add ITM principal back on share-settle. OTM paper stays in the table, out of the count, until the bull price puts it in.
 
 ## Do not
 
-- Do not run a second EDGAR stack. Call `sec-filings`.
+- Do not run a second EDGAR stack. Call studio `sec-filings`.
 - Do not use diluted WAS as the spot count.
 - Do not drop OTM paper from the table just because it is out of the count.
-- Do not invent conversion rates, principal, or share counts.

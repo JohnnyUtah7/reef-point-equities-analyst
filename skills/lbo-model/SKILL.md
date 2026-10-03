@@ -1,37 +1,16 @@
 ---
 name: lbo-model
 description: >
-  Teaching-quality LBO: Sources & Uses, operating forecast, debt schedule,
-  returns (IRR/MOIC), and sensitivity. Use for PE-style sponsor returns analysis
-  or when user asks for LBO / leveraged buyout model.
-version: "1.0.0"
+  Teaching sources-and-uses LBO, debt schedule, IRR/MOIC. Lite unless a
+  real sponsor bid is the question. Off the football field by default.
 ---
 
-# LBO Model
+# LBO model
 
-<!-- Provenance: Anthropic financial-services lbo-model (S&U, debt schedule,
-     formulas-over-hardcodes, section checkpoints) -->
+Write `artifacts/{TICKER}/03-models/lbo.md`.
 
-## Hard rules
-- Label every leverage / rate / exit multiple assumption.
-- Do not invent EBITDA or purchase price — tie to statements or user case.
-- Educational default: simplified but complete S&U → returns path.
+Lite (default): one S&U, entry / exit multiple, debt / equity split, IRR/MOIC, one sensitivity. Interest on **beginning** balance. Cash sweep respects priority. `Sources = Uses`.
 
-## Sections (build in order; verify each)
-1. **Transaction assumptions** — Entry EBITDA, entry multiple, equity contribution %, debt tranches (amount, rate, amort), fees, exit year, exit multiple.
-2. **Sources & Uses** — Must balance.
-3. **Operating model** — Revenue, EBITDA, FCF available for debt paydown.
-4. **Debt schedule** — Beginning, draws, amort, interest, mandatory/optional paydown, ending; cash sweep rules stated.
-5. **Returns** — Sponsor MOIC & IRR (base); optional management rollover.
-6. **Sensitivity** — Entry vs exit multiple; EBITDA growth vs exit multiple.
+Full: only if the user asks or a live sponsor process exists. Then the LBO bar may enter the field.
 
-## Outputs
-```
-artifacts/{TICKER}/03-models/lbo.md
-artifacts/{TICKER}/03-models/lbo.xlsx   # optional
-```
-
-## Teaching notes (include briefly in output)
-- Why leverage amplifies equity returns and risk
-- Covenant / refinance risk qualitatively
-- Exit multiple vs entry (multiple expansion not a free lunch)
+Do not put a generic 20% IRR on the published field “for completeness.”

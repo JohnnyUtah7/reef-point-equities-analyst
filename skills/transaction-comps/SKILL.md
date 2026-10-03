@@ -8,7 +8,7 @@ description: >
 
 # Transaction comps
 
-Studio trading comps do **not** own this bar. Distilled from Anthropic initiating-coverage precedent process. House adds failed-close haircuts and no paper-pipeline rule.
+Studio does **not** own this bar. Distilled from Anthropic initiating-coverage `valuation-methodologies.md` (Precedent Transactions) and Pitch Agent “5–10 precedents.” House adds failed-close haircuts and no paper-pipeline rule.
 
 ## Universe
 
@@ -22,9 +22,9 @@ Studio trading comps do **not** own this bar. Distilled from Anthropic initiatin
 1. Target/acquirer **8-K, S-4, proxy** (offer price, exchange ratio, EV, close/terminate).
 2. Studio `01-sec/` if the target is the subject.
 3. Dated press / IR only if the filing is missing — label lower confidence.
-4. CapIQ / FactSet if a data tool is actually connected. Never wait on one.
+4. CapIQ / FactSet if an MCP is actually connected. Never wait on one.
 
-If a multiple cannot be sourced: `[UNSOURCED]` and exclude from the median.
+If a multiple cannot be sourced: `[UNSOURCED]` and exclude from the median (Pitch Agent guardrail).
 
 ## Spread
 
@@ -45,7 +45,7 @@ Transaction EV = equity offer + assumed net debt − cash acquired
 Premium        = (offer − unaffected) / unaffected
 ```
 
-Typical control premium **20–40%**. Strategic + synergy deals sit above financial sponsors. Treat that band as context, not a hardcoded input.
+Typical control premium **20–40%**. Strategic + synergy deals sit above financial sponsors.
 
 ## Apply to the name
 
@@ -56,19 +56,27 @@ implied_equity = (metric × multiple) − net_debt   # if the multiple is EV
 $/sh           = implied_equity / value_shares    # same count as the field
 ```
 
-**Vetoes**
+**House vetoes**
 
-- Do not put **paper pipeline** capacity on a live-asset multiple.
-- Failed close: use the signed metric as a **low/mid** only after an explicit haircut.
+- Do not put **paper pipeline** GW on a live-campus multiple.
+- Failed close: use the signed metric as a **low/mid** only after an explicit haircut, or as a warning that signed marks get vetoed.
 - Transition-year EBITDA (loss / wind-down) → NM. A *forward* analog belongs in the high with a flag, not the mid.
-- Do not silently mix equity value / unit with EV / unit.
+- Do not silently mix equity value / MW with EV / MW.
 
 ## Output
 
 `artifacts/{TICKER}/03-models/txns.md` (and the `Txns` tab in the Sheets workbook). Field row: low / mid / high / skip-reason.
 
+The same rows are a **required** canvas sub-view and a deck appendix slide. Valuation stays one tab; Precedents is a sub-view under it, not a new top-level tab.
+
+```
+Deal | Announce | Close or terminate | Acquirer / target | Equity | EV | Structure | EV/Rev | EV/EBITDA | Premium | Status | In the median?
+```
+
+Terminated deals stay on the page with the haircut visible. If the physical metric on the target cannot be applied because the subject’s units are a `DATA_GAP`, skip the apply and say why. Do not borrow another name’s $/unit.
+
 ## Do not
 
 - Do not vendor a deal database.
-- Do not build a second trading-comps stack (`comps-valuation` owns that).
-- Do not use merger accretion/dilution as this bar — that is acquirer EPS, not a target football-field method.
+- Do not build a second trading-comps stack (studio owns that).
+- Do not use analyst-kit merger accretion/dilution as this bar — that is acquirer EPS, not a target football-field method.

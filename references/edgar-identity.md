@@ -1,41 +1,18 @@
-# SEC EDGAR identity (required)
+# EDGAR identity
 
-SEC fair-access policy requires a real contact User-Agent on every request.
-
-## Environment
+SEC requires a real name and email on every request.
 
 ```bash
 export EDGAR_IDENTITY="Your Name you@email.com"
 ```
 
-## Python (edgartools)
-
-```python
-from edgar import set_identity
-import os
-set_identity(os.environ["EDGAR_IDENTITY"])
-```
-
-## Curl / stdlib
-
-```
-User-Agent: Your Name you@email.com
-```
-
-Without this, EDGAR returns **403**. Do not use bare WebFetch against sec.gov.
-
-## Preferred pull paths (in order)
-
-1. `edgartools` — `pip install edgartools` then `Company("AAPL").get_financials()`
-2. Plugin script — `python scripts/edgar_pull.py AAPL`
-3. Companyfacts JSON from `data.sec.gov` with the same User-Agent
-
-## Dependency pin — hishel FileStorage
-
-If EDGAR pulls fail with **FileStorage** / hishel cache errors:
+Put that in `~/.zshrc` or `~/.bashrc`. Open a new terminal.
 
 ```bash
-pip install 'hishel==0.1.3'
+echo "$EDGAR_IDENTITY"
+python3 scripts/edgar_pull.py AAPL --out /tmp/aapl-sec
 ```
 
-**Pin note:** `hishel==1.1.8` broke FileStorage compatibility with the edgartools caching path used here. Prefer `hishel==0.1.3` until upstream is verified fixed. Record the pin in RUNLOG when applied.
+- The script reads **only** the environment. Nothing in this repo is a token.
+- Missing or no `@` → stop. Do not WebFetch `sec.gov`.
+- If `FileStorage` / hishel errors: `pip3 install 'hishel==0.1.3'`.

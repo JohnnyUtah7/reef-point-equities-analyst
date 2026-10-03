@@ -1,11 +1,11 @@
 ---
 name: sec-pull
-description: Pull SEC filings and XBRL financials for a ticker
+description: Pull EDGAR filings and standardized financials for one ticker into artifacts/{TICKER}/01-sec/.
 ---
 
 # SEC pull
 
-1. Check `EDGAR_IDENTITY` (`references/edgar-identity.md`)
-2. Run `company-intake` if needed
-3. Run `sec-filings` (prefer `scripts/edgar_pull.py`)
-4. Flag convertibles / ATM / options for `dilution-if-converted`
+1. Confirm `$EDGAR_IDENTITY` and `import edgar`.
+2. Run `skills/company-intake/SKILL.md` then `skills/sec-filings/SKILL.md`.
+3. Prefer `python3 scripts/edgar_pull.py TICKER --out artifacts/TICKER/01-sec`.
+4. Stop if identity is missing. Never WebFetch sec.gov.

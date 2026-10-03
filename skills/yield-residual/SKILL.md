@@ -8,7 +8,7 @@ description: >
 
 # Yield / residual
 
-Banks/insurers remain a studio `DATA_GAP` unless the user asks for a specialized model (this plugin does not add one).
+Studio has no yield or residual-income skill. Banks/insurers are still a studio `DATA_GAP` (no specialized model here).
 
 ## When it is a real bar
 
@@ -38,10 +38,14 @@ $/sh = V_0 / value_shares
 
 `r_e` = studio CAPM Ke. Book = latest reported book equity. Clean NI (flag one-offs). If every `RI_t` is ≤ 0, **skip** — the bar equals the replacement book floor.
 
-Do **not** treat SBC as a free add-back here. Treat SBC as a real cost.
+Do **not** treat SBC as a free add-back here. House treats SBC as a real cost.
 
 ## Output
 
-If live: low / mid / high on the field. If skip: one line with the filing cite (no dividend; RI reprints book).
+If live: low / mid / high on the field. If skip: one line, e.g. “No dividend (10-K). FY26 RI < book. Would reprint the $11 book floor.”
 
 Write `artifacts/{TICKER}/03-models/yield.md` even on skip.
+
+## Skip pattern
+
+**Skip** when there is no dividend and residual income reprints book. Write `yield.md` anyway.

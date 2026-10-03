@@ -1,41 +1,48 @@
 ---
 name: company-intake
 description: >
-  Parse a ticker or company name, normalize identity (ticker, CIK, exchange,
-  sector), seed peer list and artifact folder. Use when the user says "check out
-  AAPL", "analyze NVDA", "look at this company", or at the start of any full
-  pipeline before SEC pulls.
-version: "1.0.0"
+  Ticker or company name → CIK, FYE, peer seed, artifacts/{TICKER}/. First
+  step of analyze TICKER. Stop with UNRESOLVED if EDGAR cannot map the name.
 ---
 
-# Company Intake
+# Company intake
 
-<!-- Provenance: analyst-kit single-stock-deep-dive intake + edgartools Company() resolve -->
+Write `artifacts/{TICKER}/00-intake.md` and create the folder tree.
 
-## Hard rules
-- Never invent CIK or fiscal year-end. Resolve from EDGAR or label `UNRESOLVED`.
-- Create `artifacts/{TICKER}/` before any other skill writes files.
+## Resolve
 
-## Inputs
-- Free text: ticker, name, or URL ("check out this company: NVDA")
-- Optional: peer overrides, currency, fiscal calendar hint
-
-## Steps
-1. **Parse** — Extract ticker (prefer explicit symbols). If only a name, resolve via `Company("Name")` / EDGAR ticker map. Normalize to uppercase ASCII ticker.
-2. **Identity block** — Write:
-   - Legal name, ticker, exchange, CIK, SIC/sector (if available)
-   - Reporting currency, FYE month
-   - Latest share price source + as-of date (or `PRICE_GAP`)
-3. **Seed peers** — Propose 4–8 comps with one-line rationale; mark as draft until `comps-valuation` / `competitive-analysis` confirm.
-4. **Artifact bootstrap** — Create layout per `references/artifact-layout.md`. Write `artifacts/{TICKER}/00-intake.md` and append a line to `RUNLOG.md`.
-5. **Handoff** — Return TICKER + path to intake file. Next skill: `sec-filings`.
-
-## Output contract
-```
-artifacts/{TICKER}/00-intake.md
-artifacts/{TICKER}/RUNLOG.md
+```bash
+python3 scripts/edgar_pull.py {TICKER}
 ```
 
-## Failure modes
-- Ambiguous name (e.g. "Meta") → ask which entity / show candidates; do not guess.
-- Non-US issuer → note ADR/foreign filer; SEC XBRL may be limited.
+If the user gave a name not a ticker, try `Company("Name")` via the same script once you have a ticker candidate. Do not guess a CIK.
+
+| Field | Required |
+|---|---|
+| Legal name | Yes |
+| Ticker + exchange | Yes or `UNRESOLVED` |
+| CIK | Yes or stop |
+| Reporting currency | Yes |
+| Fiscal year-end | Yes |
+| Filer status | 10-K vs 20-F / FPI vs domestic |
+| Cover shares + as-of | If the latest periodic is in the pull |
+| Last price + as-of | Dated; label `PRICE_GAP` if not live |
+| Business one-liner | From Item 1 / 20-F Item 4, cited |
+| Draft peer seed | 4–8 names; confirm later in comps |
+
+## Issuer class (sets later skips)
+
+| Class | Later |
+|---|---|
+| Single-segment operating co | SOTP skip OK |
+| Multi-segment / conglomerate | SOTP required |
+| Asset-heavy (DC, rooms, fleet, PPE) | Replacement live |
+| Asset-light software | Replacement skip |
+| Bank / insurer | Specialized-model flag; no fake FCFF sufficiency |
+| No dividend + RI ≤ 0 | Yield skip |
+
+## Do not
+
+- Invent a ticker for a private company.
+- Copy another name’s peers, FYE, or share count.
+- Continue the pipeline on `UNRESOLVED`.

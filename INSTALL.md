@@ -1,94 +1,70 @@
-# Install — Reef Point Equities Analyst
+# Install — Reef Point Equities analyst
 
-## A. Cursor plugin (recommended)
+Packaged plugin: **`reef-point-equities-analyst` 1.3.1**. Share **this repo**. Do not install from CosmosGolf or any other checkout. Do not copy a locked official note into the plugin.
 
-Cursor discovers plugins under `~/.cursor/plugins/local/<name>/` that contain `.cursor-plugin/plugin.json`.
+Each analyst uses **their own** `EDGAR_IDENTITY`. See [references/edgar-identity.md](./references/edgar-identity.md).
 
-1. Copy this folder:
-
-   ```bash
-   mkdir -p ~/.cursor/plugins/local
-   rsync -a --delete \
-     /path/to/reef-point-equities-analyst/ \
-     ~/.cursor/plugins/local/reef-point-equities-analyst/
-   ```
-
-2. Restart Cursor **or** run **Developer: Reload Window**.
-
-3. Open **Cursor Settings → Customize** (or Plugins) and confirm:
-   - Skills: `portfolio-research`, `full-company-analysis`, `sec-filings`, `football-field`, …
-   - Agents: `research-lead`, `sec-analyst`, …
-   - Rules: equity research hard rules
-
-4. Set EDGAR identity in the shell Agent terminals use:
-
-   ```bash
-   echo 'export EDGAR_IDENTITY="Your Name you@email.com"' >> ~/.zshrc
-   export EDGAR_IDENTITY="Your Name you@email.com"
-   ```
-
-   Optionally set the same value in the plugin’s Configure / variables UI (`EDGAR_IDENTITY`).
-
-5. Optional tooling:
-
-   ```bash
-   pip install edgartools python-pptx openpyxl
-   pip install 'hishel==0.1.3'   # if FileStorage / hishel 1.x breaks EDGAR pulls
-   ```
-
-6. Demo:
-
-   ```text
-   analyze AAPL
-   ```
-
-### Zip install
+## Cursor (local plugin)
 
 ```bash
-cd /path/to
-zip -r reef-point-equities-analyst.zip reef-point-equities-analyst \
-  -x '*/__pycache__/*' '*.pyc' '.git/*'
-# Unzip into ~/.cursor/plugins/local/ on the other machine
+git clone <this-repo-url> reef-point-equities-analyst
+cd reef-point-equities-analyst
+mkdir -p ~/.cursor/plugins/local
+ln -sfn "$(pwd)" ~/.cursor/plugins/local/reef-point-equities-analyst
 ```
 
-## B. Project-local skills (no plugin UI)
+Equivalent: `rsync -a ./ ~/.cursor/plugins/local/reef-point-equities-analyst/`
+
+The folder must contain `.cursor-plugin/plugin.json` at the plugin root.
 
 ```bash
-cd your-research-repo
-mkdir -p .cursor/skills .cursor/agents .cursor/rules
-cp -R /path/to/reef-point-equities-analyst/skills/* .cursor/skills/
-cp -R /path/to/reef-point-equities-analyst/agents/* .cursor/agents/
-cp /path/to/reef-point-equities-analyst/rules/*.mdc .cursor/rules/
+pip3 install -r scripts/requirements.txt
+export EDGAR_IDENTITY="Your Name you@email.com"   # ~/.zshrc
 ```
 
-Cursor also loads `.claude/skills/` — copy there for dual IDE use.
+If FileStorage / hishel breaks: `pip3 install 'hishel==0.1.3'`.
 
-## C. Claude Code
+Quit Cursor (`Cmd+Q`) and reopen, or **Developer: Reload Window**.
 
-This folder includes `.claude-plugin/plugin.json` and root `plugin.json`:
+Settings → Cursor Settings → **Include third-party Plugins, Skills, and other configs** → on.
 
-```text
-claude plugin marketplace add /path/to/reef-point-equities-analyst
-claude plugin install reef-point-equities-analyst
+Confirm plugin name `reef-point-equities-analyst`.
+
+If `~/.cursor/plugins/local/equity-research-studio` still exists, do **not** run both orchestrators on the same name. This pack wins.
+
+## Claude
+
+Manifest: `.claude-plugin/plugin.json`. Skills load from `skills/`. Same `EDGAR_IDENTITY`. Same `analyze TICKER` trigger. The shareable page is `docs/{ticker-lower}-reef-point-live.html` (one file, Claude artifact).
+
+## Codex / Custom GPT
+
+Manifest: `.codex-plugin/plugin.json`. A Custom GPT pastes [adapters/gpt-instructions.md](./adapters/gpt-instructions.md). The site it hands over is the same HTML file. Do not scaffold a second web app for this.
+
+## Grok bot
+
+This deployment is a bot. Two pieces, one pack:
+
+- Grok Build loads `.grok-plugin/plugin.json` and `skills/` (it also reads `.claude-plugin/` if that is all you install).
+- The bot’s instructions are [adapters/grok-bot.md](./adapters/grok-bot.md). Paste that into the bot. There is no Grok canvas. The bot returns the same HTML file.
+
+## First run
+
+```
+analyze MSFT
 ```
 
-Exact marketplace commands depend on how you host the repo. Copying `skills/` into `~/.claude/skills/` always works.
+or `/analyze-lite MSFT`.
 
-## Post-install verification
+Expect `artifacts/MSFT/` and `docs/msft-equity-research.md` in the **open workspace**, not inside the plugin directory.
 
-- [ ] `~/.cursor/plugins/local/reef-point-equities-analyst/.cursor-plugin/plugin.json` exists
-- [ ] Agent sees skill `portfolio-research`
-- [ ] `echo $EDGAR_IDENTITY` prints Name + email
-- [ ] `python3 -c "import edgar"` works if you installed edgartools
-- [ ] (Optional) Google Drive MCP authenticated for Sheets / Slides conversion
+## Optional surfaces
 
-## Caveats
-
-| Topic | Note |
+| Surface | Need |
 |---|---|
-| EDGAR 403 | Missing or invalid User-Agent identity |
-| hishel FileStorage | Pin `hishel==0.1.3` |
-| Google Slides / Sheets | Drive MCP; conversion-on-upload. No Zapier. |
-| Rate limits | Pre-cache a demo ticker before a live pull |
-| Size | Skills/agents text + logo/template; keep giant vendor clones out |
-| Advice | Outputs are not investment advice |
+| Official memo + artifacts | Plugin + EDGAR only |
+| Native Google Sheets / Slides | Google Drive MCP. Local xlsx/pptx still written if Drive 401 |
+| X tape | Enrolled X plugin — never block |
+| Native Cursor canvas | Only if asked. Same numbers as the HTML file |
+| HTML page | Claude artifact, GPT site, and the Grok bot’s handoff. One file |
+
+No Zapier. No `gws auth login`.

@@ -1,17 +1,14 @@
 ---
 name: analyze-company
-description: Run Reef Point Equities end-to-end pipeline for a ticker (portfolio-research)
+description: Run Reef Point equity research end-to-end on one ticker. Official memo, field, Sheets, deck.
 ---
 
 # Analyze company
 
-Run skill `portfolio-research` for the ticker provided in the argument or chat.
+Read and execute `skills/full-company-analysis/SKILL.md`.
 
-```text
-analyze TICKER
-```
+**Ticker** = the symbol the user named (e.g. `/analyze-company NVDA`). If none, ask once.
 
-1. Confirm ticker
-2. Ensure `EDGAR_IDENTITY` is set (prompt if not)
-3. Execute portfolio-research (studio 1–13 + house overlays + Sheets + PPTX)
-4. Return paths to official memo, Sheets, and deck
+Mode = **full** unless they said `lite` / `quick look`.
+
+Do not wait on X. Do not use Zapier. Do not copy another name’s figures. Do not rewrite a locked official note.
