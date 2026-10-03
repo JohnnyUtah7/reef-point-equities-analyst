@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.build_research_site import build, draft_price, load_spec
+from scripts.build_research_site import build, draft_price, load_spec, open_view
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -49,12 +49,31 @@ SPEC = {
 
 class ResearchSiteTests(unittest.TestCase):
     def test_base_knobs_reprint_the_published_target(self):
-        self.assertEqual(draft_price(SPEC, SPEC["base"]), 100)
+        cover = open_view(SPEC)["target"]
+        self.assertEqual(draft_price(SPEC, SPEC["base"]), cover)
 
     def test_a_knob_moves_the_draft_only(self):
         knobs = dict(SPEC["base"])
         knobs["growth"] = 40
-        self.assertGreater(draft_price(SPEC, knobs), 100)
+        self.assertGreater(draft_price(SPEC, knobs), open_view(SPEC)["target"])
+
+    def test_a_wild_knob_cannot_explode_the_draft(self):
+        knobs = dict(SPEC["base"])
+        knobs["growth"] = 56
+        knobs["capex"] = 0
+        cover = open_view(SPEC)["target"]
+        self.assertLessEqual(draft_price(SPEC, knobs), round(cover * 1.45, 2))
+
+    def test_bull_open_does_not_cover_with_sell(self):
+        spec = dict(SPEC)
+        spec["rating"] = "SELL"
+        spec["target"] = 170
+        spec["last"] = 334
+        spec["stance"] = "bull"
+        view = open_view(spec)
+        self.assertNotEqual(view["rating"], "SELL")
+        self.assertEqual(view["kill_rating"], "SELL")
+        self.assertEqual(view["kill_target"], 170)
 
     def test_build_writes_the_site_every_time(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -64,7 +83,9 @@ class ResearchSiteTests(unittest.TestCase):
             dest = build(spec_path)
             self.assertEqual(dest, Path(tmp) / "docs" / "nbis-reef-point-live.html")
             text = dest.read_text()
-            self.assertIn('id="published">HOLD · $100', text)
+            self.assertIn('id="published">BUY · $140', text)
+            self.assertIn("Football field", text)
+            self.assertIn('id="payoff"', text)
             self.assertIn("By quarter", text)
             self.assertIn("Precedents", text)
             self.assertIn("Assets", text)
@@ -100,6 +121,8 @@ class ResearchSiteTests(unittest.TestCase):
                 text[:80],
             )
         self.assertIn("build_research_site.py", site)
+        self.assertIn("Codex Sites", gpt)
+        self.assertIn("What do you think of IREN", gpt)
         self.assertNotIn("OPTIONAL — only if asked", skill)
 
 

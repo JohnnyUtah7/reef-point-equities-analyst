@@ -58,12 +58,21 @@ range   = interquartile of non-circular mids and highs
 
 Do **not** set the range as a courtesy band around last price. Round the blend in public; show the raw weighted sum in the memo.
 
+## How the name opens
+
+Default prompt: **What do you think of IREN and the bull case next 12 months?**
+
+Default is the **12-month bull case**.
+
+- The user did not say bear. The cover is the bull path: what has to happen in the next year, and the bull price. The low DCF, or a tape that sits above every bar, is the **kill column** on the same page. Do not open the page with Sell at a fraction of the tape.
+- The user said **bear**. The cover is that downside valuation and why. Options then attack it.
+
+The field math does not change. Tape and last-print are **not** inputs to the blend.
+
 ## Rating from the field
 
-Tape and last-print are **not** inputs to the blend.
-
-- Last **above the high of every non-circular bar** + a live kill → **Sell**
-- Last inside the range, thesis intact → **Hold** (Buy only if field mid > last **and** next kill is not live)
+- Last **above the high of every non-circular bar** + a live kill → the kill is **Sell**. On a bull open, that Sell stays in the kill column.
+- Last inside the range, thesis intact → **Hold** on the cover only if there is no bull path above the tape. Buy on the cover when the bull path clears the tape and the next kill is not the case you are publishing.
 - Last **below the low**, pillars intact → **Buy**
 
 User-stated direction wins if they assert one. Label `Draft view — not investment advice`.
@@ -84,4 +93,4 @@ The field stays one picture. Under it, three sub-views and three deck appendix s
 
 - Do not invent a parallel DCF/comps engine.
 - Do not weight circular bars “a little.”
-- Do not Hold as courtesy when the math is Sell.
+- Do not hide a Sell kill. On a bull open it is the miss case, not the cover.

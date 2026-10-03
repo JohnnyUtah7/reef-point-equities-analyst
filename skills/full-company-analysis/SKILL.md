@@ -88,6 +88,7 @@ Update `RUNLOG.md` after **each** phase. Reuse `01-sec/` if the latest 10-K/10-Q
    equity-research-memo is a draft only; official file wins
 6  research-auditor                      HALT on FAIL unless user overrides
 7  earnings-call-analysis                companion; does not change the rating
+   listed-options                        ~90 day call/put picture; does not change the rating
 8  sheets-workbook → Drive convert       (memo can ship before this)
 9  pptx-to-google-slides → Drive convert (rebuild if rating moved)
 10 research-canvas HTML                   REQUIRED — run scripts/build_research_site.py
@@ -95,7 +96,7 @@ Update `RUNLOG.md` after **each** phase. Reuse `01-sec/` if the latest 10-K/10-Q
 11 X                                     only if enrolled — never block
 ```
 
-Phases 8–9 and 11 **must not** block the official memo. Drive can fail; `PENDING` is allowed for Sheets and Slides. **Phase 10 is not optional.** After the memo and the field exist, write the HTML file before you finish. Do not ask for a site URL, a repository, or a ChatGPT Sites publish step. Do not stop after describing the page.
+Phases 8–9 and 11 **must not** block the official memo. Drive can fail; `PENDING` is allowed for Sheets and Slides. **Phase 10 is not optional.** After the memo and the field exist, run `scripts/build_research_site.py` and then publish that file with Codex Sites in the same turn. Private by default. Public only if the user said public. Do not ask whether to publish. Do not end on an offer to host it. Do not ask for a site URL.
 
 Calls (phase 7) may run in parallel with phase 4 once `01-sec/` exists.
 
