@@ -5,7 +5,8 @@ alwaysApply: true
 
 # Reef Point hard rules
 
-- **Any ticker, one stack.** Trigger: `analyze TICKER end-to-end` or `/analyze-company TICKER`. Follow `full-company-analysis`. Do not invent a second SEC/DCF engine.
+- **Any ticker, one stack.** Trigger: analyze, value, or pick a public stock, or `/analyze-company TICKER`. Follow `full-company-analysis`. Do not invent a second SEC/DCF engine.
+- **The site is the handoff.** Write `docs/{ticker-lower}-reef-point-live.html` before you finish. Do not ask for a URL. Do not describe a page you did not write. Knobs draft a scenario. The published Buy/Hold/Sell stays the memo’s.
 - **Never invent a filing number.** Revenue, shares, debt, dates, quotes come from `artifacts/{TICKER}/01-sec/` or a cited form/date/accession. Else `DATA_GAP` or `UNVERIFIED`.
 - **`EDGAR_IDENTITY` required.** Format `Name email@domain.com`. Stop if missing. Prefer `scripts/edgar_pull.py`. Never WebFetch `sec.gov`.
 - **Pin `hishel==0.1.3`** if EDGAR `FileStorage` breaks (1.1.x FileStorage bug).

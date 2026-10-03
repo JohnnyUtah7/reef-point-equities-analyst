@@ -8,6 +8,8 @@ One SEC-listed ticker. Follow `skills/full-company-analysis`. Filings beat trans
 
 ## Output
 
-`docs/{ticker-lower}-reef-point-live.html`. Self-contained. Valuation sub-views: Field, Comps, Precedents, Assets. Research default view: **By quarter** (promise that call, next print, kept?). Official rating is computed from the field and does not move because someone toggled a peer or opened the calls table.
+On any analyze, value, or pick-a-stock prompt, write `docs/{ticker-lower}-reef-point-live.html` before you reply. That file is the site. Do not ask for a URL, a repo, or a ChatGPT Sites link.
+
+Self-contained. No fetch. Published Buy/Hold/Sell stays on screen. Knobs (growth, margins, capex, discount rate, terminal growth, multiples, dilution) recalculate a draft beside it, with bear/base/bull and reset. Valuation sub-views: Field, Comps, Precedents, Assets. Research opens on **By quarter**. A peer toggle does not change the published call.
 
 Draft view — not investment advice.

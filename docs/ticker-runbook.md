@@ -36,10 +36,10 @@ Stop if either fails. See [references/edgar-identity.md](../references/edgar-ide
 7   Earnings calls companion (full; does not change the rating)
 8   Sheets → Drive     PENDING is OK (local xlsx still written)
 9   PPTX → Slides      PENDING is OK (local pptx still written)
-10  Canvas / X         optional, never block
+10  HTML research site   REQUIRED. Cursor canvas and X stay optional
 ```
 
-**The official memo is done at step 6.** Do not hold the rating for Drive or a canvas URL.
+**The official memo is done at step 6.** Do not hold the rating for Drive. **Do write the HTML site before you finish.** Do not ask for a site URL.
 
 ## Issuer cheat sheet
 

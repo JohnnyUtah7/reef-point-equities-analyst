@@ -1,6 +1,6 @@
 # Install — Reef Point Equities analyst
 
-Packaged plugin: **`reef-point-equities-analyst` 1.3.5**. Share **this repo**. Do not install from CosmosGolf or any other checkout. Do not copy a locked official note into the plugin.
+Packaged plugin: **`reef-point-equities-analyst` 1.3.6**. Share **this repo**. Do not install from CosmosGolf or any other checkout. Do not copy a locked official note into the plugin.
 
 Each analyst uses **their own** `EDGAR_IDENTITY`. See [references/edgar-identity.md](./references/edgar-identity.md).
 
@@ -65,6 +65,6 @@ Expect `artifacts/MSFT/` and `docs/msft-equity-research.md` in the **open worksp
 | Native Google Sheets / Slides | Google Drive MCP. Local xlsx/pptx still written if Drive 401 |
 | X tape | Enrolled X plugin — never block |
 | Native Cursor canvas | Only if asked. Same numbers as the HTML file |
-| HTML page | Claude artifact, GPT site, and the Grok bot’s handoff. One file |
+| HTML page | Required on any analyze / value / pick-a-stock prompt. One file. Do not ask for a URL |
 
 No Zapier. No `gws auth login`.

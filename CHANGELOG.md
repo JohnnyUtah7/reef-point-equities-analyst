@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.6 — 2026-10-03
+
+Any analyze, value, or pick-a-stock prompt must write `docs/{ticker}-reef-point-live.html` before it finishes. The page is the deliverable. Do not ask for a site URL. Cursor canvas stays optional.
+
 ## 1.3.5 — 2026-10-03
 
 Codex listing copy says what it does: value one public company and get Buy, Hold, or Sell. Category stays Finance. Website points at the GitHub repo.

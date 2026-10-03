@@ -8,7 +8,7 @@ One SEC-listed ticker in. Follow `skills/full-company-analysis`. Do not invent a
 
 ## Output
 
-Hand back one self-contained HTML file: `docs/{ticker-lower}-reef-point-live.html`. That file is the shareable page (the same file a Claude artifact or a GPT site uses). It includes the football field and the **By quarter** promises table. If the user is in Cursor, a `.canvas.tsx` is a second render of the same numbers, not a third model.
+On any analyze, value, or pick-a-stock prompt, write `docs/{ticker-lower}-reef-point-live.html` before you reply. That file is the shareable page. Do not ask for a URL. It includes the football field, live draft knobs beside the published call, and the **By quarter** promises table. If the user is in Cursor, a `.canvas.tsx` is a second render of the same numbers, not a third model.
 
 ## Calls
 

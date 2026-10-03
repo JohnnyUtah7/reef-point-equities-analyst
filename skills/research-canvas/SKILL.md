@@ -1,15 +1,38 @@
 ---
 name: research-canvas
 description: >
-  Optional shareable research surface after the official memo is locked.
-  One HTML file is the Claude artifact, the GPT site, and the Grok bot handoff.
-  Cursor canvas is a second render of the same numbers. Sheets is the Drive
-  book. Never Zapier. Not a substitute for the memo, model, or deck.
+  Required research site after the official memo is locked. Any analyze,
+  value, or pick-a-stock prompt writes one HTML file. That file is the GPT
+  site, the Claude artifact, and the Grok handoff. Do not ask for a URL.
+  Cursor canvas is optional and only if asked. Never Zapier.
 ---
 
-# Research canvas
+# Research site
 
-Optional. Default `analyze TICKER` does **not** require this.
+**Required** on any prompt that analyzes, values, or picks a public stock. Write the file. Then stop. Do not ask the user where the site lives.
+
+## Do not
+
+- Do not ask for a site URL, a GitHub repo, or a ChatGPT Sites publish step.
+- Do not finish with a description of a page you did not write.
+- Do not scaffold Next.js for this. One HTML file.
+
+## The file
+
+`docs/{ticker-lower}-reef-point-live.html`. Self-contained. No `fetch`. Numbers come from the official memo and the models. **No second model.**
+
+The page shows two layers at once:
+
+- **Published** — the memo’s Buy/Hold/Sell, price, and football field. This does not move when a knob moves.
+- **Your scenario** — knobs recalculate a draft beside it. Label it draft.
+
+Controls, all live: growth, margins, capex, discount rate, terminal growth, multiples, dilution. Presets: bear / base / bull, plus reset to the published assumptions.
+
+Valuation sub-views: **Field · Comps · Precedents · Assets**. Comps starts on the researched peer set. The user can toggle peers. A toggle changes the draft implied price only.
+
+Research opens on **By quarter** (they said / next print showed / kept). Sentiment does not rate the name.
+
+Hand back the file path. If you can open it in a browser, open it.
 
 ## Gate
 

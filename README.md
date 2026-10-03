@@ -20,7 +20,7 @@ Install: [INSTALL.md](./INSTALL.md). Identity: [references/edgar-identity.md](./
 | Models | Statements, DCF, comps (user-picked or researched; P/E, EV/EBITDA, EV/Sales), LBO (lite), SOTP |
 | House overlay | Dilution, precedent deals, asset-based floor (book / PPE − net debt / replacement), yield, football field |
 | Calls | One row per quarter: what they said, what the next print showed, kept or not. Does not rate the name |
-| Publish | Official note, auditor, Sheets, PPTX → Google Slides, one HTML page |
+| Publish | Official note, then the HTML research site. That file is the handoff. Sheets and PPTX follow |
 
 Trigger `analyze TICKER` → `portfolio-research` → studio steps 1–13, then field, official memo, Sheets, white-cover PPTX.
 

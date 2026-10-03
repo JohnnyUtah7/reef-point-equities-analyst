@@ -3,13 +3,14 @@ name: full-company-analysis
 description: >
   Reef Point product orchestrator. Analyze ANY listed ticker end-to-end:
   EDGAR → statements → models → dilution → football field → official memo →
-  auditor → earnings calls → Sheets → PPTX/Slides. Triggers: analyze TICKER
-  end-to-end, check out NVDA, full analysis of MSFT, /analyze-company.
+  auditor → earnings calls → the HTML research site → Sheets → PPTX/Slides.
+  Triggers: analyze TICKER, value TICKER, pick a stock, check out NVDA,
+  full analysis of MSFT, /analyze-company.
 ---
 
 # Full company analysis
 
-This is the **team product**. One ticker in. Official note, field, workbook, deck out.
+This is the **team product**. One ticker in. Official note, field, and the HTML research site out. Workbook and deck follow. The site is the thing you hand the user. Do not ask them for a URL.
 
 Do not copy another name’s shares, ARR, WACC, or rating. Do not rewrite a locked official note.
 
@@ -28,7 +29,7 @@ Hard constraints: **no Zapier**. **no parallel SEC/DCF stack**. **no waiting on 
 | Private / no EDGAR CIK | Stop at intake `UNRESOLVED` |
 | Non-US only, no SEC file | Stop. Do not scrape a random IR PDF and call it a 10-K |
 
-Lite (`/analyze-lite`, `quick look`): skip LBO + SOTP (unless 2+ reportable segments) + earnings calls + canvas. Still do SEC → DCF → comps → dilution → field → official memo → Sheets → PPTX.
+Lite (`/analyze-lite`, `quick look`): skip LBO + SOTP (unless 2+ reportable segments) + earnings calls + the Cursor `.canvas.tsx`. Still write the HTML site. Still do SEC → DCF → comps → dilution → field → official memo → Sheets → PPTX.
 
 ## 0. Env (stop if fail)
 
@@ -89,11 +90,12 @@ Update `RUNLOG.md` after **each** phase. Reuse `01-sec/` if the latest 10-K/10-Q
 7  earnings-call-analysis                companion; does not change the rating
 8  sheets-workbook → Drive convert       (memo can ship before this)
 9  pptx-to-google-slides → Drive convert (rebuild if rating moved)
-10 research-canvas                       OPTIONAL — only if asked
+10 research-canvas HTML                   REQUIRED — docs/{ticker-lower}-reef-point-live.html
+    Cursor .canvas.tsx                   only if they asked for a Cursor canvas
 11 X                                     only if enrolled — never block
 ```
 
-Phases 8–11 **must not** block the official memo. Drive payloads and canvas publish can fail; the note is the product. Sheets/deck/canvas are publish surfaces (`PENDING` is allowed).
+Phases 8–9 and 11 **must not** block the official memo. Drive can fail; `PENDING` is allowed for Sheets and Slides. **Phase 10 is not optional.** After the memo and the field exist, write the HTML file before you finish. Do not ask for a site URL, a repository, or a ChatGPT Sites publish step. Do not stop after describing the page.
 
 Calls (phase 7) may run in parallel with phase 4 once `01-sec/` exists.
 
@@ -104,8 +106,8 @@ Calls (phase 7) may run in parallel with phase 4 once `01-sec/` exists.
 | Env → intake → SEC → statements | — |
 | DCF / comps / SOTP after statements | Comp intel, unit econ, catalysts after SEC |
 | Dilution **before** any official `$/sh` | Earnings calls after SEC (not after the memo) |
-| Field → official memo → auditor | Sheets and PPTX after auditor, in parallel |
-| — | Canvas, X |
+| Field → official memo → auditor → HTML site | Sheets and PPTX after auditor, in parallel |
+| — | Cursor `.canvas.tsx`, X |
 
 Full mode on a new name is **one focused agent session**, not a week of fan-out. Do not spawn a worker per skill. One lead, tools, RUNLOG.
 
@@ -131,11 +133,12 @@ User-stated direction wins. Label `Draft view — not investment advice.`
 - [ ] `docs/{ticker-lower}-equity-research.md` is official
 - [ ] Sheets URL (MIME spreadsheet) — or `PENDING` with why (memo already shipped)
 - [ ] Slides URL (MIME presentation) — or `PENDING` with why
+- [ ] `docs/{ticker-lower}-reef-point-live.html` exists, opens, and the published call matches the memo
 - [ ] Disclaimer; no Zapier
 
 ## Return
 
-Official memo path · earnings-call companion · Sheets URL or PENDING · Slides URL or PENDING · `artifacts/{TICKER}/` · open DATA_GAPs · UNVERIFIED list · rating + central PT.
+HTML site path · official memo path · earnings-call companion · Sheets URL or PENDING · Slides URL or PENDING · `artifacts/{TICKER}/` · open DATA_GAPs · UNVERIFIED list · rating + central PT.
 
 ## Proof (do not copy)
 

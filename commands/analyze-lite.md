@@ -1,6 +1,6 @@
 ---
 name: analyze-lite
-description: Fast path — SEC, DCF, comps, field, official memo, Sheets, PPTX. Skip LBO, SOTP unless multi-segment, skip calls and canvas.
+description: Fast path — SEC, DCF, comps, field, official memo, the HTML site, Sheets, PPTX. Skip LBO, SOTP unless multi-segment, skip calls and the Cursor canvas.
 ---
 
 # Analyze lite

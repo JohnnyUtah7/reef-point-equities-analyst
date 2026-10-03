@@ -2,7 +2,8 @@
 name: portfolio-research
 description: >
   Alias for the Reef Point product orchestrator. Same as full-company-analysis.
-  Triggers: analyze TICKER, check out NVDA, run the pipeline.
+  Triggers: analyze TICKER, value TICKER, pick a stock, check out NVDA.
+  The handoff is docs/{ticker-lower}-reef-point-live.html. Do not ask for a URL.
 ---
 
 # Portfolio research
