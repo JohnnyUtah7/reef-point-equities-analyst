@@ -123,7 +123,10 @@ class ResearchSiteTests(unittest.TestCase):
         self.assertIn("build_research_site.py", site)
         self.assertIn("Codex Sites", gpt)
         self.assertIn("What do you think of IREN", gpt)
+        self.assertNotIn("ChatGPT Sites publish step", site)
         self.assertNotIn("OPTIONAL — only if asked", skill)
+        self.assertIn("kill column", skill)
+        self.assertIn("canvas", site)
 
 
 if __name__ == "__main__":

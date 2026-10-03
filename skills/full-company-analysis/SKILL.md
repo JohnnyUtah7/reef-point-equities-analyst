@@ -114,11 +114,12 @@ Full mode on a new name is **one focused agent session**, not a week of fan-out.
 
 ## Rating tightness
 
-From `football-field`:
+From `football-field`. A dumb prompt is a bull open.
 
-- Last **above the high of every non-circular bar** + a live kill → **Sell**
-- Last inside the range, thesis intact → **Hold** (Buy only if field mid > last **and** next kill is not live)
+- Last **above the high of every non-circular bar** + a live kill → that **Sell is the kill column**, not the cover, unless the user said bear.
+- Last inside the range, thesis intact → **Hold** only when there is no bull path above the tape.
 - Last **below the low**, pillars intact → **Buy**
+- Bull path above the tape and the user did not say bear → cover is that bull case.
 
 User-stated direction wins. Label `Draft view — not investment advice.`
 

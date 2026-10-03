@@ -7,7 +7,7 @@ description: Run Reef Point equity research end-to-end on one ticker. Official m
 
 Read and execute `skills/full-company-analysis/SKILL.md`.
 
-**Ticker** = the symbol the user named (e.g. `/analyze-company NVDA`). If none, ask once.
+**Ticker** = the symbol in the message, even if the message is only “IREN” or “what do you think of IREN”. If there is no ticker, ask once.
 
 Mode = **full** unless they said `lite` / `quick look`.
 

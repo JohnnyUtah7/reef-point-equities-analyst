@@ -42,7 +42,7 @@ Do not copy another name’s share count, WACC, or rating.
 
 ## Hard no
 
-Zapier. Bare `sec.gov` fetch. Invented multiples. Courtesy Hold when the field is Sell. `gws` as the official deck. Waiting on X.
+Zapier. Bare `sec.gov` fetch. Invented multiples. Hiding the Sell kill. `gws` as the official deck. Waiting on X. Asking the user for a site URL.
 
 ## Where it runs
 

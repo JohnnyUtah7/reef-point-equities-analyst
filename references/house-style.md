@@ -8,7 +8,7 @@ SpaceX / Anduril surface: black, white, hairline rules, one muted accent (`#B91C
 2. Dilution before official `$/sh`. One `value_shares` on every bar.
 3. Exec opens with Buy / Hold / Sell, range, central, why. `Draft view — not investment advice.`
 4. Football field: DCF, trading, transactions, SOTP/NAV, replacement, yield. Skip only with why. Circular own-multiple weight **0**.
-5. Rate **after** the field. Tape above every non-circular high + a live kill = Sell, not a courtesy Hold.
+5. Rate **after** the field. A dumb prompt opens on the bull case. Tape above every non-circular high is the Sell **kill column**, not the cover, unless the user said bear.
 6. Five audits + UNVERIFIED. Do not publish on `FAIL` without an override.
 7. Official deck: white cover, RPC logo centered, PPTX → Drive convert. `slides-deck` / `gws` are notes only.
 8. X is optional tape. Never block.

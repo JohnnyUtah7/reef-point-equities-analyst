@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.9 — 2026-10-03
+
+A dumb first prompt is a full run. Codex writes the HTML site and publishes it. Claude returns that file as the artifact. Cursor also writes the canvas. The cover-Sell contradiction is gone: a price above the field is the kill column unless the user said bear.
+
 ## 1.3.8 — 2026-10-03
 
 The research site matches the canvas: football field, bull cover, kill column, and a payoff chart. Options are about 90 days out. A bull open does not lead with Sell. Codex Sites publishes the file in the same turn. Starter prompt is the IREN 12-month bull case.

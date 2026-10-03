@@ -9,12 +9,19 @@ description: >
 
 # Research site
 
-**Required** on any prompt that analyzes, values, or picks a public stock. Write the file. Then stop. Do not ask the user where the site lives.
+**Required** on a dumb first prompt. A ticker alone, “what do you think of IREN”, or “is it a buy” is a full run. Do not ask what they meant.
+
+Write the file, then hand it off in the same turn:
+
+- **Codex:** publish that HTML with Codex Sites. Private unless they said public. Do not ask whether to publish.
+- **Claude:** that HTML file is the artifact. Put it in the reply. Do not ask where to host it.
+- **Cursor:** write the HTML and a `.canvas.tsx` with the same numbers, so the canvas opens in Cursor.
 
 ## Do not
 
-- Do not ask for a site URL, a GitHub repo, or a ChatGPT Sites publish step.
+- Do not ask for a site URL or a GitHub repo.
 - Do not finish with a description of a page you did not write.
+- Do not offer to publish later.
 - Do not scaffold Next.js for this. One HTML file.
 
 ## The file
