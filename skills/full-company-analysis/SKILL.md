@@ -90,7 +90,7 @@ Update `RUNLOG.md` after **each** phase. Reuse `01-sec/` if the latest 10-K/10-Q
 7  earnings-call-analysis                companion; does not change the rating
 8  sheets-workbook → Drive convert       (memo can ship before this)
 9  pptx-to-google-slides → Drive convert (rebuild if rating moved)
-10 research-canvas HTML                   REQUIRED — docs/{ticker-lower}-reef-point-live.html
+10 research-canvas HTML                   REQUIRED — run scripts/build_research_site.py
     Cursor .canvas.tsx                   only if they asked for a Cursor canvas
 11 X                                     only if enrolled — never block
 ```

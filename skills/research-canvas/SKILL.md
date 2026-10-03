@@ -34,6 +34,14 @@ Research opens on **By quarter** (they said / next print showed / kept). Sentime
 
 Hand back the file path. If you can open it in a browser, open it.
 
+Generate it by running the script. Do not hand-write a second page.
+
+```bash
+python3 scripts/build_research_site.py artifacts/{TICKER}/03-models/site.json
+```
+
+`site.json` is filled from the official memo: ticker, rating, target, last, base knobs, methods, peers, quarters, deals, assets. If the script did not run, the stock prompt is not done.
+
 ## Gate
 
 If `docs/{ticker-lower}-equity-research.md` is missing or unlocked (no Buy/Hold/Sell + field), run `portfolio-research` first. Copy rating, PT, `value_shares`, and field inputs from that note. **No second model.**
