@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.4 — 2026-10-03
+
+Codex listing title is Equities Valuation. Category is Finance. The subtitle says a full valuation and a Buy, Hold, or Sell on one public company.
+
 ## 1.3.3 — 2026-10-03
 
 Codex icon is only the map mark. No wordmark in the square.
