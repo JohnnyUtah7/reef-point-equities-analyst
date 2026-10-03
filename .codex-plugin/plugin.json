@@ -1,6 +1,6 @@
 {
   "name": "reef-point-equities-analyst",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Reef Point Equities analyst. One SEC-listed ticker in; official memo, football field, Sheets, and white-cover deck out. Same skills on Cursor, Claude, Codex, and Grok.",
   "author": {
     "name": "Chris Miller",
@@ -16,7 +16,7 @@
     "comps",
     "earnings-calls"
   ],
-  "logo": "assets/rpc-logo.png",
+  "logo": "assets/codex-icon.png",
   "interface": {
     "displayName": "Reef Point Equities",
     "shortDescription": "SEC filing to memo, field, and one research page.",
@@ -24,6 +24,6 @@
     "category": "Productivity",
     "brandColor": "#1B2A4A",
     "composerIcon": "./assets/codex-icon.png",
-    "logo": "./assets/codex-logo.png"
+    "logo": "./assets/codex-icon.png"
   }
 }

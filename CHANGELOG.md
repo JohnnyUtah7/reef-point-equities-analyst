@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.3 — 2026-10-03
+
+Codex icon is only the map mark. No wordmark in the square.
+
 ## 1.3.2 — 2026-10-03
 
 Codex marketplace icon. `interface.composerIcon` is a square crop of the Reef Point map mark. `interface.logo` is the full lockup on a white square. Both are 512×512 RGB PNG.
