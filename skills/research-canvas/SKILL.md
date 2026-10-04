@@ -86,10 +86,10 @@ Circular field bars: **dashed**, excluded from the blend. Axis unit `$/ordinary 
 
 Follow `~/.cursor/skills-cursor/canvas/SKILL.md`:
 
-1. Write **with the Write tool** to the workspace managed canvas path:  
-   `~/.cursor/projects/<workspace-key>/canvases/<ticker>-reef-point-research.canvas.tsx`  
+1. Follow the host canvas skill for the path that compiles. On a cloud agent that path is `/cursor/stores/user/canvases/<uuid>/source.canvas.tsx`, saved with the Write tool. On the desktop app it is still  
+   `~/.cursor/projects/<workspace-key>/canvases/<ticker>-reef-point-research.canvas.tsx`.  
    Resolve `<workspace-key>` from the open project. Do not hardcode a machine path.
-2. A store UUID `source.canvas.tsx` is an archive only. It does **not** compile. Put a file (or hardlink) in the managed `canvases/` folder.
+2. A smoke that only writes the HTML is not done. The reply includes a markdown link to the compiled `.canvas.tsx`. A copy under the project store `docs/` folder does not open as a canvas.
 3. First line: `// cursor-canvas-title: {TICKER} — Reef Point Research`.
 4. Import only from `cursor/canvas`. Embed numbers. No `fetch`.
 5. `Pill` + `useCanvasState<TabId>("tab", "exec")`.
@@ -128,7 +128,7 @@ Write or update `docs/{ticker-lower}-research-canvas.md` with native path, web b
 ## Failure modes
 
 - Second model / leftover stale rating — stop, re-read the official note.
-- Native canvas written only to a store archive path — opens as source, will not preview or Publish. Put a file in the workspace managed `canvases/` folder.
+- HTML only, no canvas link in the reply — the Cursor smoke is not done. Use the path the host canvas skill compiles (`source.canvas.tsx` on a cloud agent).
 - Hardcoded house hex on the native canvas — SDK rejects; put white-cover fidelity on path B.
 - Zapier — do not.
 - Expanding Valuation into one tab per method — do not. Sub-views under Valuation and under Research are the drill-down. Research sub-views: ledger, slip clock, language drift. Sentiment still does not rate the name.

@@ -400,6 +400,27 @@ def render(spec: dict) -> str:
     kill_chip = _chip(f"Kill {view['kill_rating']}", view["kill_target"], view.get("kill_open"))
     draft = "Draft · open" if view.get("target_open") else f"Draft · {_px(view['target'])}"
     slider_max = max(float(spec["last"]) * 1.8, float(view["target"]) * 1.25) if view.get("target") else float(spec["last"]) * 1.8
+    if view.get("target_open"):
+        scenario_html = (
+            "<h2>Your scenario</h2>"
+            "<p class=\"note\">No locked price, so there is no draft slider. A slider here would print a second model.</p>"
+        )
+    else:
+        scenario_html = """<h2>Your scenario</h2>
+  <div class="row">
+    <button type="button" data-preset="bear">Bear</button>
+    <button type="button" data-preset="base">Base</button>
+    <button type="button" data-preset="bull">Bull</button>
+    <button type="button" id="reset">Reset</button>
+  </div>
+  <label>Growth <output id="v-growth"></output><input id="growth" type="range" min="0" max="80" step="0.5"/></label>
+  <label>Margin <output id="v-margin"></output><input id="margin" type="range" min="0" max="80" step="0.5"/></label>
+  <label>Capex <output id="v-capex"></output><input id="capex" type="range" min="0" max="80" step="0.5"/></label>
+  <label>Discount rate <output id="v-wacc"></output><input id="wacc" type="range" min="4" max="20" step="0.1"/></label>
+  <label>Terminal growth <output id="v-g"></output><input id="g" type="range" min="0" max="6" step="0.1"/></label>
+  <label>Multiple <output id="v-multiple"></output><input id="multiple" type="range" min="0" max="40" step="0.1"/></label>
+  <label>Dilution % <output id="v-dilution"></output><input id="dilution" type="range" min="0" max="40" step="0.5"/></label>
+  <p class="note" id="knobNote">The published chip does not move. Draft stays within 0.7× to 1.45× of that price.</p>"""
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -508,21 +529,7 @@ def render(spec: dict) -> str:
       <input id="spot" type="range" min="{max(1, float(spec['last'])*0.45):.2f}" max="{slider_max:.2f}" step="0.5" value="{float(spec['last'])}"/>
     </label>
   </section>
-  <h2>Your scenario</h2>
-  <div class="row">
-    <button type="button" data-preset="bear">Bear</button>
-    <button type="button" data-preset="base">Base</button>
-    <button type="button" data-preset="bull">Bull</button>
-    <button type="button" id="reset">Reset</button>
-  </div>
-  <label>Growth <output id="v-growth"></output><input id="growth" type="range" min="0" max="80" step="0.5"/></label>
-  <label>Margin <output id="v-margin"></output><input id="margin" type="range" min="0" max="80" step="0.5"/></label>
-  <label>Capex <output id="v-capex"></output><input id="capex" type="range" min="0" max="80" step="0.5"/></label>
-  <label>Discount rate <output id="v-wacc"></output><input id="wacc" type="range" min="4" max="20" step="0.1"/></label>
-  <label>Terminal growth <output id="v-g"></output><input id="g" type="range" min="0" max="6" step="0.1"/></label>
-  <label>Multiple <output id="v-multiple"></output><input id="multiple" type="range" min="0" max="40" step="0.1"/></label>
-  <label>Dilution % <output id="v-dilution"></output><input id="dilution" type="range" min="0" max="40" step="0.5"/></label>
-  <p class="note" id="knobNote">The published chip does not move. Draft stays within 0.7× to 1.45× of that price.</p>
+  {scenario_html}
   {source_html}
 </main>
 <script>
@@ -551,17 +558,17 @@ function readKnobs() {{
   return knobs;
 }}
 function paint() {{
-  const knobs = readKnobs();
-  if (SPEC.target_open) {{
+  if (SPEC.target_open || !document.getElementById("growth")) {{
     document.getElementById("draft").textContent = "Draft · open";
     published.textContent = SPEC.rating + " · target open";
-    document.getElementById("knobNote").textContent = "No locked price. The knobs do not print a draft dollar.";
     return;
   }}
+  const knobs = readKnobs();
   document.getElementById("draft").textContent = "Draft · $" + draftPrice(knobs);
   published.textContent = SPEC.rating + " · $" + SPEC.target;
 }}
 function setKnobs(knobs) {{
+  if (!document.getElementById("growth")) {{ paint(); return; }}
   Object.keys(SPEC.base).forEach(function (name) {{ document.getElementById(name).value = knobs[name]; }});
   paint();
 }}
@@ -586,7 +593,8 @@ document.querySelectorAll(".subnav button").forEach(function (btn) {{
 }});
 document.querySelectorAll("#growth,#margin,#capex,#wacc,#g,#multiple,#dilution").forEach(function (el) {{ el.addEventListener("input", paint); }});
 document.querySelectorAll("[data-preset]").forEach(function (btn) {{ btn.addEventListener("click", function () {{ preset(btn.dataset.preset); }}); }});
-document.getElementById("reset").addEventListener("click", function () {{ setKnobs(SPEC.base); }});
+const resetBtn = document.getElementById("reset");
+if (resetBtn) resetBtn.addEventListener("click", function () {{ setKnobs(SPEC.base); }});
 const peers = document.getElementById("peers");
 (SPEC.peers || []).forEach(function (peer) {{
   const label = document.createElement("label");

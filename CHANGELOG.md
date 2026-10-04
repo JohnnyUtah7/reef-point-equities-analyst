@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.12 — 2026-10-04
+
+A Cursor smoke is not done until the canvas file is written and linked. An open target no longer shows draft sliders that cannot print a price.
+
 ## 1.3.11 — 2026-10-04
 
 Dollar labels keep cents and use thousands separators. A bar label that would run past the plot flips inside the chart. The comps pane can say when no peer multiple is sourced.

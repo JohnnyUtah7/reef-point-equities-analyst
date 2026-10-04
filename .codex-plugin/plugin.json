@@ -1,6 +1,6 @@
 {
   "name": "reef-point-equities-analyst",
-  "version": "1.3.11",
+  "version": "1.3.12",
   "description": "Value one public company. Filings, comps, past deals, asset value, and a DCF, then a price range and a Buy, Hold, or Sell. Draft research, not investment advice.",
   "author": {
     "name": "Chris Miller",

@@ -173,6 +173,8 @@ class ResearchSiteTests(unittest.TestCase):
             self.assertIn("Draft · open", text)
             self.assertNotIn("HOLD · $38", text)
             self.assertNotIn("SELL · $38", text)
+            self.assertNotIn('id="growth"', text)
+            self.assertIn("no draft slider", text)
 
     def test_refuses_a_spec_without_a_call(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -201,6 +203,8 @@ class ResearchSiteTests(unittest.TestCase):
         self.assertNotIn("OPTIONAL — only if asked", skill)
         self.assertIn("kill column", skill)
         self.assertIn("canvas", site)
+        self.assertIn("source.canvas.tsx", site)
+        self.assertIn("A smoke that only writes the HTML is not done", site)
 
 
 if __name__ == "__main__":
