@@ -211,10 +211,13 @@ def _px(value) -> str:
     if value is None:
         return "open"
     number = float(value)
+    sign = "-" if number < 0 else ""
+    number = abs(number)
     if abs(number - round(number)) < 1e-9:
-        return f"${int(round(number))}"
-    text = f"{number:.2f}".rstrip("0").rstrip(".")
-    return f"${text}"
+        body = f"{int(round(number)):,}"
+    else:
+        body = f"{number:,.2f}"
+    return f"{sign}${body}"
 
 
 def _chip(view_key_rating: str, value, open_flag: bool) -> str:
@@ -311,8 +314,8 @@ def field_svg(methods, last, cover, kill) -> str:
         shown = _px(mid) if abs(hi - lo) < 0.5 else f"{_px(lo)}–{_px(hi)}"
         text_x = x1 + 8
         anchor = "start"
-        if text_x > label_w + plot - 8:
-            text_x = x0 - 8
+        if text_x + 6.4 * len(shown) > label_w + plot - 4:
+            text_x = max(label_w + 4, x0 - 8)
             anchor = "end"
         parts.append(
             f'<text x="{text_x:.1f}" y="{y + 18}" text-anchor="{anchor}" font-size="11" fill="#6B7280">{shown}</text>'
@@ -479,7 +482,7 @@ def render(spec: dict) -> str:
     </div>
     <div class="pane" data-pane="field"><div class="panel">{field}</div><p class="note">{_esc(field_note)}</p></div>
     <div class="pane" data-pane="comps" hidden>
-      <p>Researched peers. A toggle moves the draft multiple, not the published call.</p>
+      <p>{_esc(spec.get('comps_note') or 'Researched peers. A toggle moves the draft multiple, not the published call.')}</p>
       <div id="peers"></div>
       <p>Draft comps <b id="compsOut">—</b></p>
     </div>

@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.build_research_site import build, draft_price, field_svg, load_spec, open_view
+from scripts.build_research_site import _px, build, draft_price, field_svg, load_spec, open_view
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -104,6 +104,22 @@ class ResearchSiteTests(unittest.TestCase):
             self.assertIn('"#B91C1C"', script)
             self.assertIn("Max loss", text)
             self.assertIn("/ contract", text)
+
+    def test_money_labels_keep_cents_and_commas(self):
+        self.assertEqual(_px(140), "$140")
+        self.assertEqual(_px(242.81), "$242.81")
+        self.assertEqual(_px(21.7), "$21.70")
+        self.assertEqual(_px(21249), "$21,249")
+
+    def test_a_bar_label_does_not_run_off_the_plot(self):
+        methods = [
+            {"name": "Fwd ARR", "lo": 31, "mid": 43, "hi": 52},
+            {"name": "Tape", "lo": 242.81, "mid": 242.81, "hi": 242.81, "circular": True},
+        ]
+        wide = field_svg(methods[:1], 46.68, 100, 28)
+        self.assertIn('text-anchor="end"', wide.split("$31")[0][-80:])
+        taped = field_svg(methods[1:], 242.81, None, None)
+        self.assertIn('text-anchor="end"', taped.split("$242.81")[0][-80:])
 
     def test_bull_price_does_not_crush_the_bars(self):
         methods = [

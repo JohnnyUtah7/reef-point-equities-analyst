@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.11 — 2026-10-04
+
+Dollar labels keep cents and use thousands separators. A bar label that would run past the plot flips inside the chart. The comps pane can say when no peer multiple is sourced.
+
 ## 1.3.10 — 2026-10-04
 
 The football field scales to the bars and the last price. A bull price above that scale is pinned off the chart instead of crushing the bars. Asset floors do not become the cover price. If no bull price is sourced, the chip reads HOLD · target open. The payoff chart is a filled green and red area. Max loss is shown per contract.
