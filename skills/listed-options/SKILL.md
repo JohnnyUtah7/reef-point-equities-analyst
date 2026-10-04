@@ -30,7 +30,7 @@ Show premium, breakeven, delta, and max loss. Max loss on a long option is the p
 - **Bull** (the default): one long call and one cash-secured short put, about 90 days out, struck off the bull path. 
 - **Bear** (only if the user said bear): one long put, about 90 days out, struck off the downside case. That is the attack. Do not sell puts on a bear case.
 
-The chart is the section. A full-width payoff curve, green above zero and red below, last price, breakeven, and a slider that drags the expiration price along the curve. Price on the x-axis, profit on the y-axis.
+The chart is the section. A filled payoff: green above zero, red below, last price, breakeven, and a slider that drags the expiration price along the curve. Price on the x-axis, profit per share on the y-axis. Max loss on the card is per contract (×100), not a bare per-share number that looks like the whole trade.
 
 ## Do not
 

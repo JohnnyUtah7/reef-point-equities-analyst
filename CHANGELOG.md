@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.10 — 2026-10-04
+
+The football field scales to the bars and the last price. A bull price above that scale is pinned off the chart instead of crushing the bars. Asset floors do not become the cover price. If no bull price is sourced, the chip reads HOLD · target open. The payoff chart is a filled green and red area. Max loss is shown per contract.
+
 ## 1.3.9 — 2026-10-03
 
 A dumb first prompt is a full run. Codex writes the HTML site and publishes it. Claude returns that file as the artifact. Cursor also writes the canvas. The cover-Sell contradiction is gone: a price above the field is the kill column unless the user said bear.

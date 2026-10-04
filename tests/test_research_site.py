@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.build_research_site import build, draft_price, load_spec, open_view
+from scripts.build_research_site import build, draft_price, field_svg, load_spec, open_view
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -99,6 +99,64 @@ class ResearchSiteTests(unittest.TestCase):
             # The published chip is rewritten from the spec, never from the knobs.
             self.assertIn('published.textContent = SPEC.rating + " · $" + SPEC.target', script)
             self.assertIn('document.getElementById("draft").textContent = "Draft · $" + draftPrice(knobs)', script)
+            self.assertIn('fill-opacity="0.2"', script)
+            self.assertIn('"#047857"', script)
+            self.assertIn('"#B91C1C"', script)
+            self.assertIn("Max loss", text)
+            self.assertIn("/ contract", text)
+
+    def test_bull_price_does_not_crush_the_bars(self):
+        methods = [
+            {"name": "DCF", "lo": 27, "mid": 32.5, "hi": 37},
+            {"name": "P/S", "lo": 9, "mid": 23, "hi": 32},
+        ]
+        svg = field_svg(methods, 46.68, 100, 28)
+        self.assertIn('data-off-cover="1"', svg)
+        self.assertIn("off chart", svg)
+        axis = float(svg.split('data-axis-hi="')[1].split('"')[0])
+        self.assertLess(axis, 60)
+        width = float(svg.split('data-name="DCF"')[1].split('width="')[1].split('"')[0])
+        self.assertGreater(width, 70)
+
+    def test_a_bull_inside_the_bars_stays_on_the_chart(self):
+        svg = field_svg(SPEC["methods"], SPEC["last"], 140, 70)
+        self.assertIn('data-off-cover="0"', svg)
+        self.assertNotIn("off chart", svg)
+
+    def test_floors_do_not_become_the_cover_price(self):
+        spec = dict(SPEC)
+        spec["methods"] = [
+            {"name": "Book", "lo": 10, "mid": 12, "hi": 14, "weight": 0, "circular": False, "floor": True}
+        ]
+        spec["last"] = 200
+        spec["target"] = 50
+        spec["rating"] = "HOLD"
+        view = open_view(spec)
+        self.assertEqual(view["target"], 50)
+        self.assertEqual(view["rating"], "HOLD")
+        self.assertNotEqual(view["rating"], "SELL")
+
+    def test_an_open_target_does_not_print_a_dollar(self):
+        spec = dict(SPEC)
+        spec["target_open"] = True
+        spec["last"] = 242.81
+        spec["target"] = 38
+        spec["rating"] = "SELL"
+        view = open_view(spec)
+        self.assertTrue(view["target_open"])
+        self.assertIsNone(view["target"])
+        self.assertEqual(view["rating"], "HOLD")
+        self.assertIsNone(draft_price(spec, spec["base"]))
+        with tempfile.TemporaryDirectory() as tmp:
+            spec_path = Path(tmp) / "artifacts" / "NBIS" / "03-models" / "site.json"
+            spec_path.parent.mkdir(parents=True)
+            spec_path.write_text(json.dumps(spec))
+            text = build(spec_path).read_text()
+            self.assertIn('id="published">HOLD · target open', text)
+            self.assertIn("Kill SELL · open", text)
+            self.assertIn("Draft · open", text)
+            self.assertNotIn("HOLD · $38", text)
+            self.assertNotIn("SELL · $38", text)
 
     def test_refuses_a_spec_without_a_call(self):
         with tempfile.TemporaryDirectory() as tmp:

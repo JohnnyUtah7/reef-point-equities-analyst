@@ -49,6 +49,8 @@ python3 scripts/build_research_site.py artifacts/{TICKER}/03-models/site.json
 
 `site.json` is filled from the official memo: ticker, rating, target, last, base knobs, methods, peers, quarters, deals, assets. If the script did not run, the stock prompt is not done.
 
+If the memo has no sourced price above the tape, set `target_open: true`. The page leads with the operating bull case and the chip says **HOLD · target open**. Asset floors stay on the field. They are not the cover price. The payoff chart is a filled green/red area, about 90 days out.
+
 ## Gate
 
 If `docs/{ticker-lower}-equity-research.md` is missing or unlocked (no Buy/Hold/Sell + field), run `portfolio-research` first. Copy rating, PT, `value_shares`, and field inputs from that note. **No second model.**

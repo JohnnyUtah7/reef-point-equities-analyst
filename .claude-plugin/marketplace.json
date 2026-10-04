@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Reef Point Equities analyst plugin: SEC → DCF/comps/field → memo → Sheets → Slides",
-    "version": "1.3.9",
+    "version": "1.3.10",
     "description": "Value one public company and get a Buy, Hold, or Sell."
   },
   "plugins": [

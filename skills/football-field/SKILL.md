@@ -69,6 +69,10 @@ Default is the **12-month bull case**.
 
 The field math does not change. Tape and last-print are **not** inputs to the blend.
 
+The chart scales to the bars and the last price. If the bull price sits above that scale, pin it: **Bull $X off chart**. Do not stretch the axis until the bars collapse on the left.
+
+Asset floors (book, PPE − net debt) draw. They do not become the cover price. If you cannot source a bull price above the tape, set `target_open: true` in `site.json`. The chip reads **HOLD · target open**. Do not print the floor as the target, and do not open with Sell at a fraction of the tape.
+
 ## Rating from the field
 
 - Last **above the high of every non-circular bar** + a live kill → the kill is **Sell**. On a bull open, that Sell stays in the kill column.
