@@ -1,17 +1,16 @@
 {
-  "name": "reef-point-equities-analyst",
+  "name": "reef-point-equities-valuation",
   "owner": {
     "name": "Chris Miller",
     "email": "realchrismiller@gmail.com"
   },
   "metadata": {
-    "description": "Reef Point Equities analyst plugin: SEC → DCF/comps/field → memo → Sheets → Slides",
-    "version": "1.3.15",
-    "description": "Value one public company and get a Buy, Hold, or Sell."
+    "description": "Value one public company and get a Buy, Hold, or Sell.",
+    "version": "1.3.16"
   },
   "plugins": [
     {
-      "name": "reef-point-equities-analyst",
+      "name": "reef-point-equities-valuation",
       "source": "./",
       "category": "Finance",
       "description": "Value one public company. Filings, comps, past deals, asset value, and a DCF, then a price range and a Buy, Hold, or Sell."

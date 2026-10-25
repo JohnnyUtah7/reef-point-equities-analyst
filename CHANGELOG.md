@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.16 — 2026-10-25
+
+Package id is `reef-point-equities-valuation`. The directory matches an existing plugin by that id, and it will not add an MCP server to `reef-point-equities-analyst`. Upload this zip as a new plugin. The listing name stays Equities Valuation.
+
 ## 1.3.15 — 2026-10-24
 
 A public EDGAR server looks up a ticker, recent filings, and as-reported revenue, shares, cash, and debt. The skills still do the valuation. Local edgartools remains the fallback when the server is not connected.

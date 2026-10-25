@@ -1,6 +1,6 @@
 # Install — Reef Point Equities analyst
 
-Packaged plugin: **`reef-point-equities-analyst` 1.3.15**. Share **this repo**. Do not install from CosmosGolf or any other checkout. Do not copy a locked official note into the plugin.
+Packaged plugin: **`reef-point-equities-valuation` 1.3.16**. Share **this repo**. Do not install from CosmosGolf or any other checkout. Do not copy a locked official note into the plugin.
 
 Each analyst uses **their own** `EDGAR_IDENTITY`. See [references/edgar-identity.md](./references/edgar-identity.md).
 
@@ -28,7 +28,7 @@ Quit Cursor (`Cmd+Q`) and reopen, or **Developer: Reload Window**.
 
 Settings → Cursor Settings → **Include third-party Plugins, Skills, and other configs** → on.
 
-Confirm plugin name `reef-point-equities-analyst`.
+Confirm plugin name `reef-point-equities-valuation`.
 
 If `~/.cursor/plugins/local/equity-research-studio` still exists, do **not** run both orchestrators on the same name. This pack wins.
 
