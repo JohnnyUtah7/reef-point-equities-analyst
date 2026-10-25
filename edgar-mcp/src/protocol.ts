@@ -2,6 +2,12 @@ import { companyFacts, companyLookup, recentFilings, type SecGet } from "./sec.t
 
 export const SERVER_INFO = { name: "reef-point-edgar", version: "1.3.15" };
 
+const READ_ONLY = {
+  readOnlyHint: true,
+  destructiveHint: false,
+  openWorldHint: true,
+};
+
 const TOOLS = [
   {
     name: "company_lookup",
@@ -12,6 +18,7 @@ const TOOLS = [
       required: ["ticker"],
       additionalProperties: false,
     },
+    annotations: READ_ONLY,
   },
   {
     name: "recent_filings",
@@ -25,6 +32,7 @@ const TOOLS = [
       required: ["ticker"],
       additionalProperties: false,
     },
+    annotations: READ_ONLY,
   },
   {
     name: "company_facts",
@@ -35,6 +43,7 @@ const TOOLS = [
       required: ["ticker"],
       additionalProperties: false,
     },
+    annotations: READ_ONLY,
   },
 ];
 

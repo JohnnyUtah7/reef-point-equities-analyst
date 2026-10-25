@@ -66,7 +66,13 @@ const fakeGet = async (url: string) => {
 };
 
 const listed = await handleRpc({ jsonrpc: "2.0", id: 1, method: "tools/list" }, fakeGet);
-assert.equal((listed as { result: { tools: unknown[] } }).result.tools.length, 3);
+const tools = (listed as { result: { tools: { annotations: Record<string, boolean> }[] } }).result.tools;
+assert.equal(tools.length, 3);
+for (const tool of tools) {
+  assert.equal(tool.annotations.readOnlyHint, true);
+  assert.equal(tool.annotations.destructiveHint, false);
+  assert.equal(tool.annotations.openWorldHint, true);
+}
 
 const called = await handleRpc(
   { jsonrpc: "2.0", id: 2, method: "tools/call", params: { name: "company_lookup", arguments: { ticker: "aapl" } } },
