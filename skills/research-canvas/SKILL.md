@@ -1,134 +1,36 @@
 ---
 name: research-canvas
 description: >
-  Required research site after the official memo is locked. Any analyze,
-  value, or pick-a-stock prompt writes one HTML file. That file is the GPT
-  site, the Claude artifact, and the Grok handoff. Do not ask for a URL.
-  Cursor canvas is optional and only if asked. Never Zapier.
+  Build and publish the required detailed, interactive research site for every
+  ticker, analyze, value, or stock-opinion request. Lead with the bull case unless
+  the user requests a short/bear case. Use the same self-contained HTML for Codex
+  Sites and Claude artifacts; model controls, field, financials, evidence and risks.
 ---
 
-# Research site
+# Research site — the primary deliverable
 
-**Required** on a dumb first prompt. A ticker alone, “what do you think of IREN”, or “is it a buy” is a full run. Do not ask what they meant.
+A ticker alone triggers the complete research workflow. Do not ask what the user means. Run `full-company-analysis` if the official memo, dilution and valuation models do not exist. Default to a researched bull case; explicit short/put/bear requests lead with the bear case. Direction is a thesis and scenario, not an instruction to fabricate favorable findings or overwrite the published memo.
 
-Write the file, then hand it off in the same turn:
+## Generate, verify, share
 
-- **Codex:** publish that HTML with Codex Sites. Private unless they said public. Do not ask whether to publish.
-- **Claude:** that HTML file is the artifact. Put it in the reply. Do not ask where to host it.
-- **Cursor:** write the HTML and a `.canvas.tsx` with the same numbers, so the canvas opens in Cursor.
+1. Read the locked official memo and model outputs. Preserve its rating, target, share basis and sourced figures.
+2. Read `references/research-site-schema.md` from the plugin root. Populate workspace `artifacts/{TICKER}/03-models/site.json` with schema v2, rich research content and reconciled FCFF inputs. Supply bull/base/bear presets from researched assumptions, never copied from another ticker.
+3. Resolve the installed plugin root from this skill's path. Run its script with the absolute workspace spec path:
+   `python3 <plugin-root>/scripts/build_research_site.py <workspace>/artifacts/{TICKER}/03-models/site.json`
+4. Base DCF must reconcile to the official DCF result within $0.02. Fix model/schema mismatch instead of bypassing the check. Do not rewrite the expected result from the renderer. A missing model remains read-only with DATA_GAP; no heuristic multiplier.
+5. Inspect the generated `docs/{ticker-lower}-reef-point-live.html`. Check published memo fidelity, source links, financial units, excluded circular bars, and obvious missing sections. Exercise controls and desktop/mobile layout when browser QA is available. Report unverified checks accurately.
+6. On Codex, apply the current Sites skill and publish this same HTML, private by default unless public is requested. Return the actual deployment URL and HTML file. Hosting failure must not erase the HTML deliverable; report the blocker. Do not end on an offer to publish later, ask for a site URL, or invent one.
+7. On Claude, return the same HTML as the artifact. Cursor canvas is optional if specifically requested and must follow its current host canvas skill. Do not scaffold a second Next.js page or use Zapier.
 
-## Do not
+## Required experience
 
-- Do not ask for a site URL or a GitHub repo.
-- Do not finish with a description of a page you did not write.
-- Do not offer to publish later.
-- Do not scaffold Next.js for this. One HTML file.
+- White RPC cover, strong executive hierarchy, light/dark theme, desktop model rail and mobile drawer.
+- Bull-case cover by default, bear-case cover for explicit shorts. Keep the published memo visible and fixed beside the exploratory scenario. If a directional preset is missing, disclose it; do not label the base as a sourced bull/bear target.
+- Overview, Business, Thesis, Financials, DCF model, Valuation, Research, Risks & catalysts, Sources / audits.
+- FCFF forecast and equity bridge, live 5×5 WACC/g sensitivity and tornado, scenario presets/reset, explicit dilution/debt controls.
+- Valuation subviews: Field / Comps / Precedents / Assets; dynamic DCF/comps, disclosed static ranges, editable non-circular blend weights. Circular methods always weight 0.
+- Quarter evidence, filterable promise ledger, timeline and language/credibility cards. Sentiment does not set the rating.
+- Model-linked risk shocks and sourced/estimated catalyst dates. Missing data stays visible.
+- One offline-capable file with embedded branding and code. No external assets or runtime fetch. Include “Draft research — not investment advice.”
 
-## The file
-
-`docs/{ticker-lower}-reef-point-live.html`. Self-contained. No `fetch`. Numbers come from the official memo and the models. **No second model.**
-
-The page shows two layers at once:
-
-- **Published** — the memo’s Buy/Hold/Sell, price, and football field. This does not move when a knob moves.
-- **Your scenario** — knobs recalculate a draft beside it. Label it draft.
-
-Controls, all live: growth, margins, capex, discount rate, terminal growth, multiples, dilution. Presets: bear / base / bull, plus reset to the published assumptions.
-
-Valuation sub-views: **Field · Comps · Precedents · Assets**. Comps starts on the researched peer set. The user can toggle peers. A toggle changes the draft implied price only.
-
-Research opens on **By quarter** (they said / next print showed / kept). Sentiment does not rate the name.
-
-Hand back the file path. If you can open it in a browser, open it.
-
-Generate it by running the script. Do not hand-write a second page.
-
-```bash
-python3 scripts/build_research_site.py artifacts/{TICKER}/03-models/site.json
-```
-
-`site.json` is filled from the official memo: ticker, rating, target, last, base knobs, methods, peers, quarters, deals, assets. If the script did not run, the stock prompt is not done.
-
-If the memo has no sourced price above the tape, set `target_open: true`. The page leads with the operating bull case and the chip says **HOLD · target open**. Asset floors stay on the field. They are not the cover price. The payoff chart is a filled green/red area, about 90 days out.
-
-## Gate
-
-If `docs/{ticker-lower}-equity-research.md` is missing or unlocked (no Buy/Hold/Sell + field), run `portfolio-research` first. Copy rating, PT, `value_shares`, and field inputs from that note. **No second model.**
-
-## Publish paths (same numbers)
-
-| Path | When |
-|---|---|
-| **HTML (default share)** | Claude artifact, GPT site, and the Grok bot’s handoff. One file: `docs/{ticker-lower}-reef-point-live.html`. No build step |
-| **A. Native Cursor canvas** | User is in Cursor and wants a `.canvas.tsx` |
-| **C. Sheets working canvas** | User wants Drive tabs without a web app |
-
-Do not scaffold a second site for GPT or Grok. The bot and the Custom GPT hand over the HTML file. A Next.js app is optional and only if the user already asked for a self-hosted URL.
-
-Every surface: **Not investment advice.** Rating / PT / share count **match the official memo**.
-
-## Fixed tabs (do not add a slide per method)
-
-1. Exec / rating
-2. Business
-3. Thesis
-4. Financials
-5. Valuation — field + method range on **one** surface. Inside it, sub-views: **Field · Comps · Precedents · Assets**. Comps defaults to the researched peer set; the user can toggle names. The toggle prints a draft implied $/sh and does **not** move the official call unless they lock the set into the memo.
-6. Research / Calls — default sub-view **By quarter** (one row per call: they said / next print showed / kept). Ledger, slip clock, and language drift stay as the other sub-views. Sentiment does not rate the name.
-7. Risks & catalysts
-8. Sources / audits
-
-White cover: full white, RPC logo centered, ticker + date small-caps under the mark. Interior: black / white / hairline. SpaceX / Anduril.
-
-Circular field bars: **dashed**, excluded from the blend. Axis unit `$/ordinary share`. Last-print line + PT band.
-
-## A. Native Cursor canvas
-
-Follow `~/.cursor/skills-cursor/canvas/SKILL.md`:
-
-1. Follow the host canvas skill for the path that compiles. On a cloud agent that path is `/cursor/stores/user/canvases/<uuid>/source.canvas.tsx`, saved with the Write tool. On the desktop app it is still  
-   `~/.cursor/projects/<workspace-key>/canvases/<ticker>-reef-point-research.canvas.tsx`.  
-   Resolve `<workspace-key>` from the open project. Do not hardcode a machine path.
-2. A smoke that only writes the HTML is not done. The reply includes a markdown link to the compiled `.canvas.tsx`. A copy under the project store `docs/` folder does not open as a canvas.
-3. First line: `// cursor-canvas-title: {TICKER} — Reef Point Research`.
-4. Import only from `cursor/canvas`. Embed numbers. No `fetch`.
-5. `Pill` + `useCanvasState<TabId>("tab", "exec")`.
-6. Field = labeled SVG. Colors from `useHostTheme()` on the native canvas (SDK). House white-cover look lives on path B.
-
-Save-tool compile = no TS errors. Return a markdown link to the **managed** `.canvas.tsx` path.
-
-**Do not invent** `https://cursor.com/canvas/store-…` URLs. A share exists only after the user opens the rendered canvas and clicks **Publish** on the toolbar (paid plan + team + privacy mode that allows storage). Until then, canvases are local.
-
-## B. Next.js web fallback
-
-- Scaffold into a **subdirectory**, then move to repo root (`create-next-app` must not target `/workspace`).
-- TypeScript + Tailwind. shadcn Tabs. Hairline, radius 0.
-- Copy `assets/rpc-logo.png` → `public/rpc-logo.png`.
-- Uncommon port (not 3000 / 5173 / 8080).
-- Tab routes are server HTML: `/?tab=exec` `/?tab=business` `/?tab=thesis` `/?tab=financials` `/?tab=valuation` `/?tab=risks` `/?tab=sources`. Hash aliases (`#valuation`) redirect to the query form so a blocked client bundle still swaps panels.
-- Copy matches the official note. Leave the dev server running and emit a preview tag.
-
-Do not dirty an unrelated git checkout. Use the current workspace only if the user already has a canvas app there.
-
-## C. Sheets working canvas
-
-Different file from the official model workbook.
-
-1. `docs/{ticker-lower}-canvas.xlsx`
-2. Tabs: Exec · Thesis · Field · Statements · Dilution · Catalysts · Risks · Open · Sources
-3. Figures from the official memo / studio artifacts only
-4. Drive `create_file`, xlsx MIME, conversion on, title `{TICKER} Research Canvas — Reef Point`
-5. Confirm `application/vnd.google-apps.spreadsheet`
-6. `share_file` only if asked
-
-## Pointer doc
-
-Write or update `docs/{ticker-lower}-research-canvas.md` with native path, web branch/port, Sheets URL if any, and a link to the official note.
-
-## Failure modes
-
-- Second model / leftover stale rating — stop, re-read the official note.
-- HTML only, no canvas link in the reply — the Cursor smoke is not done. Use the path the host canvas skill compiles (`source.canvas.tsx` on a cloud agent).
-- Hardcoded house hex on the native canvas — SDK rejects; put white-cover fidelity on path B.
-- Zapier — do not.
-- Expanding Valuation into one tab per method — do not. Sub-views under Valuation and under Research are the drill-down. Research sub-views: ledger, slip clock, language drift. Sentiment still does not rate the name.
+Keep sector-specific details in the data and official models, not hardcoded into this plugin. The site is the product; do not replace it with a prose description, a video mockup, or a placeholder page.

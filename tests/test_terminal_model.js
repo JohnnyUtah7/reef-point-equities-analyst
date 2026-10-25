@@ -1,0 +1,23 @@
+const assert=require('node:assert/strict'),M=require('../assets/research-terminal/model.js');
+const m={base_revenue_m:100,forecast:Array.from({length:5},(_,i)=>({year:2027+i,revenue_m:100,ebit_margin_pct:20,tax_rate_pct:25,da_pct:5,capex_pct:5,nwc_pct:10})),wacc_pct:10,terminal_growth_pct:2,net_debt_m:20,shares_m:10,share_basis:'Synthetic fixed if-converted',source:'Independent test fixture',expected_dcf_price:0};
+const expected=(15*(1-Math.pow(1.1,-5))/.1+(15*1.02/.08)/Math.pow(1.1,5)-20)/10;m.expected_dcf_price=expected;
+const r=M.reconcile(m);assert.ok(Math.abs(r.price-expected)<1e-10);assert.equal(r.rows[0].fcff,15);assert.equal(r.rows[0].nwc,0);
+assert.ok(M.calculate(m,{wacc:11}).price<r.price);assert.ok(M.calculate(m,{margin_delta:2}).price>r.price);assert.ok(M.calculate(m,{capex_scale:120}).price<r.price);assert.equal(M.calculate(m,{dilution:100}).price,r.price/2);assert.ok(Math.abs(M.calculate(m,{debt_delta:10}).price-(r.price-1))<1e-10);
+assert.throws(()=>M.calculate(m,{g:10}));assert.throws(()=>M.calculate(m,{wacc:NaN}));assert.throws(()=>M.reconcile({...m,expected_dcf_price:expected+1}));assert.ok(M.calculate({...m,net_debt_m:1e6}).price<0);
+assert.equal(M.sensitivity(m,M.defaults(m))[2][2],r.price);assert.equal(M.blend([{mid:10,weight:1},{mid:10000,weight:9,circular:true}]),10);assert.equal(M.blend([{mid:10,weight:0}]),null);
+const s={peers:[{ticker:'A',ev_sales:2,pe:10},{ticker:'B',ev_sales:4,pe:-4}],comps_basis:{revenue_m:100,net_income_m:10}};
+assert.deepEqual(M.comps(s,['A','B'],'ev_sales',10,20),{multiple:3,price:28,count:2});assert.deepEqual(M.comps(s,['A','B'],'pe',10,20),{multiple:10,price:10,count:1});assert.equal(M.comps(s,[],'pe',10,20).price,null);
+assert.equal(M.shock(m,M.defaults(m),[{shocks:{margin_delta:-2}},{shocks:{margin_delta:-3}}]).margin_delta,-5);
+console.log('Independent FCFF, bridge, invalid inputs, sensitivities, comps and circular-weight tests passed');
+const growth={...m,forecast:[{...m.forecast[0],revenue_m:110},{...m.forecast[1],revenue_m:121}]};const gr=M.calculate(growth,{growth_delta:2});assert.ok(Math.abs(gr.rows[0].revenue-112)<1e-9);assert.ok(Math.abs(gr.rows[1].revenue-125.44)<1e-9);
+assert.ok(M.methods({model:m,methods:[{name:'DCF',kind:'dcf',lo:1,mid:2,hi:3,weight:1}]},{...M.defaults(m),wacc:99},[],'pe',[1])[0].range_incomplete);
+
+const facts={revenue_m:100,ebit_m:20,da_m:5,net_income_m:15,cfo_m:22,capex_m:8,cash_m:30,debt_m:45,lease_debt_m:5,net_debt_adjustments_m:0,book_equity_m:85,ppe_m:100};
+const v={fundamentals:Object.fromEntries(Object.entries(facts).map(([k,value])=>[k,{value}])),transactions:[{metric:'ev_ebitda',multiple:9},{metric:'ev_ebitda',multiple:11}],sotp:{segments:[{metric_m:15,multiple_low:9,multiple_base:10,multiple_high:11},{metric_m:10,multiple_low:11,multiple_base:12,multiple_high:13}],holdco_value_m:5,discount_pct:5},replacement:{layers:[{low_m:90,base_m:120,high_m:150}]}};
+assert.deepEqual(M.statementBridge(v),{revenue:100,ebitda:25,net_income:15,net_debt:20,levered_fcf:14,book:85,ppe:100});
+assert.equal(M.otherMethod(v,{kind:'book'},10,20).mid,8.5);
+assert.equal(M.otherMethod(v,{kind:'ppe'},10,20).mid,8);
+assert.equal(M.otherMethod(v,{kind:'replacement'},10,20).mid,10);
+assert.equal(M.otherMethod(v,{kind:'precedents',metric:'ev_ebitda'},10,20).mid,23);
+assert.equal(M.otherMethod(v,{kind:'sotp'},10,20).mid,23.175);
+console.log('Statement lineage and five additional valuation methods passed independent arithmetic checks');
