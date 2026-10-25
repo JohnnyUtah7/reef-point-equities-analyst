@@ -7,3 +7,5 @@
 @media(prefers-reduced-motion:no-preference){.view{animation:appear .2s ease-out}@keyframes appear{from{opacity:.6;transform:translateY(3px)}to{opacity:1;transform:none}}}
 
 .case-cover{font-size:clamp(42px,5vw,70px);font-weight:600;letter-spacing:-.05em;color:var(--up);line-height:1.1;margin:10px 0}.rating{font-size:28px}
+#overview-field,#main-field{overflow-x:auto;max-width:100%}.source-item,.card{overflow-wrap:anywhere}
+@media print{.valuation-panel[hidden],.research-panel[hidden]{display:block!important}.subtabs,#controls,#presets{display:none!important}}
