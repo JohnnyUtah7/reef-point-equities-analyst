@@ -1,6 +1,6 @@
 {
   "name": "reef-point-equities-analyst",
-  "version": "1.3.12",
+  "version": "1.3.13",
   "description": "Value one public company. Filings, comps, past deals, asset value, and a DCF, then a price range and a Buy, Hold, or Sell. Draft research, not investment advice.",
   "author": {
     "name": "Chris Miller",
@@ -19,10 +19,15 @@
   "logo": "assets/codex-icon.png",
   "interface": {
     "displayName": "Equities Valuation",
-    "shortDescription": "Value a public stock and get Buy, Hold, or Sell.",
+    "shortDescription": "Buy, Hold, or Sell a stock",
     "longDescription": "One SEC-listed ticker. You get the filings, comparable companies, past deals, what the assets are worth, and a DCF, then a price range and a Buy, Hold, or Sell. Draft research, not investment advice.",
     "developerName": "Reef Point Capital",
     "category": "Finance",
+    "capabilities": [
+      "Value one public stock",
+      "Buy, Hold, or Sell",
+      "DCF, comps, and deals"
+    ],
     "websiteURL": "https://github.com/JohnnyUtah7/reef-point-equities-analyst",
     "defaultPrompt": [
       "What do you think of IREN and the bull case next 12 months?",

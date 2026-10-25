@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.13 — 2026-10-24
+
+Codex store upload requires interface.capabilities as a list of strings. The listing subtitle is short enough for the directory.
+
 ## 1.3.12 — 2026-10-04
 
 A Cursor smoke is not done until the canvas file is written and linked. An open target no longer shows draft sliders that cannot print a price.
