@@ -81,9 +81,9 @@ class ResearchSiteTests(unittest.TestCase):
             spec_path.parent.mkdir(parents=True)
             spec_path.write_text(json.dumps(SPEC))
             dest = build(spec_path)
-            self.assertEqual(dest, Path(tmp) / "docs" / "nbis-reef-point-live.html")
+            self.assertEqual(dest, Path(tmp).resolve() / "docs" / "nbis-reef-point-live.html")
             text = dest.read_text()
-            self.assertIn('id="published">BUY · $140', text)
+            self.assertIn('id="published">HOLD · $100', text)
             self.assertIn("Football field", text)
             self.assertIn('id="payoff"', text)
             self.assertIn("By quarter", text)
@@ -104,6 +104,35 @@ class ResearchSiteTests(unittest.TestCase):
             self.assertIn('"#B91C1C"', script)
             self.assertIn("Max loss", text)
             self.assertIn("/ contract", text)
+
+    def test_published_call_is_not_replaced_by_bull_cover(self):
+        from scripts.build_research_site import render
+        spec = dict(SPEC, rating="SELL", target=55, bull_target=140)
+        text = render(spec)
+        self.assertIn('id="published">SELL · $55', text)
+        self.assertIn('"rating": "SELL"', text)
+        self.assertIn('"target": 55', text)
+        self.assertIn('Illustrative sensitivity only', text)
+
+    def test_script_payload_cannot_close_script(self):
+        from scripts.build_research_site import render
+        spec = dict(SPEC, peers=[{"ticker": "</script><script>alert(1)</script>", "ps": 2}])
+        text = render(spec)
+        self.assertEqual(text.count("</script>"), 1)
+        self.assertNotIn("<script>alert(1)", text)
+
+    def test_nonzero_base_dilution_resets_to_anchor(self):
+        spec = dict(SPEC, base=dict(SPEC["base"], dilution=10))
+        self.assertEqual(draft_price(spec, spec["base"]), open_view(spec)["target"])
+
+    def test_site_is_self_contained_and_has_research_sections(self):
+        from scripts.build_research_site import render
+        text = render(SPEC)
+        self.assertNotIn("fonts.googleapis.com", text)
+        for tab in ("business", "thesis", "financials", "risks", "sources"):
+            self.assertIn('id="' + tab + '"', text)
+        self.assertIn("DATA_GAP", text)
+        self.assertIn("Selected peer P/S median", text)
 
     def test_money_labels_keep_cents_and_commas(self):
         self.assertEqual(_px(140), "$140")
@@ -168,7 +197,7 @@ class ResearchSiteTests(unittest.TestCase):
             spec_path.parent.mkdir(parents=True)
             spec_path.write_text(json.dumps(spec))
             text = build(spec_path).read_text()
-            self.assertIn('id="published">HOLD · target open', text)
+            self.assertIn('id="published">SELL · target open', text)
             self.assertIn("Kill SELL · open", text)
             self.assertIn("Draft · open", text)
             self.assertNotIn("HOLD · $38", text)
