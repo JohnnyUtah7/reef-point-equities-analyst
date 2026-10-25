@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "edgar": {
+      "url": "https://reef-point-edgar.reef-point.workers.dev/mcp"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "reef-point-edgar",
+  "private": true,
+  "version": "1.3.15",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node --experimental-strip-types test/protocol.test.ts",
+    "smoke": "node --experimental-strip-types test/smoke.ts"
+  },
+  "devDependencies": {
+    "wrangler": "^4.45.0"
+  }
+}

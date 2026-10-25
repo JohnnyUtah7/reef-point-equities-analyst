@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.15 — 2026-10-24
+
+A public EDGAR server looks up a ticker, recent filings, and as-reported revenue, shares, cash, and debt. The skills still do the valuation. Local edgartools remains the fallback when the server is not connected.
+
 ## 1.3.14 — 2026-10-24
 
 Codex listing URLs point at the repo pages for support, privacy, and terms. The plugin still does not collect user data and still has no remote MCP server.

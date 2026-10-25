@@ -1,0 +1,11 @@
+name = "reef-point-edgar"
+main = "src/index.ts"
+compatibility_date = "2026-10-24"
+
+[[durable_objects.bindings]]
+name = "RATE_LIMIT"
+class_name = "SecRateLimit"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["SecRateLimit"]

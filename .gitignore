@@ -6,4 +6,6 @@ venv/
 .DS_Store
 artifacts/
 *.xlsx
+edgar-mcp/node_modules/
+edgar-mcp/.wrangler/
 !assets/house-template.pptx

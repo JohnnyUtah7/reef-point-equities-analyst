@@ -12,9 +12,11 @@ The plugin runs in your Codex, ChatGPT, Cursor, or similar host. That host's pri
 
 ## EDGAR
 
-When you pull filings, edgartools runs on your machine and sends your `EDGAR_IDENTITY` (a name and email you set) to the SEC. The SEC requires that identity for fair-access use of EDGAR. Reef Point does not receive it and does not store it.
+When the Reef Point EDGAR server is connected, the plugin sends that server the ticker you asked about. The server requests the public filing from the SEC and returns the facts. Reef Point sees the ticker on that call. It does not receive the chat, a portfolio, or brokerage logins, and it does not sell that information. Public responses are cached so the same lookup is not sent to the SEC again immediately. The server identifies itself to the SEC as Reef Point Capital, realchrismiller@gmail.com, which the SEC requires.
 
-Public filings and market prices used in a report are public information.
+When that server is not connected, edgartools runs on your machine and sends your `EDGAR_IDENTITY` (a name and email you set) to the SEC. Reef Point does not receive that identity.
+
+Public filings and market prices used in a report are public information. Figures from the server are as reported in the cited filing. They are not a valuation.
 
 ## These pages
 

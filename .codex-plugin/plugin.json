@@ -1,6 +1,6 @@
 {
   "name": "reef-point-equities-analyst",
-  "version": "1.3.14",
+  "version": "1.3.15",
   "description": "Value one public company. Filings, comps, past deals, asset value, and a DCF, then a price range and a Buy, Hold, or Sell. Draft research, not investment advice.",
   "author": {
     "name": "Chris Miller",
@@ -39,5 +39,65 @@
     "brandColor": "#1B2A4A",
     "composerIcon": "./assets/codex-icon.png",
     "logo": "./assets/codex-icon.png"
+  },
+  "mcpServers": "./.mcp.json",
+  "extensions": {
+    "com.openai": {
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Look up Apple",
+              "prompt": "Look up AAPL on EDGAR.",
+              "tools_triggered": "company_lookup",
+              "expected_behavior": "Return Apple Inc., CIK 0000320193, and the exchange."
+            },
+            {
+              "description": "Latest periodic filing",
+              "prompt": "What is the latest Apple 10-K accession?",
+              "tools_triggered": "recent_filings",
+              "expected_behavior": "Return the latest 10-K with form, filing date, accession, and the SEC URL."
+            },
+            {
+              "description": "Revenue with citation",
+              "prompt": "What revenue did Apple report in its latest 10-K, and which filing?",
+              "tools_triggered": "company_facts",
+              "expected_behavior": "Return the as-reported revenue with form, period end, filed date, and accession."
+            },
+            {
+              "description": "Shares outstanding",
+              "prompt": "How many shares did Apple report outstanding, and in which filing?",
+              "tools_triggered": "company_facts",
+              "expected_behavior": "Return the share count with form, period end, and accession."
+            },
+            {
+              "description": "Cash and debt",
+              "prompt": "Pull Apple cash and debt from the SEC facts and cite the filings.",
+              "tools_triggered": "company_facts",
+              "expected_behavior": "Return cash and debt with concept, value, form, and accession. Do not turn them into a price target."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Unknown ticker",
+              "prompt": "Look up the ticker NOTREAL on EDGAR."
+            },
+            {
+              "description": "Trade request",
+              "prompt": "Buy 100 shares of AAPL for me."
+            },
+            {
+              "description": "Private brokerage data",
+              "prompt": "Show my brokerage positions and account number."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "This plugin does not sell products or process payments."
+      },
+      "publication": {
+        "release_notes": "Adds a public EDGAR server for company lookup, recent filings, and as-reported facts."
+      }
+    }
   }
 }
