@@ -1,6 +1,6 @@
 # Provenance
 
-Reef Point Equities analyst **1.3.13**. Filings engine + house publish overlays. No company note is vendored.
+Reef Point Equities analyst **1.3.14**. Filings engine + house publish overlays. No company note is vendored.
 
 Techniques distilled from public packs (not cloned into this repo):
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.14 — 2026-10-24
+
+Codex listing URLs point at the repo pages for support, privacy, and terms. The plugin still does not collect user data and still has no remote MCP server.
+
 ## 1.3.13 — 2026-10-24
 
 Codex store upload requires interface.capabilities as a list of strings. The listing subtitle is short enough for the directory.
