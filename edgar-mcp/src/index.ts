@@ -23,6 +23,8 @@ export class SecRateLimit {
 
 type Env = { RATE_LIMIT: DurableObjectNamespace };
 
+const OPENAI_APPS_CHALLENGE = "WTIp5k0H-bCK3Hd2cUBR3Ny_F4GUtnnEkdozJfl6JTE";
+
 const CORS = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "GET, POST, OPTIONS",
@@ -68,6 +70,11 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
+    if (request.method === "GET" && url.pathname === "/.well-known/openai-apps-challenge") {
+      return new Response(OPENAI_APPS_CHALLENGE, {
+        headers: { "content-type": "text/plain; charset=utf-8", ...CORS },
+      });
+    }
     if (request.method === "GET" && (url.pathname === "/" || url.pathname === "/health")) {
       return json({ ok: true, name: "reef-point-edgar", version: "1.3.15" });
     }
