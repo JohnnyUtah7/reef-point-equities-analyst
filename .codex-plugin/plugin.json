@@ -1,6 +1,6 @@
 {
   "name": "reef-point-equities-valuation",
-  "version": "1.3.16",
+  "version": "1.3.17",
   "description": "Value one public company. Filings, comps, past deals, asset value, and a DCF, then a price range and a Buy, Hold, or Sell. Draft research, not investment advice.",
   "author": {
     "name": "Chris Miller",
@@ -96,7 +96,7 @@
         "commerce_description": "This plugin does not sell products or process payments."
       },
       "publication": {
-        "release_notes": "Adds a public EDGAR server for company lookup, recent filings, and as-reported facts."
+        "release_notes": "Preserves the published memo call, refreshes the self-contained research terminal, labels illustrative sensitivity honestly, and adds Codex output checks."
       }
     }
   }
