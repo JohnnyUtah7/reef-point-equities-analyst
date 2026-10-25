@@ -1,6 +1,6 @@
 {
   "name": "reef-point-equities-valuation",
-  "version": "1.3.16",
+  "version": "1.4.0",
   "description": "Reef Point Equities analyst. One SEC-listed ticker in; official memo, football field, Sheets, and white-cover deck out. Same skills on Cursor, Claude, Codex, and Grok.",
   "author": {
     "name": "Chris Miller",

@@ -1,0 +1,465 @@
+{
+  "schema_version": 2,
+  "ticker": "DEMO",
+  "name": "Research Terminal / Training Example",
+  "asof": "25 Oct 2026 \u00b7 SYNTHETIC DATA",
+  "stance": "bull",
+  "rating": "HOLD",
+  "target": 24,
+  "last": 25,
+  "story": "The bull case depends on better operating margins and sustained growth. This is a synthetic schema demonstration, not a security recommendation.",
+  "model": {
+    "base_revenue_m": 100,
+    "forecast": [
+      {
+        "year": 2027,
+        "revenue_m": 110.00000000000001,
+        "ebit_margin_pct": 20,
+        "tax_rate_pct": 25,
+        "da_pct": 5,
+        "capex_pct": 8,
+        "nwc_pct": 10
+      },
+      {
+        "year": 2028,
+        "revenue_m": 121.00000000000001,
+        "ebit_margin_pct": 21,
+        "tax_rate_pct": 25,
+        "da_pct": 5,
+        "capex_pct": 8,
+        "nwc_pct": 10
+      },
+      {
+        "year": 2029,
+        "revenue_m": 133.10000000000005,
+        "ebit_margin_pct": 22,
+        "tax_rate_pct": 25,
+        "da_pct": 5,
+        "capex_pct": 8,
+        "nwc_pct": 10
+      },
+      {
+        "year": 2030,
+        "revenue_m": 146.41000000000005,
+        "ebit_margin_pct": 23,
+        "tax_rate_pct": 25,
+        "da_pct": 5,
+        "capex_pct": 8,
+        "nwc_pct": 10
+      },
+      {
+        "year": 2031,
+        "revenue_m": 161.05100000000004,
+        "ebit_margin_pct": 24,
+        "tax_rate_pct": 25,
+        "da_pct": 5,
+        "capex_pct": 8,
+        "nwc_pct": 10
+      }
+    ],
+    "wacc_pct": 10,
+    "terminal_growth_pct": 2,
+    "net_debt_m": 20,
+    "shares_m": 10,
+    "source": "SYNTHETIC training model, not issuer research",
+    "share_basis": "10m synthetic fixed if-converted shares",
+    "expected_dcf_price": 22.261363636363637
+  },
+  "fundamentals": {
+    "revenue_m": {
+      "value": 100,
+      "statement": "Income statement",
+      "period": "Synthetic FY2026",
+      "source": "Training fixture / no issuer facts"
+    },
+    "ebit_m": {
+      "value": 20,
+      "statement": "Income statement",
+      "period": "Synthetic FY2026",
+      "source": "Training fixture / no issuer facts"
+    },
+    "net_income_m": {
+      "value": 15,
+      "statement": "Income statement",
+      "period": "Synthetic FY2026",
+      "source": "Training fixture / no issuer facts"
+    },
+    "da_m": {
+      "value": 5,
+      "statement": "Cash flow statement",
+      "period": "Synthetic FY2026",
+      "source": "Training fixture / no issuer facts"
+    },
+    "cfo_m": {
+      "value": 22,
+      "statement": "Cash flow statement",
+      "period": "Synthetic FY2026",
+      "source": "Training fixture / no issuer facts"
+    },
+    "capex_m": {
+      "value": 8,
+      "statement": "Cash flow statement",
+      "period": "Synthetic FY2026",
+      "source": "Training fixture / no issuer facts"
+    },
+    "cash_m": {
+      "value": 30,
+      "statement": "Balance sheet",
+      "period": "Synthetic FY2026",
+      "source": "Training fixture / no issuer facts"
+    },
+    "debt_m": {
+      "value": 45,
+      "statement": "Balance sheet",
+      "period": "Synthetic FY2026",
+      "source": "Training fixture / no issuer facts"
+    },
+    "lease_debt_m": {
+      "value": 5,
+      "statement": "Balance sheet",
+      "period": "Synthetic FY2026",
+      "source": "Training fixture / no issuer facts"
+    },
+    "net_debt_adjustments_m": {
+      "value": 0,
+      "statement": "Balance sheet reconciliation",
+      "period": "Synthetic FY2026",
+      "source": "Training fixture / no issuer facts"
+    },
+    "book_equity_m": {
+      "value": 85,
+      "statement": "Balance sheet",
+      "period": "Synthetic FY2026",
+      "source": "Training fixture / no issuer facts"
+    },
+    "ppe_m": {
+      "value": 100,
+      "statement": "Balance sheet",
+      "period": "Synthetic FY2026",
+      "source": "Training fixture / no issuer facts"
+    }
+  },
+  "presets": {
+    "bull": {
+      "growth_delta": 2,
+      "margin_delta": 2
+    },
+    "base": {},
+    "bear": {
+      "growth_delta": -3,
+      "margin_delta": -3,
+      "wacc": 11
+    }
+  },
+  "methods": [
+    {
+      "name": "DCF / FCFF",
+      "kind": "dcf",
+      "lo": 18,
+      "mid": 24,
+      "hi": 30,
+      "weight": 0.4,
+      "source": "Synthetic training inputs",
+      "metric": null
+    },
+    {
+      "name": "Trading comps",
+      "kind": "comps",
+      "lo": 20,
+      "mid": 24,
+      "hi": 28,
+      "weight": 0.2,
+      "source": "Synthetic training inputs",
+      "metric": null
+    },
+    {
+      "name": "Precedent transactions",
+      "kind": "precedents",
+      "lo": 18,
+      "mid": 22,
+      "hi": 26,
+      "weight": 0.15,
+      "source": "Synthetic training inputs",
+      "metric": "ev_ebitda"
+    },
+    {
+      "name": "SOTP",
+      "kind": "sotp",
+      "lo": 20,
+      "mid": 26,
+      "hi": 32,
+      "weight": 0.15,
+      "source": "Synthetic training inputs",
+      "metric": null
+    },
+    {
+      "name": "Book equity",
+      "kind": "book",
+      "lo": 8.5,
+      "mid": 8.5,
+      "hi": 8.5,
+      "weight": 0.1,
+      "source": "Synthetic training inputs",
+      "metric": null
+    },
+    {
+      "name": "PPE floor",
+      "kind": "ppe",
+      "lo": 8,
+      "mid": 8,
+      "hi": 8,
+      "weight": 0,
+      "source": "Synthetic training inputs",
+      "metric": null
+    },
+    {
+      "name": "Replacement",
+      "kind": "replacement",
+      "lo": 7,
+      "mid": 10,
+      "hi": 13,
+      "weight": 0,
+      "source": "Synthetic training inputs",
+      "metric": null
+    }
+  ],
+  "peers": [
+    {
+      "ticker": "PEER-A",
+      "pe": 16,
+      "ev_ebitda": 10,
+      "ev_sales": 2.5,
+      "ps": 2.2,
+      "source": "Synthetic training peer A"
+    },
+    {
+      "ticker": "PEER-B",
+      "pe": 20,
+      "ev_ebitda": 12,
+      "ev_sales": 3,
+      "ps": 2.8,
+      "source": "Synthetic training peer B"
+    }
+  ],
+  "transactions": [
+    {
+      "name": "Synthetic deal A",
+      "metric": "ev_ebitda",
+      "multiple": 9,
+      "source": "Training transaction"
+    },
+    {
+      "name": "Synthetic deal B",
+      "metric": "ev_ebitda",
+      "multiple": 11,
+      "source": "Training transaction"
+    }
+  ],
+  "sotp": {
+    "segments": [
+      {
+        "name": "Segment A",
+        "metric_m": 15,
+        "multiple_low": 9,
+        "multiple_base": 10,
+        "multiple_high": 11,
+        "source": "Synthetic segment EBIT+D&A"
+      },
+      {
+        "name": "Segment B",
+        "metric_m": 10,
+        "multiple_low": 11,
+        "multiple_base": 12,
+        "multiple_high": 13,
+        "source": "Synthetic segment EBIT+D&A"
+      }
+    ],
+    "holdco_value_m": 5,
+    "discount_pct": 5
+  },
+  "replacement": {
+    "layers": [
+      {
+        "name": "Operating assets",
+        "low_m": 90,
+        "base_m": 120,
+        "high_m": 150,
+        "source": "Synthetic replacement assumptions"
+      }
+    ]
+  },
+  "business": [
+    {
+      "title": "Understand the revenue engine",
+      "text": "Map reported revenue, customers and operating assets to the valuation drivers.",
+      "source": "Training example"
+    }
+  ],
+  "thesis": [
+    {
+      "title": "Growth must convert into cash",
+      "text": "Revenue growth and margin expansion support higher FCFF only after reinvestment.",
+      "kill": "Margins fail to expand; reinvestment exceeds the plan.",
+      "source": "Synthetic model"
+    }
+  ],
+  "statements": [
+    {
+      "title": "Income statement",
+      "units": "USD m",
+      "source": "Synthetic fixture",
+      "periods": [
+        "FY2026"
+      ],
+      "rows": [
+        {
+          "label": "Revenue",
+          "values": [
+            100
+          ]
+        },
+        {
+          "label": "EBIT",
+          "values": [
+            20
+          ]
+        },
+        {
+          "label": "Net income",
+          "values": [
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Balance sheet",
+      "units": "USD m",
+      "source": "Synthetic fixture",
+      "periods": [
+        "FY2026"
+      ],
+      "rows": [
+        {
+          "label": "Cash",
+          "values": [
+            30
+          ]
+        },
+        {
+          "label": "Debt",
+          "values": [
+            45
+          ]
+        },
+        {
+          "label": "Lease debt",
+          "values": [
+            5
+          ]
+        },
+        {
+          "label": "Equity",
+          "values": [
+            85
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Cash flow statement",
+      "units": "USD m",
+      "source": "Synthetic fixture",
+      "periods": [
+        "FY2026"
+      ],
+      "rows": [
+        {
+          "label": "Operating cash flow",
+          "values": [
+            22
+          ]
+        },
+        {
+          "label": "Capex",
+          "values": [
+            8
+          ]
+        },
+        {
+          "label": "D&A",
+          "values": [
+            5
+          ]
+        }
+      ]
+    }
+  ],
+  "quarters": [
+    {
+      "call": "Q4 FY2026",
+      "date": "Synthetic date",
+      "said": "Improve cash conversion",
+      "showed": "Next print pending",
+      "kept": "OPEN",
+      "source": "Training fixture"
+    }
+  ],
+  "ledger": [
+    {
+      "promise": "Expand EBIT margins",
+      "date": "Synthetic Q4",
+      "outcome": "OPEN",
+      "evidence": "Awaiting next print",
+      "source": "Training fixture"
+    }
+  ],
+  "risks": [
+    {
+      "title": "Margin compression",
+      "text": "Apply a 4 percentage-point EBIT margin shock.",
+      "shocks": {
+        "margin_delta": -4
+      },
+      "source": "Synthetic stress assumption"
+    },
+    {
+      "title": "Financing and dilution",
+      "text": "Add $10m net debt and 10% extra unfunded shares.",
+      "shocks": {
+        "debt_delta": 10,
+        "dilution": 10
+      },
+      "source": "Synthetic financing stress"
+    }
+  ],
+  "catalysts": [
+    {
+      "date": "Next quarter",
+      "event": "Cash conversion update",
+      "estimated": true,
+      "source": "Training example"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Synthetic fixture",
+      "note": "All values are invented for software testing; do not use for investment research."
+    }
+  ],
+  "audits": [
+    {
+      "title": "Base reconciliation",
+      "text": "The FCFF engine must reproduce independently calculated expected_dcf_price."
+    }
+  ],
+  "data_gaps": [
+    "This is training data, not a real company analysis."
+  ],
+  "language": [
+    {
+      "title": "Promises versus delivery",
+      "text": "Compare management claims to subsequent filing evidence."
+    }
+  ]
+}
