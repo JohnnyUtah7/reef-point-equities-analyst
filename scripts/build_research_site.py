@@ -9,6 +9,7 @@ Options are a few months out, with a filled payoff chart.
 """
 from __future__ import annotations
 
+import base64
 import html
 import json
 import math
@@ -125,7 +126,7 @@ def draft_price(spec: dict, knobs: dict):
     )
     factor = max(0.7, min(1.45, factor))
     dilution = float(knobs.get("dilution") or 0)
-    factor *= 1.0 / (1.0 + max(dilution, 0) / 100.0)
+    factor *= (1.0 + max(float(base.get("dilution") or 0), 0) / 100.0) / (1.0 + max(dilution, 0) / 100.0)
     return round(view["target"] * factor, 2)
 
 
@@ -357,8 +358,9 @@ def render(spec: dict) -> str:
     book = option_book(spec, view)
     field = field_svg(spec["methods"], spec["last"], view["target"], view["kill_target"])
     payload = json.dumps({
-        "rating": view["rating"],
-        "target": view["target"],
+        "rating": spec["rating"],
+        "target": None if spec.get("target_open") else spec["target"],
+        "scenario_target": view["target"],
         "target_open": bool(view.get("target_open")),
         "last": float(spec["last"]),
         "base": spec["base"],
@@ -367,7 +369,7 @@ def render(spec: dict) -> str:
         "peers": spec.get("peers") or [],
         "revenue_m": spec.get("revenue_m"),
         "shares_m": spec.get("shares_m"),
-    })
+    }).replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
     vol_note = "IV is an assumption, not the listed chain" if book["assumed"] else "IV from the spec"
     cards = []
     for trade in book["trades"]:
@@ -396,17 +398,17 @@ def render(spec: dict) -> str:
         items = "".join(f"<li>{_esc(item)}</li>" for item in sources)
         source_html = f"<h2>Sources</h2><ul class=\"note\">{items}</ul>"
     field_note = spec.get("field_note") or "Bars and the last price set the scale. A bull price above that scale is marked off chart."
-    published = _chip(view["rating"], view["target"], view.get("target_open"))
+    published = _chip(spec["rating"], spec["target"], spec.get("target_open"))
     kill_chip = _chip(f"Kill {view['kill_rating']}", view["kill_target"], view.get("kill_open"))
     draft = "Draft · open" if view.get("target_open") else f"Draft · {_px(view['target'])}"
     slider_max = max(float(spec["last"]) * 1.8, float(view["target"]) * 1.25) if view.get("target") else float(spec["last"]) * 1.8
     if view.get("target_open"):
         scenario_html = (
-            "<h2>Your scenario</h2>"
+            "<h2>Scenario lab · illustrative</h2>"
             "<p class=\"note\">No locked price, so there is no draft slider. A slider here would print a second model.</p>"
         )
     else:
-        scenario_html = """<h2>Your scenario</h2>
+        scenario_html = """<h2>Scenario lab · illustrative</h2>
   <div class="row">
     <button type="button" data-preset="bear">Bear</button>
     <button type="button" data-preset="base">Base</button>
@@ -420,14 +422,22 @@ def render(spec: dict) -> str:
   <label>Terminal growth <output id="v-g"></output><input id="g" type="range" min="0" max="6" step="0.1"/></label>
   <label>Multiple <output id="v-multiple"></output><input id="multiple" type="range" min="0" max="40" step="0.1"/></label>
   <label>Dilution % <output id="v-dilution"></output><input id="dilution" type="range" min="0" max="40" step="0.5"/></label>
-  <p class="note" id="knobNote">The published chip does not move. Draft stays within 0.7× to 1.45× of that price.</p>"""
+  <p class="note" id="knobNote">Illustrative sensitivity only — capped multiplier, not a recalculated DCF. Anchored to the displayed case, not the published target. Request a model rerun for investment research.</p>"""
+    logo_path = Path(__file__).resolve().parents[1] / "assets" / "rpc-logo.png"
+    logo = ('<img class="brandmark" alt="Reef Point Capital" src="data:image/png;base64,' + base64.b64encode(logo_path.read_bytes()).decode() + '"/>') if logo_path.exists() else '<span class="brandword">REEF POINT<span>CAPITAL / RESEARCH</span></span>'
+    sections = {}
+    for key in ("business", "thesis", "financials", "risks"):
+        items = spec.get(key) or []
+        if isinstance(items, str):
+            items = [items]
+        sections[key] = "".join('<article class="research-card"><p>' + _esc(item) + '</p></article>' for item in items) or '<p class="note">DATA_GAP — not supplied in this research snapshot.</p>'
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>{_esc(spec['ticker'])} — Equities Valuation</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"/>
+
 <style>
   :root {{ --ink:#0A0A0A; --muted:#6B7280; --line:#E5E7EB; --up:#047857; --down:#B91C1C; --font:"Open Sans",Helvetica,Arial,sans-serif; }}
   * {{ box-sizing:border-box; }}
@@ -467,26 +477,67 @@ def render(spec: dict) -> str:
     header, main {{ padding:20px 14px; }}
     .story {{ font-size:16px; }}
   }}
+
+  body {{ background:#f5f6f4; font-family:Inter,-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif; }}
+  header, main {{ max-width:1440px; padding:36px 56px; }}
+  header {{ position:relative; background:#fff; border-top:0; padding-top:42px; }}
+  .brandline {{ display:flex; justify-content:space-between; align-items:center; padding-bottom:28px; border-bottom:1px solid var(--line); margin-bottom:36px; }}
+  .brandmark {{ width:164px; height:64px; object-fit:contain; }}
+  .brandword {{ font-size:22px; font-weight:750; letter-spacing:.12em; }}
+  .brandword span {{ display:block; font-size:9px; letter-spacing:.23em; margin-top:6px; color:var(--muted); }}
+  .edition {{ font-size:11px; letter-spacing:.16em; color:var(--muted); }}
+  h1 {{ font-size:clamp(38px,5vw,72px); font-weight:550; letter-spacing:-.06em; line-height:1.08; margin:18px 0; }}
+  h2 {{ color:#315b4c; font-size:11px; letter-spacing:.2em; }}
+  .chip {{ border:0; background:#edf3ee; color:#174f3d; padding:13px 18px; border-radius:3px; }}
+  .chip.kill {{ background:#f7ece9; color:#9d4335; }}
+  #draft {{ background:#eef0f3; color:#465367; }}
+  .facts {{ margin-top:32px; border-bottom:0; gap:24px; }}
+  .facts b {{ font-size:30px; font-weight:500; }}
+  .facts div {{ padding:20px 0 6px; }}
+  main {{ background:#fff; padding-top:8px; }}
+  nav.row {{ border-bottom:1px solid var(--line); gap:0; margin-bottom:30px; }}
+  nav button {{ border:0; padding:17px 15px; font-size:12px; color:#69716f; }}
+  nav button[aria-pressed="true"] {{ color:#153e30; background:transparent; box-shadow:inset 0 -3px #153e30; }}
+  .story {{ font-size:24px; max-width:950px; font-weight:400; line-height:1.6; letter-spacing:-.02em; }}
+  .panel {{ border:1px solid #e5e9e5; background:#fff; padding:25px; margin-top:24px; }}
+  .subnav {{ margin-bottom:20px; }}
+  .subnav button, [data-preset], #reset {{ border:1px solid #dce2dd; border-radius:3px; font-size:12px; padding:10px 18px; }}
+  .scenario {{ background:#f5f7f4; padding:12px 28px 24px; margin-top:36px; border:1px solid #e2e7e2; display:grid; grid-template-columns:1fr 1fr; gap:0 32px; }}
+  .scenario h2,.scenario .row,.scenario .note {{ grid-column:1/-1; }}
+  input[type=range] {{ accent-color:#235b46; }}
+  label output {{ float:right; font-variant-numeric:tabular-nums; color:#102e23; }}
+  th {{ font-size:10px; letter-spacing:.1em; text-transform:uppercase; padding:16px 12px; color:#6b7470; }}
+  td {{ padding:20px 12px; font-size:13px; }}
+  .research-card {{ border-top:1px solid #dce4df; padding:20px 0; font-size:19px; line-height:1.6; }}
+  footer {{ max-width:1440px; margin:auto; padding:28px 56px; font-size:10px; letter-spacing:.12em; color:#738078; }}
+  button:focus-visible,input:focus-visible {{ outline:3px solid #789f8b; outline-offset:3px; }}
+  @media(max-width:760px) {{ header,main {{ padding:24px; }} .scenario {{ grid-template-columns:1fr; padding:16px; }} nav.row {{ flex-wrap:wrap; }} .panel {{ padding:8px; }} .edition {{ max-width:120px; text-align:right; }} .story {{ font-size:19px; }} }}
+
 </style>
 </head>
 <body>
 <header>
-  <p class="note">REEF POINT · EQUITIES VALUATION</p>
+  <div class="brandline">{logo}<span class="edition">EQUITIES VALUATION<br/>RESEARCH TERMINAL / 01</span></div><p class="note">RESEARCH SNAPSHOT · {_esc(spec.get("asof", "Date not supplied"))}</p>
   <h1>{_esc(spec.get('name') or spec['ticker'])} · {_esc(spec['ticker'])}</h1>
   <p class="sub">{_esc(spec.get('asof',''))} · last {_px(spec['last'])} · {_esc(spec.get('disclaimer','Draft view — not investment advice.'))}</p>
   <div class="row">
-    <span class="chip" id="published">{_esc(published)}</span>
-    <span class="chip kill">{_esc(kill_chip)}</span>
+    <span class="note">PUBLISHED</span><span class="chip" id="published">{_esc(published)}</span>
+    <span class="note">CASE / KILL</span><span class="chip kill">{_esc(kill_chip)}</span>
     <span class="chip" id="draft">{_esc(draft)}</span>
   </div>
   {fact_html}
 </header>
 <main>
   <nav class="row">
-    <button type="button" data-tab="exec" aria-pressed="true">Exec</button>
+    <button type="button" data-tab="exec" aria-pressed="true">Overview</button>
+    <button type="button" data-tab="business" aria-pressed="false">Business</button>
+    <button type="button" data-tab="thesis" aria-pressed="false">Thesis</button>
+    <button type="button" data-tab="financials" aria-pressed="false">Financials</button>
     <button type="button" data-tab="val" aria-pressed="false">Valuation</button>
     <button type="button" data-tab="res" aria-pressed="false">Research</button>
     <button type="button" data-tab="opt" aria-pressed="false">Options</button>
+    <button type="button" data-tab="risks" aria-pressed="false">Risks</button>
+    <button type="button" data-tab="sources" aria-pressed="false">Sources</button>
   </nav>
   <section id="exec">
     <h2>{_esc(view['headline'])}</h2>
@@ -503,9 +554,9 @@ def render(spec: dict) -> str:
     </div>
     <div class="pane" data-pane="field"><div class="panel">{field}</div><p class="note">{_esc(field_note)}</p></div>
     <div class="pane" data-pane="comps" hidden>
-      <p>{_esc(spec.get('comps_note') or 'Researched peers. A toggle moves the draft multiple, not the published call.')}</p>
+      <p>{_esc(spec.get('comps_note') or 'Researched peers. Toggles show the selected P/S median, not an implied share price. The published call stays fixed.')}</p>
       <div id="peers"></div>
-      <p>Draft comps <b id="compsOut">—</b></p>
+      <p>Selected peer P/S median <b id="compsOut">—</b></p>
     </div>
     <div class="pane" data-pane="txns" hidden>
       {_table(deals, ('name','status','note'), ('Deal','Status','Note'))}
@@ -529,9 +580,14 @@ def render(spec: dict) -> str:
       <input id="spot" type="range" min="{max(1, float(spec['last'])*0.45):.2f}" max="{slider_max:.2f}" step="0.5" value="{float(spec['last'])}"/>
     </label>
   </section>
-  {scenario_html}
-  {source_html}
+  <section id="business" hidden><h2>Business / operating model</h2>{sections['business']}</section>
+  <section id="thesis" hidden><h2>Thesis / what must be true</h2>{sections['thesis']}</section>
+  <section id="financials" hidden><h2>Financials / source snapshot</h2>{sections['financials']}</section>
+  <section id="risks" hidden><h2>Risks / catalysts / kill criteria</h2>{sections['risks']}</section>
+  <section id="sources" hidden>{source_html or '<h2>Sources / audit</h2><p>DATA_GAP — no source list supplied.</p>'}</section>
+  <aside class="scenario">{scenario_html}</aside>
 </main>
+<footer>REEF POINT CAPITAL / DRAFT RESEARCH / NOT INVESTMENT ADVICE</footer>
 <script>
 const SPEC = {payload};
 const published = document.getElementById("published");
@@ -546,8 +602,8 @@ function draftPrice(knobs) {{
     * clampRatio(SPEC.base.capex, knobs.capex, true) * clampRatio(SPEC.base.wacc, knobs.wacc, true)
     * clampRatio(SPEC.base.g, knobs.g) * clampRatio(SPEC.base.multiple, knobs.multiple);
   factor = Math.max(0.7, Math.min(1.45, factor));
-  factor *= 1 / (1 + Math.max(+knobs.dilution, 0) / 100);
-  return Math.round(SPEC.target * factor * 100) / 100;
+  factor *= (1 + Math.max(+SPEC.base.dilution || 0, 0) / 100) / (1 + Math.max(+knobs.dilution, 0) / 100);
+  return Math.round(SPEC.scenario_target * factor * 100) / 100;
 }}
 function readKnobs() {{
   const knobs = {{}};
@@ -581,7 +637,7 @@ function preset(name) {{
 document.querySelectorAll("nav button").forEach(function (btn) {{
   btn.addEventListener("click", function () {{
     document.querySelectorAll("nav button").forEach(function (b) {{ b.setAttribute("aria-pressed", b === btn ? "true" : "false"); }});
-    ["exec","val","res","opt"].forEach(function (id) {{ document.getElementById(id).hidden = id !== btn.dataset.tab; }});
+    ["exec","val","res","opt","business","thesis","financials","risks","sources"].forEach(function (id) {{ document.getElementById(id).hidden = id !== btn.dataset.tab; }});
     if (btn.dataset.tab === "opt") drawPayoff();
   }});
 }});
@@ -616,6 +672,8 @@ const peers = document.getElementById("peers");
   label.appendChild(document.createTextNode(" " + peer.ticker + " " + (peer.ps == null ? "NM" : peer.ps + "×")));
   peers.appendChild(label);
 }});
+const firstPeer = peers.querySelector("input");
+if (firstPeer) firstPeer.dispatchEvent(new Event("change"));
 function pnl(trade, s) {{
   const intrinsic = trade.kind === "call" ? Math.max(s - trade.strike, 0) : Math.max(trade.strike - s, 0);
   return trade.side === "short" ? trade.premium - intrinsic : intrinsic - trade.premium;
@@ -728,3 +786,4 @@ def main(argv: list[str]) -> int:
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
+
