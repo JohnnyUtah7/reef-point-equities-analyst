@@ -1,3 +1,22 @@
+# 1.4.0 — Statement-linked research site (release candidate)
+
+- Replace the capped price heuristic with a reconciled annual FCFF model and EV-to-equity bridge.
+- Use sourced income-statement, balance-sheet and cash-flow inputs; reject inconsistent net debt or revenue.
+- Add interactive DCF sensitivity, tornado, peer selection, blend weights, risk shocks, SOTP, precedents and replacement-cost layers.
+- Preserve the published rating and target; default to a bull thesis, with explicit bear requests leading with downside.
+- Deliver the same offline HTML across Codex and Claude, with theme, mobile controls, statement tables, promise ledger and source audit.
+- Schema v2: existing v1 specs without a forecast are read-only. Use examples/research-site-v2.json and references/research-site-schema.md to migrate. No invented financial inputs or automatic forced Buy rating.
+- Validation: independent model arithmetic and renderer regression tests. Visual browser parity and live SEC-to-Sites end-to-end validation remain release gates.
+
+# 1.3.17 — Research terminal and Codex output integrity
+
+- Preserve the memo rating/target separately from the bull/bear presentation.
+- Label capped scenario controls as illustrative sensitivity, not a DCF rerun.
+- Restore base dilution correctly; escape embedded JSON against script termination.
+- Add branded, responsive research sections and remove external font requests.
+- Initialize peer median immediately and label it as a multiple, not a share-price valuation.
+- Add regression coverage and fix macOS temporary-path test portability.
+
 # Changelog
 
 ## 1.3.16 — 2026-10-25

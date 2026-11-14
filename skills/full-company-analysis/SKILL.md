@@ -145,3 +145,7 @@ HTML site path · official memo path · earnings-call companion · Sheets URL or
 ## Proof (do not copy)
 
 Do not vendor a company note in this plugin. Official call stays in the workspace `docs/` file. Do not rewrite a locked note from this skill.
+
+## Research-site v2 handoff
+
+The shareable site is the primary output on every ticker interaction. Read `research-canvas` and `references/research-site-schema.md`; populate the reconciled FCFF inputs, filing tables, research ledger, risk shocks and sourced bull/base/bear presets. Default stance is bull; explicit short/put/bear requests set stance bear. Preserve the fixed memo separately from exploratory scenarios. Do not use the old capped-multiplier page. Use the installed plugin script path, not a presumed script in the user workspace. Return the real Sites URL after successful publication, plus the standalone HTML; report hosting/browser limitations accurately.
