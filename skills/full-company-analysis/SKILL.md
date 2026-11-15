@@ -75,7 +75,7 @@ Update `RUNLOG.md` after **each** phase. Reuse `01-sec/` if the latest 10-K/10-Q
 
 ```
 0  Env
-1  company-intake → sec-filings          (script first)
+1  company-intake → sec-filings          (hosted first, local fallback)
 2  financial-statements
 3  valuation-conventions while modeling
    dcf-model → comps-valuation

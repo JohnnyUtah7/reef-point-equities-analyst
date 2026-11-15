@@ -34,7 +34,7 @@ If `~/.cursor/plugins/local/equity-research-studio` still exists, do **not** run
 
 ## Claude
 
-Manifest: `.claude-plugin/plugin.json`. Skills load from `skills/`. Same `EDGAR_IDENTITY`. Same `analyze TICKER` trigger. The shareable page is `docs/{ticker-lower}-reef-point-live.html` (one file, Claude artifact).
+Manifest: `.claude-plugin/plugin.json`. Skills load from `skills/`. Hosted EDGAR first; `EDGAR_IDENTITY` only for the local fallback. Same `analyze TICKER` trigger. The shareable page is `docs/{ticker-lower}-reef-point-live.html` (one file, Claude artifact).
 
 ## Codex / Custom GPT
 

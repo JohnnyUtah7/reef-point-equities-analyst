@@ -11,6 +11,8 @@ Write `artifacts/{TICKER}/00-intake.md` and create the folder tree.
 
 ## Resolve
 
+Use callable hosted `company_lookup` first, following `sec-filings`. Reuse its verified CIK and company metadata. Only when hosted EDGAR is unavailable, use the local fallback after checking edgartools and EDGAR_IDENTITY:
+
 ```bash
 python3 scripts/edgar_pull.py {TICKER}
 ```

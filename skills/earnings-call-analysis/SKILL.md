@@ -28,20 +28,15 @@ Hard constraints: **no Zapier**. **no waiting on X**. **do not dirty any other g
 7. Cover **~8 quarterly calls if ~2 years exist**. Prepared remarks **and** sell-side Q&A. Skip a fireside unless the user asks.
 8. Short excerpts only. Do not paste a vendor transcript into the store.
 
-## 0. Env
+## 0. Reuse the verified SEC path
 
-```bash
-echo "$EDGAR_IDENTITY"
-python3 -c "import edgar; import importlib.metadata as m; print(m.version('edgartools'))"
-```
-
-Need `EDGAR_IDENTITY="Name email@domain.com"` and `import edgar`. Else stop. Pin `hishel==0.1.3` if FileStorage breaks. Prefer `scripts/edgar_pull.py`. Never bare-fetch `sec.gov`.
+Reuse `artifacts/{TICKER}/01-sec/` from the main run. Follow `sec-filings` for any missing exhibits: callable hosted EDGAR tools first, local edgartools only as fallback. Do not require local EDGAR_IDENTITY or edgartools when using hosted tools or already verified artifacts. The local fallback requires both. Never print identity values or bare-fetch `sec.gov`. If an exhibit or transcript cannot be retrieved, mark that source gap without inventing quotes.
 
 ## 1. Sources (in this order)
 
 | Priority | Where | Use for |
 |---|---|---|
-| 1 | Studio `sec-filings` + edgartools | 8-K Item 2.02 exhibits (press + **transcript if furnished**). FPI era: **6-K** earnings packs, not 8-K. |
+| 1 | Studio `sec-filings` (same hosted or local path) | 8-K Item 2.02 exhibits (press + **transcript if furnished**). FPI era: **6-K** earnings packs, not 8-K. |
 | 2 | Company IR events page | Call date, deck, webcast. IR often has **no** text transcript. |
 | 3 | Third-party transcript (Quartr / StockAnalysis / SA) | Prepared + Q&A when EDGAR has no EX-99 transcript. **Name the vendor.** |
 | 4 | Official note + `artifacts/{TICKER}/01-sec/` | Cross-check figures. Do not re-pull a DCF. |
