@@ -31,22 +31,25 @@ Hard constraints: **no Zapier**. **no parallel SEC/DCF stack**. **no waiting on 
 
 Lite (`/analyze-lite`, `quick look`): skip LBO + SOTP (unless 2+ reportable segments) + earnings calls + the Cursor `.canvas.tsx`. Still write the HTML site. Still do SEC → DCF → comps → dilution → field → official memo → Sheets → PPTX.
 
-## 0. Env (stop if fail)
+## 0. Verify release and connections
+
+Resolve the active plugin root and run `python3 <plugin-root>/scripts/check_release.py`. Record the root and reported version in RUNLOG. When testing a newer checkout, read its instructions and use its scripts consistently; do not call a mixed checkout an installed-plugin test. Updating GitHub does not update an already loaded plugin or its MCP connection.
+
+Discover the hosted EDGAR tools first: `company_lookup`, `recent_filings`, and `company_facts`. When callable, use them; **do not require local Python edgartools or EDGAR_IDENTITY for hosted EDGAR**. A manifest URL is not evidence that a tool is connected. Verify an actual company lookup succeeds.
+
+Only when hosted tools are unavailable, check the local fallback:
 
 ```bash
-echo "$EDGAR_IDENTITY"
-python3 -c "import edgar, importlib.metadata as m; print(m.version('edgartools'))"
+python3 -c "import os, edgar; assert '@' in os.environ.get('EDGAR_IDENTITY', ''), 'EDGAR_IDENTITY missing'"
 ```
 
-Need `EDGAR_IDENTITY="Name email@domain.com"` and `import edgar`. Else:
+Install `scripts/requirements.txt` only for that local path if needed. Never print identities or secrets. Run `scripts/edgar_pull.py {TICKER}` once. If a network/permission error blocks that path, record the exact failure and stop the financial publish gate; do not repeatedly retry, change sandbox settings, or invent data.
 
-```bash
-pip3 install -r scripts/requirements.txt
-# if FileStorage / hishel blows up:
-pip3 install 'hishel==0.1.3'
-```
+Check the current host's Sites workflow before promising a hosted result. Hosted EDGAR and Sites are separate capabilities. A registered Site is not a deployment. Preserve the returned project ID and resume it; do not create another Site on a retry.
 
-Never WebFetch `sec.gov`. Prefer `python3 scripts/edgar_pull.py {TICKER}`.
+Report four independent statuses: release identity, financial-research validation, renderer/browser tests, and live publication. Unit tests or an IR-only preview never establish a successful full run. An explicitly requested diagnostic preview may be UNRATED with an open target and named data gaps; do not substitute it for the requested full company analysis.
+
+Never WebFetch `sec.gov`. Prefer the connected hosted EDGAR tools, otherwise the local `edgar_pull.py`.
 
 ## Artifact contract
 
@@ -72,7 +75,7 @@ Update `RUNLOG.md` after **each** phase. Reuse `01-sec/` if the latest 10-K/10-Q
 
 ```
 0  Env
-1  company-intake → sec-filings          (script first)
+1  company-intake → sec-filings          (hosted first, local fallback)
 2  financial-statements
 3  valuation-conventions while modeling
    dcf-model → comps-valuation
@@ -145,3 +148,7 @@ HTML site path · official memo path · earnings-call companion · Sheets URL or
 ## Proof (do not copy)
 
 Do not vendor a company note in this plugin. Official call stays in the workspace `docs/` file. Do not rewrite a locked note from this skill.
+
+## Research-site v2 handoff
+
+The shareable site is the primary output on every ticker interaction. Read `research-canvas` and `references/research-site-schema.md`; populate the reconciled FCFF inputs, filing tables, research ledger, risk shocks and sourced bull/base/bear presets. Default stance is bull; explicit short/put/bear requests set stance bear. Preserve the fixed memo separately from exploratory scenarios. Do not use the old capped-multiplier page. Use the installed plugin script path, not a presumed script in the user workspace. Return the real Sites URL after successful publication, plus the standalone HTML; report hosting/browser limitations accurately.

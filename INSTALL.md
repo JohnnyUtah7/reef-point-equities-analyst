@@ -1,8 +1,8 @@
 # Install — Reef Point Equities analyst
 
-Packaged plugin: **`reef-point-equities-valuation` 1.3.16**. Share **this repo**. Do not install from CosmosGolf or any other checkout. Do not copy a locked official note into the plugin.
+Packaged plugin: **`reef-point-equities-valuation` 1.4.1**. Share **this repo**. Do not install from CosmosGolf or any other checkout. Do not copy a locked official note into the plugin.
 
-Each analyst uses **their own** `EDGAR_IDENTITY`. See [references/edgar-identity.md](./references/edgar-identity.md).
+Hosted EDGAR uses the server identity; local edgartools users supply **their own** `EDGAR_IDENTITY`. See [references/edgar-identity.md](./references/edgar-identity.md).
 
 ## Cursor (local plugin)
 
@@ -34,7 +34,7 @@ If `~/.cursor/plugins/local/equity-research-studio` still exists, do **not** run
 
 ## Claude
 
-Manifest: `.claude-plugin/plugin.json`. Skills load from `skills/`. Same `EDGAR_IDENTITY`. Same `analyze TICKER` trigger. The shareable page is `docs/{ticker-lower}-reef-point-live.html` (one file, Claude artifact).
+Manifest: `.claude-plugin/plugin.json`. Skills load from `skills/`. Hosted EDGAR first; `EDGAR_IDENTITY` only for the local fallback. Same `analyze TICKER` trigger. The shareable page is `docs/{ticker-lower}-reef-point-live.html` (one file, Claude artifact).
 
 ## Codex / Custom GPT
 
