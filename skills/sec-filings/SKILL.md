@@ -1,13 +1,13 @@
 ---
 name: sec-filings
 description: >
-  Pull 10-K / 10-Q / 8-K or 20-F / 6-K + XBRL via edgartools. Stop if
-  EDGAR_IDENTITY is missing. Never WebFetch sec.gov.
+  Pull SEC filings through hosted EDGAR first, or local edgartools.
+  Local fallback requires EDGAR_IDENTITY. Never WebFetch sec.gov.
 ---
 
 # SEC filings
 
-When the Reef Point EDGAR MCP is connected, call it first:
+Discover callable Reef Point EDGAR MCP tools and call them first. Hosted calls do not require local edgartools or a user EDGAR_IDENTITY:
 
 1. `company_lookup` for CIK, name, exchange, SIC.
 2. `recent_filings` for the latest 10-K or 20-F, the latest 10-Q, and the latest 8-K or 6-K.
@@ -38,7 +38,7 @@ Every load-bearing number: **form, date, accession**. HTML link optional.
 
 ## Hard stops
 
-- Missing `EDGAR_IDENTITY` → stop.
+- Local fallback only: missing `EDGAR_IDENTITY` → stop. Hosted tools use the server identity.
 - `get_financials()` empty → try 20-F/40-F before `DATA_GAP`.
 - Pin `hishel==0.1.3` if FileStorage errors.
 - No bare `sec.gov` fetch. One EDGAR path per ticker: the MCP, or `edgar_pull.py`.

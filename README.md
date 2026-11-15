@@ -16,7 +16,7 @@ Install: [INSTALL.md](./INSTALL.md). Identity: [references/edgar-identity.md](./
 
 | Layer | What it does |
 |---|---|
-| EDGAR | `scripts/edgar_pull.py` → `artifacts/{TICKER}/01-sec/` |
+| EDGAR | Hosted EDGAR tools first; local `scripts/edgar_pull.py` fallback → `artifacts/{TICKER}/01-sec/` |
 | Models | Statements, DCF, comps (user-picked or researched; P/E, EV/EBITDA, EV/Sales), LBO (lite), SOTP |
 | House overlay | Dilution, precedent deals, asset-based floor (book / PPE − net debt / replacement), yield, football field |
 | Calls | One row per quarter: what they said, what the next print showed, kept or not. Does not rate the name |
@@ -58,3 +58,7 @@ Same `skills/` tree. Manifests only point at it.
 **Draft view — not investment advice.**
 
 MIT — Copyright 2026 Chris Miller.
+
+## Release verification
+
+Run `python3 scripts/check_release.py` before a test. All plugin manifests must agree. Hosted EDGAR does not need local edgartools or EDGAR_IDENTITY. A completed Codex run requires a successful Sites deployment URL in addition to validated research; a local preview is not that result. See the [full-run acceptance checklist](docs/full-run-acceptance.md).

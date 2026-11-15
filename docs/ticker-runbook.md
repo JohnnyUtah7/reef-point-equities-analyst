@@ -10,12 +10,7 @@ Orchestrator: `skills/portfolio-research/SKILL.md` → `skills/full-company-anal
 
 ## Before you start
 
-```bash
-echo "$EDGAR_IDENTITY"          # "Your Name you@email.com"
-python3 -c "import edgar"
-```
-
-Stop if either fails. See [references/edgar-identity.md](../references/edgar-identity.md).
+Run `python3 scripts/check_release.py` from the chosen plugin checkout and record its version and root. Discover and verify hosted EDGAR tools first; local edgartools and EDGAR_IDENTITY are required only if using the local fallback. Follow `skills/full-company-analysis/SKILL.md` for connection checks and Sites publishing. An installed cache can lag GitHub; updating source does not reload a running session.
 
 ## End-to-end
 

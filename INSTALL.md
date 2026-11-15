@@ -1,8 +1,8 @@
 # Install — Reef Point Equities analyst
 
-Packaged plugin: **`reef-point-equities-valuation` 1.3.16**. Share **this repo**. Do not install from CosmosGolf or any other checkout. Do not copy a locked official note into the plugin.
+Packaged plugin: **`reef-point-equities-valuation` 1.4.1**. Share **this repo**. Do not install from CosmosGolf or any other checkout. Do not copy a locked official note into the plugin.
 
-Each analyst uses **their own** `EDGAR_IDENTITY`. See [references/edgar-identity.md](./references/edgar-identity.md).
+Hosted EDGAR uses the server identity; local edgartools users supply **their own** `EDGAR_IDENTITY`. See [references/edgar-identity.md](./references/edgar-identity.md).
 
 ## Cursor (local plugin)
 
